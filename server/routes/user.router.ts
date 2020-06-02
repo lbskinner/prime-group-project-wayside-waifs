@@ -8,18 +8,16 @@ import { encryptPassword } from "../modules/encryption";
 const router: express.Router = express.Router();
 
 router.get("/", rejectUnauthenticated, (req: Request, res: Response): void => {
-  res.send(req);
+  res.send(req.user);
 });
 
 router.post(
   "/register",
   (req: Request, res: Response, next: express.NextFunction): void => {
-    console.log(req.body);
-
-    const username: string | null = <string>req.body.email;
+    const username: string | null = <string>req.body.username;
     const password: string | null = encryptPassword(req.body.password);
 
-    const queryText: string = `INSERT INTO "user" (email, password, first_name, last_name, phone_number, role, street_address, city, state, zip) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
+    const queryText: string = `INSERT INTO "user" (username, password, first_name, last_name, phone_number, role, street_address, city, state, zip) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
     pool
       .query(queryText, [
         username,
