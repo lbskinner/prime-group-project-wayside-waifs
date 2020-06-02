@@ -5,8 +5,8 @@
  change `prime_app` to the name of your database, and you should be all set!
 */
 
-import pg from 'pg';
-import url, { UrlWithStringQuery } from 'url';
+import pg from "pg";
+import url, { UrlWithStringQuery } from "url";
 
 let config: object = {};
 
@@ -14,24 +14,32 @@ if (process.env.DATABASE_URL) {
   // Heroku gives a url, not a connection object
   // https://github.com/brianc/node-pg-pool
   const params = url.parse(process.env.DATABASE_URL) as any;
-  const auth = params.auth.split(':') ;
+  const auth = params.auth.split(":");
 
   config = {
     user: auth[0],
     password: auth[1],
     host: params.hostname,
     port: params.port,
-    database: params.pathname.split('/')[1],
+    database: params.pathname.split("/")[1],
     ssl: true, // heroku requires ssl to be true
     max: 10, // max number of clients in the pool
     idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
   };
 } else {
-  const host = process.env.POSTGRES_HOST ? process.env.POSTGRES_HOST : 'localhost'; // "localhost" is Docker's default
-  const user = process.env.POSTGRES_USER ? process.env.POSTGRES_USER : 'postgres'; // "postgres" is the default username for Docker
-  const password = process.env.POSTGRES_PASSWORD ? process.env.POSTGRES_PASSWORD : 'postgres'; // "postgres" is the default password for Docker
+  const host = process.env.POSTGRES_HOST
+    ? process.env.POSTGRES_HOST
+    : "localhost"; // "localhost" is Docker's default
+  const user = process.env.POSTGRES_USER
+    ? process.env.POSTGRES_USER
+    : "postgres"; // "postgres" is the default username for Docker
+  const password = process.env.POSTGRES_PASSWORD
+    ? process.env.POSTGRES_PASSWORD
+    : "postgres"; // "postgres" is the default password for Docker
   const port = process.env.PORT_DB ? process.env.PORT_DB : 5432;
-  const database = process.env.POSTGRES_DB ? process.env.POSTGRES_DB : 'prime_db';
+  const database = process.env.POSTGRES_DB
+    ? process.env.POSTGRES_DB
+    : "wayside_education";
 
   config = {
     host, // Server hosting the postgres database
@@ -49,8 +57,8 @@ const pool: pg.Pool = new pg.Pool(config);
 
 // the pool with emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
-pool.on('error', (err): void => {
-  console.log('Unexpected error on idle client', err);
+pool.on("error", (err): void => {
+  console.log("Unexpected error on idle client", err);
   process.exit(-1);
 });
 

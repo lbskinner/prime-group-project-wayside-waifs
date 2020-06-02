@@ -9,7 +9,7 @@ CREATE TABLE "user" (
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (255),
     "last_name" VARCHAR (255),
-	"phone_number"  INTEGER,
+	"phone_number"  VARCHAR (25),
 	"role" VARCHAR (80),
 	"street_address" VARCHAR (255),
 	"city" VARCHAR (255),
@@ -33,15 +33,15 @@ CREATE TABLE "event" (
     "contact_first_name" VARCHAR (255),
 	"contact_last_name" VARCHAR (255),
 	"contact_email" VARCHAR (255),
-	"contact_phone_number" INTEGER,
-	"educatior_id" INTEGER,
+	"contact_phone_number" VARCHAR (25),
+	"educator_id" INTEGER,
 	"volunteer_id" INTEGER
 );
 
 CREATE TABLE "contact_log" (
   	"id" SERIAL PRIMARY KEY,
     "date_time" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    "educatior_id" INTEGER,
+    "educator_id" INTEGER,
     "event_id" INTEGER,
     "notes" VARCHAR (1000)
 );
