@@ -16,7 +16,7 @@ router.post(
   (req: Request, res: Response, next: express.NextFunction): void => {
     console.log(req.body);
 
-    const username: string | null = <string>req.body.username;
+    const username: string | null = <string>req.body.email;
     const password: string | null = encryptPassword(req.body.password);
 
     const queryText: string = `INSERT INTO "user" (email, password, first_name, last_name, phone_number, role, street_address, city, state, zip) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
