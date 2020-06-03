@@ -57,6 +57,7 @@ class RequestForm extends Component {
     location_other: "",
   };
 
+  // capture values for input fields other than program data
   handelChange = (event, propertyKey) => {
     this.setState({
       ...this.state,
@@ -64,20 +65,17 @@ class RequestForm extends Component {
     });
   };
 
+  // capture program data value with react data picker
   handleDateChange = (date) => {
-    this.setState(
-      {
-        ...this.state,
-        program_date: date,
-      },
-      () => {
-        console.log(this.state.program_date);
-      }
-    );
+    this.setState({
+      ...this.state,
+      program_date: date,
+    });
   };
 
+  // submit/dispatch new request data event saga
   submitRequest = (event) => {
-    console.log(this.state);
+    // create new request object to save to database
     const newRequest = {
       status: "requestReceived",
       contact_first_name: this.state.contact_first_name,
@@ -99,6 +97,7 @@ class RequestForm extends Component {
           ? this.state.location_other
           : this.state.location,
     };
+    // validate input fields
     if (
       !newRequest.contact_first_name ||
       !newRequest.contact_last_name ||
@@ -116,6 +115,29 @@ class RequestForm extends Component {
       swal("Please fill all required fields!");
       return;
     }
+    console.log(newRequest);
+    // dispatch new request data to saga
+    this.props.dispatch({
+      type: "SAVE_NEW_REQUEST",
+      payload: newRequest,
+    });
+    // reset local state
+    this.setState({
+      contact_first_name: "",
+      contact_last_name: "",
+      contact_email: "",
+      contact_phone_number: "",
+      organization: "",
+      program: "",
+      program_other: "",
+      program_date: "",
+      time_of_day: "",
+      student_number: "",
+      grade_level: "",
+      adult_sponsors: "",
+      location: "",
+      location_other: "",
+    });
   };
 
   render() {
