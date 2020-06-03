@@ -149,7 +149,7 @@ class RequestForm extends Component {
             Humane Education Request Form
           </Typography>
         </Paper>
-        <Paper classes={{ root: classes.root }}>
+        <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">Contact Information</Typography>
             <br />
@@ -201,7 +201,7 @@ class RequestForm extends Component {
             </Grid>
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }}>
+        <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">
               School or Organization Name<sup>*</sup>
@@ -216,7 +216,7 @@ class RequestForm extends Component {
             />
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }}>
+        <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">Estimated Number of Students</Typography>
             <br />
@@ -227,7 +227,7 @@ class RequestForm extends Component {
             />
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }}>
+        <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">
               Please indicate the grade level and age of students
@@ -240,7 +240,7 @@ class RequestForm extends Component {
             />
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }}>
+        <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">Number of Adult Sponsors</Typography>
             <br />
@@ -251,7 +251,7 @@ class RequestForm extends Component {
             />
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }}>
+        <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">
               Which Program are you interested in?
@@ -297,7 +297,7 @@ class RequestForm extends Component {
             )}
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }}>
+        <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">Preferred location of Program</Typography>
             <br />
@@ -337,7 +337,7 @@ class RequestForm extends Component {
             )}
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }}>
+        <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">Preferred date of program</Typography>
             <Typography>
