@@ -4,9 +4,8 @@ import pool from "../modules/pool";
 
 const router: express.Router = express.Router();
 
-/**
- * GET route template
- */
+//GET route for EVENT
+
 router.get(
   "/",
   (req: Request, res: Response, next: express.NextFunction): void => {
