@@ -3,14 +3,26 @@ import { connect } from "react-redux";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
 
 class MyEvent extends Component {
-  state = {
-    heading: "Events",
+  // click handlers
+  eventDetails = () => {
+    console.log("Event Details Clicked");
   };
+
+  assign = () => {
+    console.log("Assign clicked");
+  };
+
   render() {
+    let background = { backgroundColor: "white" };
+    if (this.props.event.status === "Contacted") {
+      background = { backgroundColor: "lightblue" };
+    } else if (this.props.event.status === "Scheduled") {
+      background = { backgroundColor: "yellow" };
+    }
     return (
       <div>
         {this.props.event.educator_user_id === this.props.store.user.id && (
-          <div onClick={this.eventDetails}>
+          <div onClick={this.eventDetails} style={background}>
             <p>
               {this.props.event.organization}
               <span>{this.props.event.request_date}</span>
