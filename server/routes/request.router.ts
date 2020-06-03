@@ -23,7 +23,6 @@ router.post(
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`;
     pool
       .query(queryText, [
-        req.body.request_date,
         req.body.status,
         req.body.organization,
         req.body.program,
@@ -37,8 +36,6 @@ router.post(
         req.body.contact_last_name,
         req.body.contact_email,
         req.body.contact_phone_number,
-        req.body.educator_id,
-        req.body.volunteer_id,
       ])
       .then(() => res.sendStatus(201))
       .catch((err) => {
