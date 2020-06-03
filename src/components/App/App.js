@@ -56,38 +56,21 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/login"
-              authRedirect="/admin"
+              authRedirect="/event"
               component={LoginPage}
             />
             <ProtectedRoute
               exact
               path="/registration"
-              authRedirect="/admin"
               component={RegisterPage}
             />
 
+            <ProtectedRoute exact path="/reports" component={ReportPage} />
+            <ProtectedRoute exact path="/request" component={RequestForm} />
+            <ProtectedRoute exact path="/event" component={EventPage} />
             <ProtectedRoute
               exact
-              path="/reports"
-              authRedirect="/reports"
-              component={ReportPage}
-            />
-            <ProtectedRoute
-              exact
-              path="/request"
-              authRedirect="/request"
-              component={RequestForm}
-            />
-            <ProtectedRoute
-              exact
-              path="/event"
-              authRedirect="/event"
-              component={EventPage}
-            />
-            <ProtectedRoute
-              exact
-              path="/eventDetails"
-              authRedirect="/eventDetails"
+              path="/details"
               component={EventDetailsPage}
             />
 
