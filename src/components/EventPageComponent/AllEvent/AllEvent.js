@@ -5,7 +5,11 @@ import mapStoreToProps from "../../../redux/mapStoreToProps";
 class AllEvent extends Component {
   // click handlers
   eventDetails = () => {
-    console.log("Event Details Clicked");
+    this.props.dispatch({
+      type: "GET_EVENT_DETAILS",
+      payload: this.props.event,
+    });
+    this.props.history.push("/details");
   };
 
   assign = () => {
