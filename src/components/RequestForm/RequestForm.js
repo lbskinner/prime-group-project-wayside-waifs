@@ -15,11 +15,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 
+import "./RequestForm.css";
+
 const styles = (theme) => ({
   root: {
-    width: "80%",
+    width: "70%",
     minWidth: 720,
-    margin: "10px auto",
+    margin: "15px auto",
     paddingTop: 10,
     paddingBottom: 10,
   },
@@ -46,41 +48,71 @@ class RequestForm extends Component {
     const { classes } = this.props;
     return (
       <div style={{ margin: 15 }}>
-        <Paper classes={{ root: classes.root }} elevation={3}>
+        <Paper classes={{ root: classes.root }} elevation={2}>
           <Typography classes={{ root: classes.padding }} variant="h4">
             Humane Education Request Form
           </Typography>
         </Paper>
-        <Paper classes={{ root: classes.root }} elevation={3}>
+        <Paper classes={{ root: classes.root }}>
           <div className={classes.padding}>
             <Typography variant="h6">Contact Information</Typography>
             <br />
             <Grid container spacing={4}>
               <Grid item>
-                <TextField label="First Name" variant="outlined" />
+                <TextField required label="First Name" variant="outlined" />
               </Grid>
               <Grid item>
-                <TextField label="Last Name" variant="outlined" />
+                <TextField required label="Last Name" variant="outlined" />
               </Grid>
               <Grid item>
-                <TextField label="Email" variant="outlined" />
+                <TextField required label="Email" variant="outlined" />
               </Grid>
               <Grid item>
-                <TextField label="Phone Number" variant="outlined" />
+                <TextField required label="Phone Number" variant="outlined" />
               </Grid>
             </Grid>
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }} elevation={3}>
+        <Paper classes={{ root: classes.root }}>
           <div className={classes.padding}>
-            <Typography variant="h6">School or Organization Name</Typography>
+            <Typography variant="h6">
+              School or Organization Name<sup>*</sup>
+            </Typography>
             <br />
-            <TextField variant="outlined" fullWidth />
+            <TextField required variant="outlined" fullWidth />
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }} elevation={3}>
+        <Paper classes={{ root: classes.root }}>
           <div className={classes.padding}>
-            <Grid container spacing={3}>
+            <Typography variant="h6">Estimated Number of Students</Typography>
+            <br />
+            <TextField variant="outlined" />
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }}>
+          <div className={classes.padding}>
+            <Typography variant="h6">
+              Please indicate the grade level and age of students
+            </Typography>
+            <br />
+            <TextField variant="outlined" />
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }}>
+          <div className={classes.padding}>
+            <Typography variant="h6">Number of Adult Sponsors</Typography>
+            <br />
+            <TextField variant="outlined" />
+          </div>
+        </Paper>
+        {/* <Paper classes={{ root: classes.root }}>
+          <div className={classes.padding}>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="flex-start"
+            >
               <Grid item>
                 <Typography variant="h6">
                   Estimated Number of Students
@@ -102,8 +134,8 @@ class RequestForm extends Component {
               </Grid>
             </Grid>
           </div>
-        </Paper>
-        <Paper classes={{ root: classes.root }} elevation={3}>
+        </Paper> */}
+        <Paper classes={{ root: classes.root }}>
           <div className={classes.padding}>
             <Typography variant="h6">
               Which Program are you interested in?
@@ -115,7 +147,7 @@ class RequestForm extends Component {
             >
               <Select
                 displayEmpty
-                //  value={age}
+                value={""}
                 //  onChange={handleChange}
               >
                 <MenuItem value="">Select a program</MenuItem>
@@ -135,14 +167,14 @@ class RequestForm extends Component {
                 </MenuItem>
                 <MenuItem value="KIA">Kids-in-Action</MenuItem>
                 <MenuItem value="ET">Educational Tours</MenuItem>
-                <MenuItem value="">Other</MenuItem>
+                <MenuItem value="Other">Other</MenuItem>
               </Select>
             </FormControl>
             {/* the text input field will conditional render, if other is selected */}
-            <TextField variant="outlined" label="Enter program name" />
+            {/* <TextField variant="outlined" label="Enter program name" /> */}
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }} elevation={3}>
+        <Paper classes={{ root: classes.root }}>
           <div className={classes.padding}>
             <Typography variant="h6">Preferred location of Program</Typography>
             <br />
@@ -152,7 +184,7 @@ class RequestForm extends Component {
             >
               <Select
                 displayEmpty
-                //  value={age}
+                value={""}
                 //  onChange={handleChange}
               >
                 <MenuItem value="">Select a location</MenuItem>
@@ -168,12 +200,13 @@ class RequestForm extends Component {
             </Typography>
             <TextField
               variant="outlined"
-              label="Enter full address"
+              label="Please enter full address"
               fullWidth
+              multiline
             />
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }} elevation={3}>
+        <Paper classes={{ root: classes.root }}>
           <div className={classes.padding}>
             <Typography variant="h6">Preferred date of program</Typography>
             <Typography>
@@ -194,10 +227,10 @@ class RequestForm extends Component {
             >
               <Select
                 displayEmpty
-                //  value={age}
+                value={""}
                 //  onChange={handleChange}
               >
-                <MenuItem value="">Select a time</MenuItem>
+                <MenuItem value="">Select time of day</MenuItem>
                 <MenuItem value="morning">Morning</MenuItem>
                 <MenuItem value="afternoon">Afternoon</MenuItem>
                 <MenuItem value="evening">Evening</MenuItem>

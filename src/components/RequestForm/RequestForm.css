@@ -1,0 +1,9 @@
+.react-datepicker__input-container input {
+  display: block;
+  font-size: 1rem;
+  padding: 18.5px 14px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  border-radius: 4px;
+
+  line-height: 1.1876em;
+}
