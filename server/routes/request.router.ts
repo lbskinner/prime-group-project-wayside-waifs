@@ -18,7 +18,6 @@ router.get(
 router.post(
   "/new",
   (req: Request, res: Response, next: express.NextFunction): void => {
-    console.log(req.body);
     const queryText: string = `INSERT INTO event ("request_date", "status", "organization", "program", "program_date", "time_of_day", "student_number", "grade_level", "adult_sponsors", "location", "contact_first_name", "contact_last_name", "contact_email", "contact_phone_number", "educator_id", "volunteer_id")
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`;
     pool

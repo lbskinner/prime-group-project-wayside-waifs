@@ -84,6 +84,12 @@ class App extends Component {
               authRedirect="/event"
               component={EventPage}
             />
+            <Route
+              exact
+              path="/eventDetails"
+              authRedirect="/eventDetails"
+              component={EventDetailsPage}
+            />
             <ProtectedRoute
               exact
               path="/eventDetails"
