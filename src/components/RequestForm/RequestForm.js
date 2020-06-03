@@ -13,6 +13,7 @@ import Paper from "@material-ui/core/Paper";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
 
 const styles = (theme) => ({
   root: {
@@ -24,8 +25,9 @@ const styles = (theme) => ({
   },
   padding: {
     padding: "8px 20px",
-    // paddingTop: 8,
-    // paddingBottom: 8,
+  },
+  selectorSize: {
+    minWidth: 600,
   },
 });
 
@@ -52,22 +54,19 @@ class RequestForm extends Component {
         <Paper classes={{ root: classes.root }} elevation={3}>
           <div className={classes.padding}>
             <Typography variant="h6">Contact Information</Typography>
+            <br />
             <Grid container spacing={4}>
               <Grid item>
-                <TextField label="First Name" variant="outlined" size="small" />
+                <TextField label="First Name" variant="outlined" />
               </Grid>
               <Grid item>
-                <TextField label="Last Name" variant="outlined" size="small" />
+                <TextField label="Last Name" variant="outlined" />
               </Grid>
               <Grid item>
-                <TextField label="Email" variant="outlined" size="small" />
+                <TextField label="Email" variant="outlined" />
               </Grid>
               <Grid item>
-                <TextField
-                  label="Phone Number"
-                  variant="outlined"
-                  size="small"
-                />
+                <TextField label="Phone Number" variant="outlined" />
               </Grid>
             </Grid>
           </div>
@@ -75,6 +74,7 @@ class RequestForm extends Component {
         <Paper classes={{ root: classes.root }} elevation={3}>
           <div className={classes.padding}>
             <Typography variant="h6">School or Organization Name</Typography>
+            <br />
             <TextField variant="outlined" fullWidth />
           </div>
         </Paper>
@@ -85,16 +85,19 @@ class RequestForm extends Component {
                 <Typography variant="h6">
                   Estimated Number of Students
                 </Typography>
+                <br />
                 <TextField variant="outlined" />
               </Grid>
               <Grid item>
                 <Typography variant="h6">
                   Please indicate the grade level and age of students
                 </Typography>
+                <br />
                 <TextField variant="outlined" />
               </Grid>
               <Grid item>
                 <Typography variant="h6">Number of Adult Sponsors</Typography>
+                <br />
                 <TextField variant="outlined" />
               </Grid>
             </Grid>
@@ -105,7 +108,11 @@ class RequestForm extends Component {
             <Typography variant="h6">
               Which Program are you interested in?
             </Typography>
-            <FormControl variant="outlined">
+            <br />
+            <FormControl
+              variant="outlined"
+              classes={{ root: classes.selectorSize }}
+            >
               <Select
                 displayEmpty
                 //  value={age}
@@ -138,7 +145,11 @@ class RequestForm extends Component {
         <Paper classes={{ root: classes.root }} elevation={3}>
           <div className={classes.padding}>
             <Typography variant="h6">Preferred location of Program</Typography>
-            <FormControl variant="outlined">
+            <br />
+            <FormControl
+              variant="outlined"
+              classes={{ root: classes.selectorSize }}
+            >
               <Select
                 displayEmpty
                 //  value={age}
@@ -176,7 +187,11 @@ class RequestForm extends Component {
               minDate={new Date()}
             />
             <Typography variant="h6">Time of day preferred</Typography>
-            <FormControl variant="outlined">
+            <br />
+            <FormControl
+              variant="outlined"
+              classes={{ root: classes.selectorSize }}
+            >
               <Select
                 displayEmpty
                 //  value={age}
@@ -190,6 +205,13 @@ class RequestForm extends Component {
               </Select>
             </FormControl>
           </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={0}>
+          <Grid container justify="flex-end">
+            <Button variant="contained" color="secondary">
+              Submit Request
+            </Button>
+          </Grid>
         </Paper>
       </div>
     );
