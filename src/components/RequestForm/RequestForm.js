@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import moment from "moment";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import swal from "sweetalert";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -39,7 +41,6 @@ const styles = (theme) => ({
 
 class RequestForm extends Component {
   state = {
-    status: "requestReceived",
     contact_first_name: "",
     contact_last_name: "",
     contact_email: "",
@@ -77,6 +78,44 @@ class RequestForm extends Component {
 
   submitRequest = (event) => {
     console.log(this.state);
+    const newRequest = {
+      status: "requestReceived",
+      contact_first_name: this.state.contact_first_name,
+      contact_last_name: this.state.contact_last_name,
+      contact_email: this.state.contact_email,
+      contact_phone_number: this.state.contact_phone_number,
+      organization: this.state.organization,
+      program:
+        this.state.program === "other"
+          ? this.state.program_other
+          : this.state.program,
+      program_date: moment(this.state.program_date).format("L"),
+      time_of_day: this.state.time_of_day,
+      student_number: this.state.student_number,
+      grade_level: this.state.grade_level,
+      adult_sponsors: this.state.adult_sponsors,
+      location:
+        this.state.location === "off_site"
+          ? this.state.location_other
+          : this.state.location,
+    };
+    if (
+      !newRequest.contact_first_name ||
+      !newRequest.contact_last_name ||
+      !newRequest.contact_email ||
+      !newRequest.contact_phone_number ||
+      !newRequest.organization ||
+      !newRequest.program ||
+      !newRequest.program_date ||
+      !newRequest.time_of_day ||
+      !newRequest.student_number ||
+      !newRequest.grade_level ||
+      !newRequest.adult_sponsors ||
+      !newRequest.location
+    ) {
+      swal("Please fill all required fields!");
+      return;
+    }
   };
 
   render() {
@@ -288,7 +327,6 @@ class RequestForm extends Component {
               selected={this.state.program_date}
               onChange={this.handleDateChange}
               minDate={new Date()}
-              format="MM/dd/yyyy"
             />
             <Typography variant="h6">Time of day preferred</Typography>
             <br />
