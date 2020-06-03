@@ -31,17 +31,52 @@ const styles = (theme) => ({
   selectorSize: {
     minWidth: 600,
   },
+  inputMargin: {
+    margin: "10px 0px",
+    minWidth: 600,
+  },
 });
 
 class RequestForm extends Component {
   state = {
-    startDate: null,
+    status: "requestReceived",
+    contact_first_name: "",
+    contact_last_name: "",
+    contact_email: "",
+    contact_phone_number: "",
+    organization: "",
+    program: "",
+    program_other: "",
+    program_date: "",
+    time_of_day: "",
+    student_number: "",
+    grade_level: "",
+    adult_sponsors: "",
+    location: "",
+    location_other: "",
   };
 
-  handleChange = (date) => {
+  handelChange = (event, propertyKey) => {
     this.setState({
-      startDate: date,
+      ...this.state,
+      [propertyKey]: event.target.value,
     });
+  };
+
+  handleDateChange = (date) => {
+    this.setState(
+      {
+        ...this.state,
+        program_date: date,
+      },
+      () => {
+        console.log(this.state.program_date);
+      }
+    );
+  };
+
+  submitRequest = (event) => {
+    console.log(this.state);
   };
 
   render() {
@@ -59,16 +94,48 @@ class RequestForm extends Component {
             <br />
             <Grid container spacing={4}>
               <Grid item>
-                <TextField required label="First Name" variant="outlined" />
+                <TextField
+                  required
+                  label="First Name"
+                  variant="outlined"
+                  value={this.state.contact_first_name}
+                  onChange={(event) =>
+                    this.handelChange(event, "contact_first_name")
+                  }
+                />
               </Grid>
               <Grid item>
-                <TextField required label="Last Name" variant="outlined" />
+                <TextField
+                  required
+                  label="Last Name"
+                  variant="outlined"
+                  value={this.state.contact_last_name}
+                  onChange={(event) =>
+                    this.handelChange(event, "contact_last_name")
+                  }
+                />
               </Grid>
               <Grid item>
-                <TextField required label="Email" variant="outlined" />
+                <TextField
+                  required
+                  label="Email"
+                  variant="outlined"
+                  value={this.state.contact_email}
+                  onChange={(event) =>
+                    this.handelChange(event, "contact_email")
+                  }
+                />
               </Grid>
               <Grid item>
-                <TextField required label="Phone Number" variant="outlined" />
+                <TextField
+                  required
+                  label="Phone Number"
+                  variant="outlined"
+                  value={this.state.contact_phone_number}
+                  onChange={(event) =>
+                    this.handelChange(event, "contact_phone_number")
+                  }
+                />
               </Grid>
             </Grid>
           </div>
@@ -79,14 +146,24 @@ class RequestForm extends Component {
               School or Organization Name<sup>*</sup>
             </Typography>
             <br />
-            <TextField required variant="outlined" fullWidth />
+            <TextField
+              required
+              variant="outlined"
+              fullWidth
+              value={this.state.organization}
+              onChange={(event) => this.handelChange(event, "organization")}
+            />
           </div>
         </Paper>
         <Paper classes={{ root: classes.root }}>
           <div className={classes.padding}>
             <Typography variant="h6">Estimated Number of Students</Typography>
             <br />
-            <TextField variant="outlined" />
+            <TextField
+              variant="outlined"
+              value={this.state.student_number}
+              onChange={(event) => this.handelChange(event, "student_number")}
+            />
           </div>
         </Paper>
         <Paper classes={{ root: classes.root }}>
@@ -95,46 +172,24 @@ class RequestForm extends Component {
               Please indicate the grade level and age of students
             </Typography>
             <br />
-            <TextField variant="outlined" />
+            <TextField
+              variant="outlined"
+              value={this.state.grade_level}
+              onChange={(event) => this.handelChange(event, "grade_level")}
+            />
           </div>
         </Paper>
         <Paper classes={{ root: classes.root }}>
           <div className={classes.padding}>
             <Typography variant="h6">Number of Adult Sponsors</Typography>
             <br />
-            <TextField variant="outlined" />
+            <TextField
+              variant="outlined"
+              value={this.state.adult_sponsors}
+              onChange={(event) => this.handelChange(event, "adult_sponsors")}
+            />
           </div>
         </Paper>
-        {/* <Paper classes={{ root: classes.root }}>
-          <div className={classes.padding}>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="flex-start"
-            >
-              <Grid item>
-                <Typography variant="h6">
-                  Estimated Number of Students
-                </Typography>
-                <br />
-                <TextField variant="outlined" />
-              </Grid>
-              <Grid item>
-                <Typography variant="h6">
-                  Please indicate the grade level and age of students
-                </Typography>
-                <br />
-                <TextField variant="outlined" />
-              </Grid>
-              <Grid item>
-                <Typography variant="h6">Number of Adult Sponsors</Typography>
-                <br />
-                <TextField variant="outlined" />
-              </Grid>
-            </Grid>
-          </div>
-        </Paper> */}
         <Paper classes={{ root: classes.root }}>
           <div className={classes.padding}>
             <Typography variant="h6">
@@ -147,8 +202,8 @@ class RequestForm extends Component {
             >
               <Select
                 displayEmpty
-                value={""}
-                //  onChange={handleChange}
+                value={this.state.program}
+                onChange={(event) => this.handelChange(event, "program")}
               >
                 <MenuItem value="">Select a program</MenuItem>
                 <MenuItem value="FIA">
@@ -167,11 +222,18 @@ class RequestForm extends Component {
                 </MenuItem>
                 <MenuItem value="KIA">Kids-in-Action</MenuItem>
                 <MenuItem value="ET">Educational Tours</MenuItem>
-                <MenuItem value="Other">Other</MenuItem>
+                <MenuItem value="other">Other</MenuItem>
               </Select>
             </FormControl>
-            {/* the text input field will conditional render, if other is selected */}
-            {/* <TextField variant="outlined" label="Enter program name" /> */}
+            {this.state.program === "other" && (
+              <TextField
+                variant="outlined"
+                label="Enter program name"
+                value={this.state.program_other}
+                onChange={(event) => this.handelChange(event, "program_other")}
+                classes={{ root: classes.inputMargin }}
+              />
+            )}
           </div>
         </Paper>
         <Paper classes={{ root: classes.root }}>
@@ -184,26 +246,34 @@ class RequestForm extends Component {
             >
               <Select
                 displayEmpty
-                value={""}
-                //  onChange={handleChange}
+                value={this.state.location}
+                onChange={(event) => this.handelChange(event, "location")}
               >
                 <MenuItem value="">Select a location</MenuItem>
                 <MenuItem value="on_site">Wayside Waifs</MenuItem>
                 <MenuItem value="off_site">Other</MenuItem>
               </Select>
             </FormControl>
-            {/* the text input field will conditional render, if other is selected */}
-            <Typography>
-              * Please note that in order to be good stewards of our resources
-              we are unable to deliver programming at locations outside of a 30
-              minute radius of Wayside Waifs.
-            </Typography>
-            <TextField
-              variant="outlined"
-              label="Please enter full address"
-              fullWidth
-              multiline
-            />
+            {this.state.location === "off_site" && (
+              <div>
+                <Typography>
+                  * Please note that in order to be good stewards of our
+                  resources we are unable to deliver programming at locations
+                  outside of a 30 minute radius of Wayside Waifs.
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  label="Please enter full address"
+                  multiline
+                  rows="3"
+                  value={this.state.location_other}
+                  onChange={(event) =>
+                    this.handelChange(event, "location_other")
+                  }
+                  classes={{ root: classes.inputMargin }}
+                />
+              </div>
+            )}
           </div>
         </Paper>
         <Paper classes={{ root: classes.root }}>
@@ -215,9 +285,10 @@ class RequestForm extends Component {
             </Typography>
             <DatePicker
               placeholderText="Click to select a date"
-              selected={this.state.startDate}
-              onChange={this.handleChange}
+              selected={this.state.program_date}
+              onChange={this.handleDateChange}
               minDate={new Date()}
+              format="MM/dd/yyyy"
             />
             <Typography variant="h6">Time of day preferred</Typography>
             <br />
@@ -227,8 +298,8 @@ class RequestForm extends Component {
             >
               <Select
                 displayEmpty
-                value={""}
-                //  onChange={handleChange}
+                value={this.state.time_of_day}
+                onChange={(event) => this.handelChange(event, "time_of_day")}
               >
                 <MenuItem value="">Select time of day</MenuItem>
                 <MenuItem value="morning">Morning</MenuItem>
@@ -241,7 +312,11 @@ class RequestForm extends Component {
         </Paper>
         <Paper classes={{ root: classes.root }} elevation={0}>
           <Grid container justify="flex-end">
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.submitRequest}
+            >
               Submit Request
             </Button>
           </Grid>
