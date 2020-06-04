@@ -21,7 +21,7 @@ function* getEventDetails() {
   }
 }
 
-function* assignEvent() {
+function* assignEvent(action) {
   try {
     yield axios.put("/api/event/assign", action.payload);
   } catch (error) {
