@@ -56,7 +56,7 @@ class App extends Component {
               <Route exact path="/about" component={AboutPage} />
               <Route exact path="/home" component={LandingPage} />
               <Route exact path="/request" component={RequestForm} />
-              <Route exact path="/eventDetails" component={EventDetailsPage} />
+              {/* <Route exact path="/eventDetails" component={EventDetailsPage} /> */}
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -80,30 +80,13 @@ class App extends Component {
                 component={RegisterPage}
               />
 
+              <ProtectedRoute exact path="/reports" component={ReportPage} />
+              <ProtectedRoute exact path="/event" component={EventPage} />
               <ProtectedRoute
-                exact
-                path="/reports"
-                authRedirect="/reports"
-                component={ReportPage}
-              />
-              {/* <ProtectedRoute
-              exact
-              path="/request"
-              authRedirect="/request"
-              component={RequestForm}
-            /> */}
-              <ProtectedRoute
-                exact
-                path="/event"
-                authRedirect="/event"
-                component={EventPage}
-              />
-              {/* <ProtectedRoute
                 exact
                 path="/eventDetails"
-                authRedirect="/eventDetails"
                 component={EventDetailsPage}
-              /> */}
+              />
 
               {/* If none of the other routes matched, we will show a 404. */}
               <Route render={() => <h1>404</h1>} />
