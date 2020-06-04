@@ -45,7 +45,7 @@ class RequestedEvent extends Component {
             <p>Program Date: {this.props.event.program_date}</p>
             <p>Program Requested: {this.props.event.training_program}</p>
             <Select
-              value={selectedOption}
+              value="Assign"
               onChange={this.assign}
               options={users}
               className="selector_container"
