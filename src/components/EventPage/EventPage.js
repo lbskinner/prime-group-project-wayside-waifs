@@ -15,6 +15,9 @@ class EventPage extends Component {
     this.props.dispatch({
       type: "GET_EVENTS",
     });
+    this.props.dispatch({
+      type: "GET_ALL_USERS",
+    });
   }
 
   state = {

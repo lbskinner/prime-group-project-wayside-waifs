@@ -11,6 +11,19 @@ router.get("/", rejectUnauthenticated, (req: Request, res: Response): void => {
   res.send(req.user);
 });
 
+router.get("/alluser", (req: Request, res: Response): void => {
+  const queryText: string = `SELECT (id, first_name, last_name, role) FROM "user" ORDER BY last_name ASC;`;
+  pool
+    .query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log(`Error getting All Users: ${err}`);
+      res.sendStatus(500);
+    });
+});
+
 router.post(
   "/register",
   (req: Request, res: Response, next: express.NextFunction): void => {
