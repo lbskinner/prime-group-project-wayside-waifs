@@ -5,10 +5,10 @@ import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import { Fab } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import Select from "react-select";
+const users = this.props.store.allUser;
 
 const styles = (theme) => ({
   root: {
@@ -26,6 +26,17 @@ const styles = (theme) => ({
 class EventDetailsPage extends Component {
   state = {
     heading: "Class Component",
+  };
+
+  assign = (selectedOption) => {
+    let submission = {
+      user: selectedOption.value.id,
+      event: this.props.event.id,
+    };
+    this.props.dispatch({
+      type: "ASSIGN_EVENT",
+      payload: submission,
+    });
   };
 
   render() {
@@ -76,9 +87,12 @@ class EventDetailsPage extends Component {
               </Typography>
             </CardContent>
             <CardActions>
-              <Fab size="small" color="default" aria-label="like">
-                <FavoriteIcon />
-              </Fab>
+              <Select
+                value="Assign"
+                onChange={this.assign}
+                options={users}
+                className="selector_container"
+              />
             </CardActions>
           </Card>
         </CssBaseline>
