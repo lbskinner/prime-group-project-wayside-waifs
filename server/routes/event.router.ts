@@ -76,4 +76,22 @@ router.put(
   }
 );
 
+/**
+ * PUT route, update educator
+ */
+router.put(
+  "/details/educator",
+  (req: Request, res: Response, next: express.NextFunction): void => {
+    const updatedEventStatus = req.body;
+    const queryText = `Update "event" SET "educator_id" = $1 WHERE "id" = $2;`;
+    pool
+      .query(queryText, [updatedEventStatus.educator_id, updatedEventStatus.id])
+      .then(() => res.sendStatus(200))
+      .catch((error) => {
+        console.log("Put Event Educator Error: ", error);
+        res.sendStatus(500);
+      });
+  }
+);
+
 export default router;
