@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
+import Select from "react-select";
 
 const users = this.props.store.allUser;
 
@@ -43,7 +44,7 @@ class RequestedEvent extends Component {
             </p>
             <p>Program Date: {this.props.event.program_date}</p>
             <p>Program Requested: {this.props.event.training_program}</p>
-            <select
+            <Select
               value={selectedOption}
               onChange={this.assign}
               options={users}
