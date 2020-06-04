@@ -10,7 +10,7 @@ const router: express.Router = express.Router();
 router.get(
   "/",
   (req: Request, res: Response, next: express.NextFunction): void => {
-    const queryText = `SELECT * FROM "event" WHERE "program_date" > "program_date"(year, -1);`;
+    const queryText = `SELECT * FROM "event" ORDER BY "program_date" DESC LIMIT 4;`;
 
     pool
       .query(queryText)
