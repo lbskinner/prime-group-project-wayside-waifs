@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
 
+const users = this.props.store.allUser;
+
 class RequestedEvent extends Component {
   // click handlers
   eventDetails = () => {
@@ -12,8 +14,16 @@ class RequestedEvent extends Component {
     this.props.history.push("/details");
   };
 
-  assign = () => {
-    console.log("Assign clicked");
+  assign = (selectedOption) => {
+    let submission = {
+      user: selectedOption.value.id,
+      event: this.props.event.id,
+    };
+
+    this.props.dispatch({
+      type: "ASSIGN_EVENT",
+      payload: submission,
+    });
   };
 
   render() {
@@ -33,7 +43,12 @@ class RequestedEvent extends Component {
             </p>
             <p>Program Date: {this.props.event.program_date}</p>
             <p>Program Requested: {this.props.event.training_program}</p>
-            <button onClick={this.assign}>Assign</button>
+            <select
+              value={selectedOption}
+              onChange={this.assign}
+              options={users}
+              className="selector_container"
+            />
           </div>
         )}
       </div>
