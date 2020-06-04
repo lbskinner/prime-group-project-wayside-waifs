@@ -67,43 +67,28 @@ class App extends Component {
               <ProtectedRoute exact path="/info" component={InfoPage} />
               {/* This works the same as the other protected route, except that if the user is logged in,
             they will be redirected to the authRedirect path provided. */}
-              <ProtectedRoute
-                exact
-                path="/login"
-                authRedirect="/admin"
-                component={LoginPage}
-              />
-              <ProtectedRoute
-                exact
-                path="/registration"
-                authRedirect="/admin"
-                component={RegisterPage}
-              />
 
-              <ProtectedRoute
-                exact
-                path="/reports"
-                authRedirect="/reports"
-                component={ReportPage}
-              />
-              {/* <ProtectedRoute
+            <ProtectedRoute
               exact
-              path="/request"
-              authRedirect="/request"
-              component={RequestForm}
-            /> */}
-              <ProtectedRoute
-                exact
-                path="/event"
-                authRedirect="/event"
-                component={EventPage}
-              />
-              {/* <ProtectedRoute
-                exact
-                path="/eventDetails"
-                authRedirect="/eventDetails"
-                component={EventDetailsPage}
-              /> */}
+              path="/login"
+              authRedirect="/event"
+              component={LoginPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/registration"
+              component={RegisterPage}
+            />
+
+            <ProtectedRoute exact path="/reports" component={ReportPage} />
+            <ProtectedRoute exact path="/request" component={RequestForm} />
+            <ProtectedRoute exact path="/event" component={EventPage} />
+            <ProtectedRoute
+              exact
+              path="/details"
+              component={EventDetailsPage}
+            />
+
 
               {/* If none of the other routes matched, we will show a 404. */}
               <Route render={() => <h1>404</h1>} />
