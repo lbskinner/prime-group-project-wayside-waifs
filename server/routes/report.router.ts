@@ -10,7 +10,7 @@ const router: express.Router = express.Router();
 router.get(
   "/",
   (req: Request, res: Response, next: express.NextFunction): void => {
-    const queryText = `SELECT * FROM "event";`;
+    const queryText = `SELECT * FROM "event" WHERE "request_date" BETWEEN '2020-06-03' AND '2020-06-06';`;
 
     pool
       .query(queryText)
