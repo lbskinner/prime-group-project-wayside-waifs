@@ -5,6 +5,8 @@ import passport from "./strategies/user.strategy";
 import userRouter from "./routes/user.router";
 import eventRouter from "./routes/event.router";
 
+import requestRouter from "./routes/request.router";
+
 require("dotenv").config();
 
 const app: any = express();
@@ -23,6 +25,8 @@ app.use(passport.session());
 /* Routes */
 app.use("/api/user", userRouter);
 app.use("/api/event", eventRouter);
+
+app.use("/api/request", requestRouter);
 
 // Serve static files
 app.use(express.static("build"));
