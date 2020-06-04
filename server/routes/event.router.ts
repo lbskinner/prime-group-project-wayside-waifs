@@ -4,12 +4,23 @@ import pool from "../modules/pool";
 
 const router: express.Router = express.Router();
 
-/**
- * GET route template
- */
+//GET route for EVENT
+
 router.get(
   "/",
-  (req: Request, res: Response, next: express.NextFunction): void => {}
+  (req: Request, res: Response, next: express.NextFunction): void => {
+    const queryText = `SELECT * FROM "event";`;
+
+    pool
+      .query(queryText)
+      .then((responseDb) => {
+        res.send(responseDb.rows);
+      })
+      .catch((err) => {
+        console.warn(err);
+        res.sendStatus(500);
+      });
+  }
 );
 
 /**
@@ -36,4 +47,5 @@ router.put("/assign", (req: Request, res: Response): void => {
       res.sendStatus(500);
     });
 });
-module.exports = router;
+
+export default router;
