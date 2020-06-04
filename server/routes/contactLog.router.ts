@@ -5,11 +5,23 @@ import pool from "../modules/pool";
 const router: express.Router = express.Router();
 
 /**
- * GET route, get contact log for individual events
+ * GET route, get contact log for individual events using event id
  */
 router.get(
-  "/",
-  (req: Request, res: Response, next: express.NextFunction): void => {}
+  "/:id",
+  (req: Request, res: Response, next: express.NextFunction): void => {
+    const eventId = req.params.id;
+    const queryText = `SELECT * FROM "contact_log" WHERE "event_id" = $1 ORDER BY "date_time" ASC;`;
+    pool
+      .query(queryText, [eventId])
+      .then((responseFromDb) => {
+        res.send(responseFromDb.rows);
+      })
+      .catch((error) => {
+        console.log("Get Contact Log Error: ", error);
+        res.sendStatus(500);
+      });
+  }
 );
 
 /**
