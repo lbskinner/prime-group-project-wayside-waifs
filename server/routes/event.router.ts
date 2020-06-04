@@ -5,7 +5,7 @@ import pool from "../modules/pool";
 const router: express.Router = express.Router();
 
 /**
- * GET individual event details
+ * GET route, get individual event details
  */
 router.get(
   "/details/:id",
@@ -25,7 +25,7 @@ router.get(
 );
 
 /**
- * PUT route template
+ * PUT route, update all event details for individual event except status, educator and volunteer, these have their own put routes
  */
 router.put(
   "/details/edit",
@@ -59,12 +59,20 @@ router.put(
 );
 
 /**
- * POST route template
+ * PUT route, update status
  */
-router.post(
-  "/",
+router.put(
+  "/details/status",
   (req: Request, res: Response, next: express.NextFunction): void => {
-    res.sendStatus(201);
+    const updatedEventStatus = req.body;
+    const queryText = `Update "event" SET "status" = $1 WHERE "id" = $2;`;
+    pool
+      .query(queryText, [updatedEventStatus.status, updatedEventStatus.id])
+      .then(() => res.sendStatus(200))
+      .catch((error) => {
+        console.log("Put Event Status Error: ", error);
+        res.sendStatus(500);
+      });
   }
 );
 
