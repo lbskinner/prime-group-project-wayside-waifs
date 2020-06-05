@@ -4,7 +4,7 @@ import { put, takeLatest } from "redux-saga/effects";
 
 function* getEvent() {
   try {
-    const response = yield axios.get("/api/event/event");
+    const response = yield axios.get("/api/event");
 
     yield put({ type: "SET_EVENT", payload: response.data });
   } catch (error) {
@@ -27,7 +27,8 @@ function* assignEvent(action) {
     yield axios.put("/api/event/assign", action.payload);
   } catch (error) {
     console.log("Error with Assign Event", error);
-    
+  }
+}
 // save new event request to database
 function* saveRequest(action) {
   try {
@@ -39,12 +40,10 @@ function* saveRequest(action) {
 }
 
 function* eventSaga() {
-
-  yield takeLatest("GET_EVENT", getEvent);
+  yield takeLatest("GET_EVENTS", getEvent);
   yield takeLatest("GET_EVENT_DETAILS", getEventDetails);
   yield takeLatest("ASSIGN_EVENT", assignEvent);
-  yield takeEvery("SAVE_NEW_REQUEST", saveRequest);
+  yield takeLatest("SAVE_NEW_REQUEST", saveRequest);
 }
 
 export default eventSaga;
-    

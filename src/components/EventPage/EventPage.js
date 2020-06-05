@@ -43,6 +43,7 @@ class EventPage extends Component {
   };
 
   render() {
+    console.log("Event Page: ", this.props.store.event);
     return (
       <div>
         <h2>{this.state.heading}</h2>
@@ -58,8 +59,10 @@ class EventPage extends Component {
             <div>
               <div>IN REQUESTED EVENTS!</div>
               <div>
-                {this.props.store.event.map((event) => {
-                  return <RequestedEvent key={event.id} event={event} />;
+                {this.props.store.event.map((eventItem) => {
+                  return (
+                    <RequestedEvent key={eventItem.id} eventItem={eventItem} />
+                  );
                 })}
               </div>
             </div>
@@ -68,8 +71,8 @@ class EventPage extends Component {
             <div>
               <div>IN MY EVENTS!</div>
               <div>
-                {this.props.store.event.map((event) => {
-                  return <MyEvent key={event.id} event={event} />;
+                {this.props.store.event.map((eventItem) => {
+                  return <MyEvent key={eventItem.id} eventItem={eventItem} />;
                 })}
               </div>
             </div>
@@ -78,8 +81,8 @@ class EventPage extends Component {
             <div>
               <div>IN ALL EVENTS!</div>
               <div>
-                {this.props.store.event.map((event) => {
-                  return <AllEvent key={event.id} event={event} />;
+                {this.props.store.event.map((eventItem) => {
+                  return <AllEvent key={eventItem.id} eventItem={eventItem} />;
                 })}
               </div>
             </div>
