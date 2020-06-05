@@ -16,6 +16,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import "./RequestForm.css";
 
@@ -38,6 +39,9 @@ const styles = (theme) => ({
     minWidth: 600,
   },
 });
+
+// created to use ref to get recaptcha value
+const recaptchaRef = React.createRef();
 
 class RequestForm extends Component {
   state = {
@@ -75,6 +79,8 @@ class RequestForm extends Component {
 
   // submit/dispatch new request data event saga
   submitRequest = (event) => {
+    const recaptchaValue = recaptchaRef.current.getValue();
+    if (recaptchaValue == "") return;
     // create new request object to save to database
     const newRequest = {
       status: "requestReceived",
@@ -369,6 +375,14 @@ class RequestForm extends Component {
               </Select>
             </FormControl>
           </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={0}>
+          <Grid container justify="flex-end">
+            <ReCAPTCHA
+              sitekey={process.env.REACT_APP_RECAPTCHA}
+              ref={recaptchaRef}
+            />
+          </Grid>
         </Paper>
         <Paper classes={{ root: classes.root }} elevation={0}>
           <Grid container justify="flex-end">
