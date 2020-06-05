@@ -65,7 +65,6 @@ services:
       - "./server:/app-server/server"
       - "./server/dist:/app-server/dist"
       - "./package.json:/app-server/package.json"
-      - "/app-server/node_modules"
     depends_on:
       - database
     command: npm run server

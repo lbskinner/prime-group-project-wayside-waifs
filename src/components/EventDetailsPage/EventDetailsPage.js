@@ -7,8 +7,14 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Select from "react-select";
-const users = this.props.store.allUser;
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+
+// import Select from "react-select";
+// const users = this.props.store.allUser;
 
 const styles = (theme) => ({
   root: {
@@ -18,6 +24,18 @@ const styles = (theme) => ({
     marginBottom: 12,
   },
 });
+
+const options = [
+  "Request Received",
+  "Contacted",
+  "Assigned",
+  "Scheduled",
+  "Complete",
+  "Filed",
+  "Missed Connections",
+];
+
+const ITEM_HEIGHT = 48;
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -41,16 +59,61 @@ class EventDetailsPage extends Component {
 
   render() {
     const classes = styles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
     return (
       <div>
         <CssBaseline>
+          <div>
+            <IconButton
+              aria-label="more"
+              aria-controls="long-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id="long-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={open}
+              onClose={handleClose}
+              PaperProps={{
+                style: {
+                  maxHeight: ITEM_HEIGHT * 4.5,
+                  width: "20ch",
+                },
+              }}
+            >
+              {options.map((option) => (
+                <MenuItem
+                  key={option}
+                  selected={option === "Pyxis"}
+                  onClick={handleClose}
+                >
+                  {option}
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
           <Card className={classes.root}>
             <CardContent>
               <Typography variant="h4" color="textSecondary" gutterBottom>
                 Event Details:
               </Typography>
-              <Typography className={classes.pos}>Event Information</Typography>
+              <Typography className={classes.pos}>
+                Event Information:
+              </Typography>
               <Typography color="textSecondary" variant="body2">
                 Date Received:
               </Typography>
@@ -87,12 +150,14 @@ class EventDetailsPage extends Component {
               </Typography>
             </CardContent>
             <CardActions>
-              <Select
+              {/* <Select
                 value="Assign"
                 onChange={this.assign}
                 options={users}
                 className="selector_container"
-              />
+              /> */}
+              <Button> Edit </Button>
+              <Button> Contacted </Button>
             </CardActions>
           </Card>
         </CssBaseline>
