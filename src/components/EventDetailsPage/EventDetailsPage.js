@@ -25,16 +25,6 @@ const styles = (theme) => ({
   },
 });
 
-const options = [
-  "Request Received",
-  "Contacted",
-  "Assigned",
-  "Scheduled",
-  "Complete",
-  "Filed",
-  "Missed Connections",
-];
-
 const ITEM_HEIGHT = 48;
 
 // Basic class component structure for React with default state
@@ -42,7 +32,6 @@ const ITEM_HEIGHT = 48;
 // the component name TemplateClass with the name for the new
 // component.
 function EventDetailsPage() {
-  const [heading, setHeading] = useState("Class Component");
   const [anchorEl, setAnchorEl] = useState(null);
 
   // assign = (selectedOption) => {
@@ -63,44 +52,62 @@ function EventDetailsPage() {
     setAnchorEl(event.currentTarget);
   };
 
+  const onHandleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const onHandleClose = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   return (
     <div>
       <CssBaseline>
         <div>
-          <IconButton
-            aria-label="more"
-            aria-controls="long-menu"
+          <Button
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={onHandleClick}
+          >
+            Assign
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={onHandleClose}
+          >
+            <MenuItem onClick={onHandleClose}>Amanda</MenuItem>
+            <MenuItem onClick={onHandleClose}>Ashley</MenuItem>
+            <MenuItem onClick={onHandleClose}>Karen</MenuItem>
+            <MenuItem onClick={onHandleClose}>John</MenuItem>
+          </Menu>
+        </div>
+        <div>
+          <Button
+            aria-controls="simple-menu"
             aria-haspopup="true"
             onClick={handleClick}
           >
-            <MoreVertIcon />
-          </IconButton>
+            Set Status
+          </Button>
           <Menu
-            id="long-menu"
+            id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
-            open={open}
+            open={Boolean(anchorEl)}
             onClose={handleClose}
-            PaperProps={{
-              style: {
-                maxHeight: ITEM_HEIGHT * 4.5,
-                width: "20ch",
-              },
-            }}
           >
-            {options.map((option) => (
-              <MenuItem
-                key={option}
-                selected={option === "Pyxis"}
-                onClick={handleClose}
-              >
-                {option}
-              </MenuItem>
-            ))}
+            <MenuItem onClick={handleClose}>Request Received</MenuItem>
+            <MenuItem onClick={handleClose}>Contacted</MenuItem>
+            <MenuItem onClick={handleClose}>Assignment</MenuItem>
+            <MenuItem onClick={handleClose}>Scheduled</MenuItem>
+            <MenuItem onClick={handleClose}>Missed Connections</MenuItem>
           </Menu>
         </div>
         <Card className={classes.root}>
@@ -146,11 +153,11 @@ function EventDetailsPage() {
           </CardContent>
           <CardActions>
             {/* <Select
-                value="Assign"
-                onChange={this.assign}
-                options={users}
-                className="selector_container"
-              /> */}
+              value="Assign"
+              onChange={this.assign}
+              options={users}
+              className="selector_container"
+            /> */}
             <Button>Edit</Button>
             <Button>Contacted</Button>
           </CardActions>
