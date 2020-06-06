@@ -59,6 +59,8 @@ class RequestForm extends Component {
     adult_sponsors: "",
     location: "",
     location_other: "",
+    // recaptchaValue: "",
+    recaptchaErrorMessage: "",
   };
 
   // capture values for input fields other than program data
@@ -79,11 +81,16 @@ class RequestForm extends Component {
 
   // submit/dispatch new request data event saga
   submitRequest = (event) => {
-    // get recaptche value
+    // because recaptcha expires in about 1 minute after it's been clicked
+    // get recaptche value when click on submit request button to validate
     const recaptchaValue = recaptchaRef.current.getValue();
     // if recaptch does not have a value (not checked), display an error message
     if (recaptchaValue == "") {
-      swal("Please validate that you are not a robot!");
+      this.setState({
+        ...this.state,
+        recaptchaErrorMessage: "Please validate that you are not a robot!",
+      });
+      // swal("Please validate that you are not a robot!");
       return;
     }
     // create new request object to save to database
@@ -148,6 +155,13 @@ class RequestForm extends Component {
       adult_sponsors: "",
       location: "",
       location_other: "",
+    });
+  };
+
+  handleClickRecaptcha = (value) => {
+    this.setState({
+      ...this.state,
+      recaptchaErrorMessage: "",
     });
   };
 
@@ -382,10 +396,16 @@ class RequestForm extends Component {
           </div>
         </Paper>
         <Paper classes={{ root: classes.root }} elevation={0}>
-          <Grid container justify="flex-end">
+          <Grid container direction="column" alignItems="flex-end">
+            {this.state.recaptchaErrorMessage && (
+              <Typography color="secondary">
+                {this.state.recaptchaErrorMessage}
+              </Typography>
+            )}
             <ReCAPTCHA
               sitekey={process.env.REACT_APP_RECAPTCHA}
               ref={recaptchaRef}
+              onChange={this.handleClickRecaptcha}
             />
           </Grid>
         </Paper>
