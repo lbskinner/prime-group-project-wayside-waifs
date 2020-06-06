@@ -79,8 +79,13 @@ class RequestForm extends Component {
 
   // submit/dispatch new request data event saga
   submitRequest = (event) => {
+    // get recaptche value
     const recaptchaValue = recaptchaRef.current.getValue();
-    if (recaptchaValue == "") return;
+    // if recaptch does not have a value (not checked), display an error message
+    if (recaptchaValue == "") {
+      swal("Please validate that you are not a robot!");
+      return;
+    }
     // create new request object to save to database
     const newRequest = {
       status: "requestReceived",
