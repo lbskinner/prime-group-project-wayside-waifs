@@ -72,8 +72,8 @@ class App extends Component {
 
               {/* <ProtectedRoute
                 exact
-                path="/event"
-                authRedirect="/request"
+                path="/request"
+                authRedirect="/event"
                 component={RequestForm}
               /> */}
               <ProtectedRoute
