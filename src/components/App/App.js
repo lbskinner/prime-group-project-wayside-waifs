@@ -57,7 +57,7 @@ class App extends Component {
               <Route exact path="/about" component={AboutPage} />
               <Route exact path="/home" component={RequestForm} />
               <Route exact path="/request" component={RequestForm} />
-              <Route exact path="/eventDetails" component={EventDetailsPage} />
+              {/* <Route exact path="/eventDetails" component={EventDetailsPage} /> */}
               <Route exact path="/login" component={LoginPage} />
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -76,11 +76,11 @@ class App extends Component {
                 authRedirect="/event"
                 component={RequestForm}
               /> */}
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 exact
                 path="/registration"
                 component={RegisterPage}
-              />
+              /> */}
 
               <ProtectedRoute exact path="/reports" component={ReportPage} />
               {/* <ProtectedRoute exact path="/request" component={RequestForm} /> */}

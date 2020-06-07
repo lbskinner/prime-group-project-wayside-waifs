@@ -74,7 +74,7 @@ class LoginPageModal extends Component {
             />
           </div>
         </form>
-        <center>
+        {/* <center>
           <button
             type="button"
             // className="link-button"
@@ -84,7 +84,7 @@ class LoginPageModal extends Component {
           >
             Register
           </button>
-        </center>
+        </center> */}
       </div>
     );
   }

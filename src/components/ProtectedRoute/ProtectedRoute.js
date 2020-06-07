@@ -34,16 +34,10 @@ const ProtectedRoute = (props) => {
     // if the user is logged in (only logged in users have ids)
     // show the component that is protected
     ComponentToShow = ComponentToProtect;
-  } else if (store.loginMode === "login") {
-    // if they are not logged in, check the loginMode on Redux State
-    // if the mode is 'login', show the LoginPage
-    // ComponentToShow = LoginPage;
-    // updated this to the request form page since the login will be a modal on the request form page
-    ComponentToShow = RequestForm;
   } else {
     // the the user is not logged in and the mode is not 'login'
-    // show the RegisterPage
-    ComponentToShow = RegisterPage;
+    // show the request form page since the login will be a modal on the request form page
+    ComponentToShow = RequestForm;
   }
 
   // redirect a logged in user if an authRedirect prop has been provided
