@@ -19,16 +19,6 @@ const Nav = (props) => {
     setOpen(false);
   };
 
-  let loginLinkData = {
-    path: "/login",
-    text: "Login",
-  };
-
-  if (props.store.user.id != null) {
-    loginLinkData.path = "/event";
-    loginLinkData.text = "Event";
-  }
-
   return (
     <div>
       <div className="nav">
@@ -43,26 +33,25 @@ const Nav = (props) => {
       </Link> */}
 
         <div className="nav-right">
+          {/* Always show this link since the request event page is not protected */}
           <Link className="nav-link" to="/request">
             Request Event
           </Link>
-          <button className="nav-link" onClick={handleOpen}>
-            Login Modal
-          </button>
-          <Link className="nav-link" to={loginLinkData.path}>
-            {/* Show this link if they are logged in or not,
-          but call this link 'Home' if they are logged in,
-          and call this link 'Login / Register' if they are not */}
-            {loginLinkData.text}
-          </Link>
-          {/* Show the link to the info page and the logout button if the user is logged in */}
-          {props.store.user.id && (
+          {/* Show the link to the events page, report page and the logout button if the user is logged in */}
+          {props.store.user.id ? (
             <>
+              <Link className="nav-link" to="/event">
+                Events
+              </Link>
               <Link className="nav-link" to="/reports">
                 Reports
               </Link>
               <LogOutButton className="nav-link" />
             </>
+          ) : (
+            <button className="nav-link" onClick={handleOpen}>
+              Login
+            </button>
           )}
           {/* Always show this link since the about page is not protected */}
           <Link className="nav-link" to="/about">
