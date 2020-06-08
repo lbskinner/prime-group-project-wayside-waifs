@@ -7,8 +7,12 @@ import "./Nav.css";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import logoImage from "../../images/nav_logo3.png";
 import LoginPageModal from "../LoginPage/LoginPageModal";
+import { useLocation } from "react-router-dom";
 
 const Nav = (props) => {
+  // check the current url which is on location.pathname
+  let location = useLocation();
+
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -33,10 +37,12 @@ const Nav = (props) => {
       </Link> */}
 
         <div className="nav-right">
-          {/* Always show this link since the request event page is not protected */}
-          <Link className="nav-link" to="/request">
-            Request Event
-          </Link>
+          {/* if the url is not the request page, show the request event link */}
+          {location.pathname !== "/request" && (
+            <Link className="nav-link" to="/request">
+              Request Event
+            </Link>
+          )}
           {/* Show the link to the events page, report page and the logout button if the user is logged in */}
           {props.store.user.id ? (
             <>
