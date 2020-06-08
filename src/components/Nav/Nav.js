@@ -24,7 +24,7 @@ const Nav = (props) => {
   };
 
   return (
-    <div>
+    <div className="nav-background">
       <div className="nav">
         <a
           target="_black"

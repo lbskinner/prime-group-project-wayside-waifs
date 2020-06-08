@@ -1,19 +1,19 @@
 footer {
   margin-top: 42px;
   background-color: #333333;
-  display: flex;
-  justify-content: center;
   width: 100%;
 }
 
 .footer-container {
-  width: 80%;
+  width: 70%;
   line-height: 20px;
+  text-align: center;
+  margin: auto;
 }
 
 .footer-text {
   color: #fff;
   font-size: 12px;
   text-align: left;
-  margin: 5px 0 2px 0;
+  margin: 5px 5px 2px 7px;
 }
