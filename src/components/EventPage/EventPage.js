@@ -43,7 +43,6 @@ class EventPage extends Component {
   };
 
   render() {
-    console.log("Event Page: ", this.props.store.event);
     return (
       <div>
         <h2>{this.state.heading}</h2>
