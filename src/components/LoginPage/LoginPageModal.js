@@ -21,7 +21,7 @@ class LoginPageModal extends Component {
           password: this.state.password,
         },
       });
-      this.props.handleCloseModal();
+      // this.props.handleCloseModal();
       this.props.history.push("/event");
     } else {
       this.props.dispatch({ type: "LOGIN_INPUT_ERROR" });
@@ -35,14 +35,19 @@ class LoginPageModal extends Component {
   };
 
   render() {
+    if (this.props.store.user.id) {
+      this.props.handleCloseModal();
+    }
     return (
       <div>
         <form onSubmit={this.login}>
           <h1>Login</h1>
-          {this.props.store.errors.loginMessage && (
+          {this.props.store.errors.loginMessage ? (
             <p className="alert" role="alert">
               {this.props.store.errors.loginMessage}
             </p>
+          ) : (
+            <p>&nbsp;</p>
           )}
           <div>
             {/* <label htmlFor="username">Username:</label>
@@ -58,7 +63,7 @@ class LoginPageModal extends Component {
               className="login-input"
             />
           </div>
-
+          <br />
           <div>
             {/* <label htmlFor="password">
               Password:></label> */}
@@ -73,6 +78,7 @@ class LoginPageModal extends Component {
               className="login-input"
             />
           </div>
+          <br />
           <div>
             <Button
               // className="log-in"
