@@ -57,7 +57,7 @@ class LoginPageModal extends Component {
               onChange={this.handleInputChangeFor("username")}
               variant="outlined"
               size="small"
-              label="Username"
+              label="Username*"
               className="login-input"
             />
           </div>
@@ -69,7 +69,7 @@ class LoginPageModal extends Component {
               onChange={this.handleInputChangeFor("password")}
               variant="outlined"
               size="small"
-              label="Password"
+              label="Password*"
               className="login-input"
             />
           </div>
