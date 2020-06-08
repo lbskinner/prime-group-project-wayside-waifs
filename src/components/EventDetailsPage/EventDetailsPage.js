@@ -8,10 +8,8 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 // import Select from "react-select";
 // const users = this.props.store.allUser;
@@ -24,8 +22,6 @@ const styles = (theme) => ({
     marginBottom: 12,
   },
 });
-
-const ITEM_HEIGHT = 48;
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -46,7 +42,6 @@ function EventDetailsPage() {
   // };
 
   const classes = styles();
-  const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -64,105 +59,119 @@ function EventDetailsPage() {
     setAnchorEl(event.currentTarget);
   };
 
+  const id = Number(this.props.match.params.id);
+  const filteredResource = this.props.store.resources.resourceReducer.filter(
+    (resources) => {
+      return resources.id === id;
+    }
+  );
   return (
     <div>
-      <CssBaseline>
-        <div>
-          <Button
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={onHandleClick}
-          >
-            Assign
-          </Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={onHandleClose}
-          >
-            <MenuItem onClick={onHandleClose}>Amanda</MenuItem>
-            <MenuItem onClick={onHandleClose}>Ashley</MenuItem>
-            <MenuItem onClick={onHandleClose}>Karen</MenuItem>
-            <MenuItem onClick={onHandleClose}>John</MenuItem>
-          </Menu>
-        </div>
-        <div>
-          <Button
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            Set Status
-          </Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Request Received</MenuItem>
-            <MenuItem onClick={handleClose}>Contacted</MenuItem>
-            <MenuItem onClick={handleClose}>Assignment</MenuItem>
-            <MenuItem onClick={handleClose}>Scheduled</MenuItem>
-            <MenuItem onClick={handleClose}>Missed Connections</MenuItem>
-          </Menu>
-        </div>
-        <Card className={classes.root}>
-          <CardContent>
-            <Typography variant="h4" color="textSecondary" gutterBottom>
-              Event Details:
-            </Typography>
-            <Typography className={classes.pos}>Event Information:</Typography>
-            <Typography color="textSecondary" variant="body2">
-              Date Received:
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              Program:
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              Request Date and Time:
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              Location:
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              Name of Organization:
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              Number of Students:
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              Number of Chaperones:
-            </Typography>
-            <Typography className={classes.pos} component="p">
-              Contact Information:
-              <br />
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              Full Name:
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              Phone Number:
-            </Typography>
-            <Typography color="textSecondary" variant="body2">
-              Email Address:
-            </Typography>
-          </CardContent>
-          <CardActions>
-            {/* <Select
+      {filteredResource.map((details) => {
+        return (
+          <div>
+            <CssBaseline>
+              <div>
+                <Button
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={onHandleClick}
+                >
+                  Assign
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={onHandleClose}
+                >
+                  <MenuItem onClick={onHandleClose}>Amanda</MenuItem>
+                  <MenuItem onClick={onHandleClose}>Ashley</MenuItem>
+                  <MenuItem onClick={onHandleClose}>Karen</MenuItem>
+                  <MenuItem onClick={onHandleClose}>John</MenuItem>
+                </Menu>
+              </div>
+              <div>
+                <Button
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
+                  Set Status
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>Request Received</MenuItem>
+                  <MenuItem onClick={handleClose}>Contacted</MenuItem>
+                  <MenuItem onClick={handleClose}>Assignment</MenuItem>
+                  <MenuItem onClick={handleClose}>Scheduled</MenuItem>
+                  <MenuItem onClick={handleClose}>Missed Connections</MenuItem>
+                </Menu>
+              </div>
+              <Card className={classes.root}>
+                <CardContent>
+                  <Typography variant="h4" color="textSecondary" gutterBottom>
+                    Event Details:
+                  </Typography>
+                  <Typography className={classes.pos}>
+                    Event Information:
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Date Received:
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Program:
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Request Date and Time:
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Location:
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Name of Organization:
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Number of Students:
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Number of Chaperones:
+                  </Typography>
+                  <Typography className={classes.pos} component="p">
+                    Contact Information:
+                    <br />
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Full Name:
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Phone Number:
+                  </Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Email Address:
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  {/* <Select
               value="Assign"
               onChange={this.assign}
               options={users}
               className="selector_container"
             /> */}
-            <Button>Edit</Button>
-            <Button>Contacted</Button>
-          </CardActions>
-        </Card>
-      </CssBaseline>
+                  <Button>Edit</Button>
+                  <Button>Contacted</Button>
+                </CardActions>
+              </Card>
+            </CssBaseline>
+          </div>
+        );
+      })}
     </div>
   );
 }
