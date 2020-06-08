@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 
-const requestReducer = (state = [], action) => {
+const eventReducer = (state = [], action) => {
   switch (action.type) {
-    case "SET_REQUESTS":
+    case "SET_EVENT":
       return action.payload;
     default:
       return state;
@@ -19,6 +19,6 @@ const detailsReducer = (state = {}, action) => {
 };
 
 export default combineReducers({
-  requestReducer,
+  eventReducer,
   detailsReducer,
 });

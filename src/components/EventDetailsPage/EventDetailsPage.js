@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
@@ -14,14 +14,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 // import Select from "react-select";
 // const users = this.props.store.allUser;
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
   },
   pos: {
     marginBottom: 12,
   },
-});
+}));
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -29,6 +29,12 @@ const styles = (theme) => ({
 // component.
 function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const classes = useStyles();
+
+  useEffect(() => {
+    console.log(props);
+    props.dispatch({ type: "GET_EVENT", id: props.store.event.detailsReducer });
+  });
 
   // assign = (selectedOption) => {
   //   let submission = {
@@ -40,8 +46,6 @@ function EventDetailsPage(props) {
   //     payload: submission,
   //   });
   // };
-
-  const classes = styles();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -60,14 +64,12 @@ function EventDetailsPage(props) {
   };
 
   const id = Number(props.match.params.id);
-  const filteredRequest = props.store.request.requestReducer.filter(
-    (request) => {
-      return request.id === id;
-    }
-  );
+  const filteredEvent = props.store.event.eventReducer.filter((request) => {
+    return request.id === id;
+  });
   return (
     <div>
-      {filteredRequest.map((details) => {
+      {filteredEvent.map((details) => {
         return (
           <div>
             <CssBaseline>
@@ -176,4 +178,4 @@ function EventDetailsPage(props) {
   );
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(EventDetailsPage));
+export default connect(mapStoreToProps)(EventDetailsPage);
