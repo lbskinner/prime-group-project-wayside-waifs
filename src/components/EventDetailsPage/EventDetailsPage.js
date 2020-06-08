@@ -27,7 +27,7 @@ const styles = (theme) => ({
 // value setup. When making a new component be sure to replace
 // the component name TemplateClass with the name for the new
 // component.
-function EventDetailsPage() {
+function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   // assign = (selectedOption) => {
@@ -59,15 +59,15 @@ function EventDetailsPage() {
     setAnchorEl(event.currentTarget);
   };
 
-  const id = Number(this.props.match.params.id);
-  const filteredResource = this.props.store.resources.resourceReducer.filter(
-    (resources) => {
-      return resources.id === id;
+  const id = Number(props.match.params.id);
+  const filteredRequest = props.store.request.requestReducer.filter(
+    (request) => {
+      return request.id === id;
     }
   );
   return (
     <div>
-      {filteredResource.map((details) => {
+      {filteredRequest.map((details) => {
         return (
           <div>
             <CssBaseline>
