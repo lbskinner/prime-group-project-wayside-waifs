@@ -27,6 +27,14 @@ const styles = (theme) => ({
     paddingTop: 10,
     paddingBottom: 10,
   },
+  paperTransparent: {
+    width: "70%",
+    minWidth: 720,
+    margin: "15px auto",
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: "#fff0",
+  },
   padding: {
     padding: "8px 20px",
   },
@@ -370,7 +378,7 @@ class RequestForm extends Component {
             </FormControl>
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }} elevation={0}>
+        <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
           <Grid container justify="flex-end">
             <Button
               variant="contained"
