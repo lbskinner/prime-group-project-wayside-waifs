@@ -38,11 +38,11 @@ const Nav = (props) => {
 
         <div className="nav-right">
           {/* if the url is not the request page, show the request event link */}
-          {location.pathname !== "/request" && (
-            <Link className="nav-link" to="/request">
-              Request Event
-            </Link>
-          )}
+          {/* {location.pathname !== "/request" && ( */}
+          <Link className="nav-link" to="/request">
+            Request Event
+          </Link>
+          {/* )} */}
           {/* Show the link to the events page, report page and the logout button if the user is logged in */}
           {props.store.user.id ? (
             <>

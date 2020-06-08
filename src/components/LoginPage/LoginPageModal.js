@@ -22,7 +22,7 @@ class LoginPageModal extends Component {
         },
       });
       // this.props.handleCloseModal();
-      this.props.history.push("/event");
+      // this.props.history.push("/event");
     } else {
       this.props.dispatch({ type: "LOGIN_INPUT_ERROR" });
     }
@@ -37,11 +37,12 @@ class LoginPageModal extends Component {
   render() {
     if (this.props.store.user.id) {
       this.props.handleCloseModal();
+      this.props.history.push("/event");
     }
     return (
       <div>
         <form onSubmit={this.login}>
-          <h1>Login</h1>
+          <h1 className="center-login">Login</h1>
           {this.props.store.errors.loginMessage ? (
             <p className="alert" role="alert">
               {this.props.store.errors.loginMessage}
@@ -49,12 +50,9 @@ class LoginPageModal extends Component {
           ) : (
             <p>&nbsp;</p>
           )}
+
           <div>
-            {/* <label htmlFor="username">Username:</label>
-            <br /> */}
             <TextField
-              // type="text"
-              // name="username"
               value={this.state.username}
               onChange={this.handleInputChangeFor("username")}
               variant="outlined"
@@ -65,11 +63,8 @@ class LoginPageModal extends Component {
           </div>
           <br />
           <div>
-            {/* <label htmlFor="password">
-              Password:></label> */}
             <TextField
               type="password"
-              // name="password"
               value={this.state.password}
               onChange={this.handleInputChangeFor("password")}
               variant="outlined"
@@ -86,6 +81,8 @@ class LoginPageModal extends Component {
               name="submit"
               variant="contained"
               color="secondary"
+              fullWidth
+              size="large"
             >
               Log In
             </Button>

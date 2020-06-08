@@ -12,12 +12,13 @@ import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import mapStoreToProps from "../../redux/mapStoreToProps";
 
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
-import LoginPage from "../LoginPage/LoginPage";
+// import LoginPage from "../LoginPage/LoginPage";
 // import LoginPage from "../LoginPage/LoginPageModal";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import ReportPage from "../ReportPage/ReportPage";
@@ -51,14 +52,14 @@ class App extends Component {
             <Nav />
             <Switch>
               {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-              <Redirect exact from="/" to="/home" />
+              <Redirect exact from="/" to="/request" />
               {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
               <Route exact path="/about" component={AboutPage} />
-              <Route exact path="/home" component={RequestForm} />
+              {/* <Route exact path="/home" component={RequestForm} /> */}
               <Route exact path="/request" component={RequestForm} />
-              {/* <Route exact path="/eventDetails" component={EventDetailsPage} /> */}
-              <Route exact path="/login" component={LoginPage} />
+              {/* login page not used */}
+              {/* <Route exact path="/login" component={LoginPage} /> */}
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -102,4 +103,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default connect(mapStoreToProps)(App);

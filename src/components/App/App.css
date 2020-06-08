@@ -6,7 +6,9 @@ body {
 }
 
 .alert {
-  background-color: #ff4545;
+  background-color: #ae003f;
+  text-align: center;
+  color: #fff;
   /* margin: 50px; */
 }
 
