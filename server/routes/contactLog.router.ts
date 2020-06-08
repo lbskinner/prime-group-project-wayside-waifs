@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import express from "express";
 import pool from "../modules/pool";
+import rejectUnauthenticated from "../modules/authentication-middleware";
 
 const router: express.Router = express.Router();
 
@@ -9,6 +10,7 @@ const router: express.Router = express.Router();
  */
 router.get(
   "/:id",
+  rejectUnauthenticated,
   (req: Request, res: Response, next: express.NextFunction): void => {
     const eventId = req.params.id;
     const queryText = `SELECT * FROM "contact_log" WHERE "event_id" = $1 ORDER BY "date_time" ASC;`;
@@ -29,6 +31,7 @@ router.get(
  */
 router.post(
   "/",
+  rejectUnauthenticated,
   (req: Request, res: Response, next: express.NextFunction): void => {
     const newLogData = req.body;
     const queryText = `INSERT INTO "contact_log" ("educator_id", "event_id", "notes") VALUES ($1, $2, $3);`;
