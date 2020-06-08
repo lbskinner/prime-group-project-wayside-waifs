@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import { withRouter } from "react-router-dom";
+import { TextField, Button } from "@material-ui/core";
 
 class LoginPageModal extends Component {
   state = {
@@ -44,34 +45,44 @@ class LoginPageModal extends Component {
             </p>
           )}
           <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor("username")}
-              />
-            </label>
+            {/* <label htmlFor="username">Username:</label>
+            <br /> */}
+            <TextField
+              // type="text"
+              // name="username"
+              value={this.state.username}
+              onChange={this.handleInputChangeFor("username")}
+              variant="outlined"
+              size="small"
+              label="Username"
+              className="login-input"
+            />
+          </div>
+
+          <div>
+            {/* <label htmlFor="password">
+              Password:></label> */}
+            <TextField
+              type="password"
+              // name="password"
+              value={this.state.password}
+              onChange={this.handleInputChangeFor("password")}
+              variant="outlined"
+              size="small"
+              label="Password"
+              className="login-input"
+            />
           </div>
           <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor("password")}
-              />
-            </label>
-          </div>
-          <div>
-            <input
+            <Button
               // className="log-in"
               type="submit"
               name="submit"
-              value="Log In"
-            />
+              variant="contained"
+              color="secondary"
+            >
+              Log In
+            </Button>
           </div>
         </form>
         {/* <center>

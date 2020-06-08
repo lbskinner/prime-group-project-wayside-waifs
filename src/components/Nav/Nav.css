@@ -66,3 +66,9 @@
   border: 2px solid #ae003f;
   padding: 10px;
 }
+
+.login-input {
+  width: 70%;
+  margin: auto;
+  margin: 10px 0;
+}
