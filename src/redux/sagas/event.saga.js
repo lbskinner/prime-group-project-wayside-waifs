@@ -49,11 +49,21 @@ function* saveRequest(action) {
   }
 }
 
+function* saveEventEdit(action) {
+  try {
+    // don't need the config since it does not require login to save events
+    yield axios.post("/api/event/edit", action.payload);
+  } catch (error) {
+    console.log("Save event edit failed", error);
+  }
+}
+
 function* eventSaga() {
   yield takeLatest("GET_EVENTS", getEvent);
   yield takeLatest("GET_EVENT_DETAILS", getEventDetails);
   yield takeLatest("ASSIGN_EVENT", assignEvent);
   yield takeLatest("SAVE_NEW_REQUEST", saveRequest);
+  yield takeLatest("SAVE_EVENT", saveEventEdit);
 }
 
 export default eventSaga;

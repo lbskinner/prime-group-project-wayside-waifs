@@ -25,6 +25,7 @@ import EventDetailsPage from "../EventDetailsPage/EventDetailsPage";
 
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"; // for custom theme
 import "./App.css";
+import EventDetailsEdit from "../EventDetailsPage/EventDetailsEdit/EventDetailsEdit";
 
 const theme = createMuiTheme({
   palette: {
@@ -86,6 +87,11 @@ class App extends Component {
                 exact
                 path="/details/:id"
                 component={EventDetailsPage}
+              />
+              <ProtectedRoute
+                exact
+                path="/edit/:id"
+                component={EventDetailsEdit}
               />
 
               {/* If none of the other routes matched, we will show a 404. */}

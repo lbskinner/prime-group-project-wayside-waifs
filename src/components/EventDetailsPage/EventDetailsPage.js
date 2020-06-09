@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 12,
   },
 }));
+
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
 // the component name TemplateClass with the name for the new
@@ -30,6 +31,10 @@ function EventDetailsPage(props) {
   // moved this up to use it in the payload for get event
   const id = Number(props.match.params.id);
   const dispatch = props.dispatch;
+
+  function editHandleClick(event) {
+    props.history.push(`/edit/${props.match.params.id}`);
+  }
   useEffect(() => {
     dispatch({ type: "GET_EVENT_DETAILS", payload: id });
   }, [id, dispatch]);
@@ -43,6 +48,7 @@ function EventDetailsPage(props) {
   //     payload: submission,
   //   });
   // };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -161,8 +167,7 @@ function EventDetailsPage(props) {
           options={users}
           className="selector_container"
         /> */}
-              <Button>Edit</Button>
-              <Button>Contacted</Button>
+              <Button onClick={editHandleClick}>Edit</Button>
             </CardActions>
           </Card>
         </CssBaseline>
