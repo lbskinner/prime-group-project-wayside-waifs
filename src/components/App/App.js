@@ -88,7 +88,7 @@ class App extends Component {
               <ProtectedRoute exact path="/event" component={EventPage} />
               <ProtectedRoute
                 exact
-                path="/details"
+                path="/details/:id"
                 component={EventDetailsPage}
               />
 
