@@ -3,6 +3,10 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 40px;
+  overflow: visible;
+  box-shadow: 0 -10px 20px rgb(0, 0, 0, 0.2);
+  border-bottom: 4px solid #fff;
 }
 
 .nav-title {
@@ -13,11 +17,20 @@
   padding-left: 10px;
 }
 
+.nav-container-logo {
+  width: 10.5rem;
+  display: inline-block;
+  position: relative;
+  height: 60px;
+  box-shadow: 0 -8px 10px rgb(0, 0, 0, 0.5);
+}
+
 .nav-logo {
-  padding-left: 10px;
-  padding-top: 3px;
-  height: 70px;
-  width: auto;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .img-container {
@@ -27,8 +40,8 @@
 .nav {
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
-  width: 70%;
+  max-width: 90%;
+  width: 920px;
   /* height: 30px; */
 }
 
@@ -38,7 +51,7 @@
   color: #dddeda;
   background-color: #ae003f;
   text-align: center;
-  padding: 5px 10px;
+  padding: 5px 5px;
   text-decoration: none;
   font-size: 15px;
 

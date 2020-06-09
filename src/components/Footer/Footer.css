@@ -1,11 +1,14 @@
 footer {
   margin-top: 42px;
-  background-color: #333333;
   width: 100%;
+  background: #333333 url("../../images/footer_background.jpg") repeat-x;
+  background-position: 0 -308px;
+  padding-top: 10px;
 }
 
 .footer-container {
-  width: 70%;
+  max-width: 90%;
+  width: 920px;
   line-height: 20px;
   text-align: center;
   margin: auto;

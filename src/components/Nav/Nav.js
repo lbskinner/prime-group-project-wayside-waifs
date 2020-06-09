@@ -34,6 +34,7 @@ const Nav = (props) => {
     <div className="nav-background">
       <div className="nav">
         <a
+          className="nav-container-logo"
           target="_black"
           href="https://secure.waysidewaifs.org/site/SPageServer/?pagename=Home_new"
         >

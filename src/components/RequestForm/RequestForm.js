@@ -22,15 +22,15 @@ import "./RequestForm.css";
 
 const styles = (theme) => ({
   root: {
-    width: "70%",
-    minWidth: 720,
+    maxWidth: "90%",
+    width: "920px",
     margin: "15px auto",
     paddingTop: 10,
     paddingBottom: 10,
   },
   paperTransparent: {
-    width: "70%",
-    minWidth: 720,
+    maxWidth: "90%",
+    width: "920px",
     margin: "15px auto",
     paddingTop: 5,
     paddingBottom: 5,
@@ -186,7 +186,7 @@ class RequestForm extends Component {
           <div className={classes.padding}>
             <Typography variant="h6">Contact Information*</Typography>
             <br />
-            <Grid container spacing={4}>
+            <Grid container spacing={3}>
               <Grid item>
                 <TextField
                   required
