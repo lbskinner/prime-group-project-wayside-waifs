@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
 import Select from "react-select";
 const moment = require("moment");
@@ -61,4 +62,4 @@ class AllEvent extends Component {
     );
   }
 }
-export default connect(mapStoreToProps)(AllEvent);
+export default withRouter(connect(mapStoreToProps)(AllEvent));

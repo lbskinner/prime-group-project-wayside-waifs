@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
 import Select from "react-select";
 const moment = require("moment");
@@ -28,14 +29,21 @@ class RequestedEvent extends Component {
 
   render() {
     const users = this.props.store.allUser;
+    // let userList = [];
 
-    console.log("In Requested: ", this.props.eventItem);
+    // for (let user of users) {
+    //   userList.push({
+    //     value: `${user.id}`,
+    //     label: `${user.first_name}, " ", ${user.last_name}`,
+    //   });
+    // }
     let background = { backgroundColor: "white" };
     if (this.props.eventItem.status === "Contacted") {
       background = { backgroundColor: "lightblue" };
     } else if (this.props.eventItem.status === "Scheduled") {
       background = { backgroundColor: "yellow" };
     }
+
     return (
       <div>
         {this.props.eventItem.status === "Received" && (
@@ -56,8 +64,9 @@ class RequestedEvent extends Component {
               </p>
               <p>Program Requested: {this.props.eventItem.program}</p>
             </div>
+
             <Select
-              value="Assign"
+              placeholder="Assign"
               onChange={this.assign}
               options={users}
               className="selector_container"
@@ -68,4 +77,4 @@ class RequestedEvent extends Component {
     );
   }
 }
-export default connect(mapStoreToProps)(RequestedEvent);
+export default withRouter(connect(mapStoreToProps)(RequestedEvent));
