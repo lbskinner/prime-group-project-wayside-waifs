@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 
-import RequestedEvent from "../EventPageComponent/RequestedEvent/RequestedEvent";
+// import RequestedEvent from "../EventPageComponent/RequestedEvent/RequestedEvent";
 import MyEvent from "../EventPageComponent/MyEvent/MyEvent";
 import AllEvent from "../EventPageComponent/AllEvent/AllEvent";
 
@@ -55,7 +55,7 @@ class EventPage extends Component {
           </h5>
         </div>
         <div>
-          {this.state.status === "Requested Events" && (
+          {/* {this.state.status === "Requested Events" && (
             <div>
               <div>IN REQUESTED EVENTS!</div>
               <div>
@@ -66,7 +66,7 @@ class EventPage extends Component {
                 })}
               </div>
             </div>
-          )}
+          )} */}
           {this.state.status === "My Events" && (
             <div>
               <div>IN MY EVENTS!</div>

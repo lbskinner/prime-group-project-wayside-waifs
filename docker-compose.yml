@@ -40,6 +40,7 @@ services:
       POSTGRES_PASSWORD: ${DOCKER_DB_PASS}
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_HOST: localhost
+      POSTGRES_HOST_AUTH_METHOD: trust
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/10-init.sql
       - ./database/data.sql:/docker-entrypoint-initdb.d/20-data.sql

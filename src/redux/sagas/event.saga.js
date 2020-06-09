@@ -12,13 +12,23 @@ function* getEvent() {
   }
 }
 
-function* getEventDetails() {
+function* getEventDetails(action) {
   try {
-    const response = yield axios.get("/api/event/eventDetails");
-
-    yield put({ type: "SET_EVENT_DETAILS", payload: response.data });
-  } catch (error) {
-    console.log("Event Details get request failed", error);
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    };
+    const response = yield axios.get(
+      `/api/event/details/${action.payload}`,
+      config
+    );
+    console.log(response);
+    yield put({
+      type: "SET_EVENT_DETAILS",
+      payload: response.data,
+    });
+  } catch (err) {
+    console.warn(err);
   }
 }
 
@@ -46,11 +56,21 @@ function* saveRequest(action) {
   }
 }
 
+function* saveEventEdit(action) {
+  try {
+    // don't need the config since it does not require login to save events
+    yield axios.post("/api/event/edit", action.payload);
+  } catch (error) {
+    console.log("Save event edit failed", error);
+  }
+}
+
 function* eventSaga() {
   yield takeLatest("GET_EVENTS", getEvent);
   yield takeLatest("GET_EVENT_DETAILS", getEventDetails);
   yield takeLatest("ASSIGN_EVENT", assignEvent);
   yield takeLatest("SAVE_NEW_REQUEST", saveRequest);
+  yield takeLatest("SAVE_EVENT", saveEventEdit);
 }
 
 export default eventSaga;
