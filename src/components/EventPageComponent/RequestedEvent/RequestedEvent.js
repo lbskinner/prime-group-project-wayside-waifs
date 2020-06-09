@@ -17,7 +17,7 @@ class RequestedEvent extends Component {
 
   assign = (selectedOption) => {
     let submission = {
-      user: selectedOption.value.id,
+      user: selectedOption.value,
       event: this.props.eventItem.id,
     };
 
@@ -29,14 +29,15 @@ class RequestedEvent extends Component {
 
   render() {
     const users = this.props.store.allUser;
-    // let userList = [];
-
-    // for (let user of users) {
-    //   userList.push({
-    //     value: `${user.id}`,
-    //     label: `${user.first_name}, " ", ${user.last_name}`,
-    //   });
-    // }
+    let userList = [];
+    if (this.props.store.allUser.length > 1) {
+      for (let user of users) {
+        userList.push({
+          value: `${user.id}`,
+          label: `${user.first_name}  ${user.last_name}`,
+        });
+      }
+    }
     let background = { backgroundColor: "white" };
     if (this.props.eventItem.status === "Contacted") {
       background = { backgroundColor: "lightblue" };
@@ -68,7 +69,7 @@ class RequestedEvent extends Component {
             <Select
               placeholder="Assign"
               onChange={this.assign}
-              options={users}
+              options={userList}
               className="selector_container"
             />
           </div>
