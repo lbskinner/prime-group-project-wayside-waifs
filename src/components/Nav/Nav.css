@@ -1,3 +1,10 @@
+.nav-background {
+  background-color: #ae003f;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .nav-title {
   font-size: 24px;
   font-weight: 700;
@@ -6,17 +13,32 @@
   padding-left: 10px;
 }
 
+.nav-logo {
+  padding-left: 10px;
+  padding-top: 3px;
+  height: 70px;
+  width: auto;
+}
+
+.img-container {
+  text-align: center;
+}
+
 .nav {
+  display: flex;
+  justify-content: space-between;
   overflow: hidden;
-  background-color: #00acb0;
+  width: 70%;
+  /* height: 30px; */
 }
 
 .nav-link {
-  float: left;
-  color: #f2f2f2;
-  background-color: #00acb0;
+  /* display: inline; */
+  /* float: left; */
+  color: #dddeda;
+  background-color: #ae003f;
   text-align: center;
-  padding: 24px 10px;
+  padding: 5px 10px;
   text-decoration: none;
   font-size: 15px;
 
@@ -28,9 +50,34 @@
 }
 
 .nav-link:hover {
-  background-color: #008183;
+  /* background-color: #008183; */
+  color: #fff;
 }
 
 .nav-right {
-  float: right;
+  /* float: right; */
+  display: flex;
+  /* justify-content: flex-end; */
+  align-self: flex-end;
+}
+
+.modalContent {
+  width: 450px;
+  height: 310px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  background-color: #fff;
+  border: 2px solid #ae003f;
+  padding: 10px 20px;
+}
+
+.login-input {
+  width: 100%;
+  margin: 10px 20px;
+}
+
+.center-login {
+  text-align: center;
 }

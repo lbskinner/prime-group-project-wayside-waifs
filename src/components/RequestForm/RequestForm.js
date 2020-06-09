@@ -28,6 +28,14 @@ const styles = (theme) => ({
     paddingTop: 10,
     paddingBottom: 10,
   },
+  paperTransparent: {
+    width: "70%",
+    minWidth: 720,
+    margin: "15px auto",
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: "#fff0",
+  },
   padding: {
     padding: "8px 20px",
   },
@@ -176,7 +184,7 @@ class RequestForm extends Component {
         </Paper>
         <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
-            <Typography variant="h6">Contact Information</Typography>
+            <Typography variant="h6">Contact Information*</Typography>
             <br />
             <Grid container spacing={4}>
               <Grid item>
@@ -228,12 +236,9 @@ class RequestForm extends Component {
         </Paper>
         <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
-            <Typography variant="h6">
-              School or Organization Name<sup>*</sup>
-            </Typography>
+            <Typography variant="h6">School or Organization Name*</Typography>
             <br />
             <TextField
-              required
               variant="outlined"
               fullWidth
               value={this.state.organization}
@@ -243,7 +248,7 @@ class RequestForm extends Component {
         </Paper>
         <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
-            <Typography variant="h6">Estimated Number of Students</Typography>
+            <Typography variant="h6">Estimated Number of Students*</Typography>
             <br />
             <TextField
               variant="outlined"
@@ -255,7 +260,7 @@ class RequestForm extends Component {
         <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">
-              Please indicate the grade level and age of students
+              Please indicate the grade level and age of students*
             </Typography>
             <br />
             <TextField
@@ -267,7 +272,7 @@ class RequestForm extends Component {
         </Paper>
         <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
-            <Typography variant="h6">Number of Adult Sponsors</Typography>
+            <Typography variant="h6">Number of Adult Sponsors*</Typography>
             <br />
             <TextField
               variant="outlined"
@@ -279,7 +284,7 @@ class RequestForm extends Component {
         <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <Typography variant="h6">
-              Which Program are you interested in?
+              Which Program are you interested in?*
             </Typography>
             <br />
             <FormControl
@@ -324,7 +329,7 @@ class RequestForm extends Component {
         </Paper>
         <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
-            <Typography variant="h6">Preferred location of Program</Typography>
+            <Typography variant="h6">Preferred location of Program*</Typography>
             <br />
             <FormControl
               variant="outlined"
@@ -364,7 +369,7 @@ class RequestForm extends Component {
         </Paper>
         <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
-            <Typography variant="h6">Preferred date of program</Typography>
+            <Typography variant="h6">Preferred date of program*</Typography>
             <Typography>
               * Because weekends are our busiest days for adoptions, educational
               programs are typically held Monday-Friday.
@@ -375,7 +380,7 @@ class RequestForm extends Component {
               onChange={this.handleDateChange}
               minDate={new Date()}
             />
-            <Typography variant="h6">Time of day preferred</Typography>
+            <Typography variant="h6">Time of day preferred*</Typography>
             <br />
             <FormControl
               variant="outlined"
@@ -395,7 +400,8 @@ class RequestForm extends Component {
             </FormControl>
           </div>
         </Paper>
-        <Paper classes={{ root: classes.root }} elevation={0}>
+
+        <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
           <Grid container direction="column" alignItems="flex-end">
             {this.state.recaptchaErrorMessage && (
               <Typography color="secondary">
@@ -409,7 +415,8 @@ class RequestForm extends Component {
             />
           </Grid>
         </Paper>
-        <Paper classes={{ root: classes.root }} elevation={0}>
+
+        <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
           <Grid container justify="flex-end">
             <Button
               variant="contained"
