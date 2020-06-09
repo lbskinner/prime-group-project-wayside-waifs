@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
@@ -7,13 +7,20 @@ import "./Nav.css";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import logoImage from "../../images/nav_logo3.png";
 import LoginPageModal from "../LoginPage/LoginPageModal";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const Nav = (props) => {
   // check the current url which is on location.pathname
-  let location = useLocation();
+  // let location = useLocation();
 
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    if (props.store.user.id) {
+      handleClose();
+      // props.history.push("/event");
+    }
+  });
 
   const handleOpen = () => {
     setOpen(true);

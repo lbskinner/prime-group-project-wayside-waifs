@@ -32,8 +32,8 @@ const styles = (theme) => ({
     width: "70%",
     minWidth: 720,
     margin: "15px auto",
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
     backgroundColor: "#fff0",
   },
   padding: {
@@ -403,10 +403,12 @@ class RequestForm extends Component {
 
         <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
           <Grid container direction="column" alignItems="flex-end">
-            {this.state.recaptchaErrorMessage && (
+            {this.state.recaptchaErrorMessage ? (
               <Typography color="secondary">
                 {this.state.recaptchaErrorMessage}
               </Typography>
+            ) : (
+              <Typography>&nbsp;</Typography>
             )}
             <ReCAPTCHA
               sitekey={process.env.REACT_APP_RECAPTCHA}
@@ -417,7 +419,7 @@ class RequestForm extends Component {
         </Paper>
 
         <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
-          <Grid container justify="flex-end">
+          <Grid container justify="flex-end" alignItems="center">
             <Button
               variant="contained"
               color="secondary"
