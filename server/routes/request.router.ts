@@ -18,11 +18,11 @@ router.get(
 router.post(
   "/new",
   (req: Request, res: Response, next: express.NextFunction): void => {
-    const queryText: string = `INSERT INTO event ("request_date", "status", "organization", "program", "program_date", "time_of_day", "student_number", "grade_level", "adult_sponsors", "location", "contact_first_name", "contact_last_name", "contact_email", "contact_phone_number", "educator_id", "volunteer_id")
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`;
+    console.log(req.body);
+    const queryText: string = `INSERT INTO event ("status", "organization", "program", "program_date", "time_of_day", "student_number", "grade_level", "adult_sponsors", "location", "contact_first_name", "contact_last_name", "contact_email", "contact_phone_number")
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`;
     pool
       .query(queryText, [
-        req.body.request_date,
         req.body.status,
         req.body.organization,
         req.body.program,
@@ -36,8 +36,6 @@ router.post(
         req.body.contact_last_name,
         req.body.contact_email,
         req.body.contact_phone_number,
-        req.body.educator_id,
-        req.body.volunteer_id,
       ])
       .then(() => res.sendStatus(201))
       .catch((err) => {

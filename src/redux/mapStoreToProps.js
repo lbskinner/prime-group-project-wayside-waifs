@@ -8,7 +8,7 @@ const mapStoreToProps = (reduxState) => {
     user: reduxState.user,
     loginMode: reduxState.loginMode,
     errors: reduxState.errors,
-    request: reduxState.requests,
+    event: reduxState.event,
   };
 };
 

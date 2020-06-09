@@ -64,6 +64,7 @@ services:
     volumes:
       - "./server:/app-server/server"
       - "./server/dist:/app-server/dist"
+      - "./public:/app-server/public"
       - "./package.json:/app-server/package.json"
     depends_on:
       - database

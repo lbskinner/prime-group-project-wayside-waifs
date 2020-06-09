@@ -30,11 +30,12 @@ const useStyles = makeStyles((theme) => ({
 function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
-
+  // moved this up to use it in the payload for get event
+  const id = Number(props.match.params.id);
+  const dispatch = props.dispatch;
   useEffect(() => {
-    console.log(props);
-    props.dispatch({ type: "GET_EVENT", id: props.store.event.detailsReducer });
-  });
+    dispatch({ type: "GET_EVENT_DETAILS", payload: id });
+  }, [id, dispatch]);
 
   // assign = (selectedOption) => {
   //   let submission = {
@@ -63,7 +64,6 @@ function EventDetailsPage(props) {
     setAnchorEl(event.currentTarget);
   };
 
-  const id = Number(props.match.params.id);
   const filteredEvent = props.store.event.eventReducer.filter((request) => {
     return request.id === id;
   });
@@ -118,7 +118,12 @@ function EventDetailsPage(props) {
               </div>
               <Card className={classes.root}>
                 <CardContent>
-                  <Typography variant="h4" color="textSecondary" gutterBottom>
+                  <Typography
+                    variant="h4"
+                    color="textSecondary"
+                    gutterBottom
+                    key={details.id}
+                  >
                     Event Details:
                   </Typography>
                   <Typography className={classes.pos}>
