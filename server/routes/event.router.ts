@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import express from "express";
 import pool from "../modules/pool";
+import rejectUnauthenticated from "../modules/authentication-middleware";
 
 const router: express.Router = express.Router();
 
@@ -9,6 +10,9 @@ const router: express.Router = express.Router();
  */
 router.get(
   "/details/:id",
+
+  rejectUnauthenticated,
+
   (req: Request, res: Response, next: express.NextFunction): void => {
     const eventId = req.params.id;
     const queryText = `SELECT * FROM "event" WHERE "id" = $1;`;
@@ -29,6 +33,9 @@ router.get(
  */
 router.put(
   "/details/edit",
+
+  rejectUnauthenticated,
+
   (req: Request, res: Response, next: express.NextFunction): void => {
     const updatedEventData = req.body;
     const queryText = `Update "event" SET "organization" = $1, "program" = $2, "program_date" = $3, "time_of_day" = $4, 
@@ -63,6 +70,9 @@ router.put(
  */
 router.put(
   "/details/status",
+
+  rejectUnauthenticated,
+
   (req: Request, res: Response, next: express.NextFunction): void => {
     const updatedEventStatus = req.body;
     const queryText = `Update "event" SET "status" = $1 WHERE "id" = $2;`;
@@ -81,6 +91,9 @@ router.put(
  */
 router.put(
   "/details/educator",
+
+  rejectUnauthenticated,
+
   (req: Request, res: Response, next: express.NextFunction): void => {
     const updatedEventStatus = req.body;
     const queryText = `Update "event" SET "educator_id" = $1 WHERE "id" = $2;`;
@@ -89,9 +102,39 @@ router.put(
       .then(() => res.sendStatus(200))
       .catch((error) => {
         console.log("Put Event Educator Error: ", error);
+
       });
   }
 );
+
+        res.sendStatus(500);
+      });
+  }
+);
+
+/**
+ * PUT route, update volunteer
+ */
+router.put(
+  "/details/volunteer",
+  rejectUnauthenticated,
+  (req: Request, res: Response, next: express.NextFunction): void => {
+    const updatedEventStatus = req.body;
+    const queryText = `Update "event" SET "volunteer_id" = $1 WHERE "id" = $2;`;
+    pool
+      .query(queryText, [
+        updatedEventStatus.volunteer_id,
+        updatedEventStatus.id,
+      ])
+      .then(() => res.sendStatus(200))
+      .catch((error) => {
+        console.log("Put Event Educator Error: ", error);
+        res.sendStatus(500);
+      });
+  }
+);
+
+
 //GET route for EVENT
 
 router.get(
@@ -111,6 +154,7 @@ router.get(
       });
   }
 );
+
 
 /**
  * PUT route, update volunteer
@@ -132,6 +176,7 @@ router.put(
       });
   }
 );
+
 router.post(
   "/",
   (req: Request, res: Response, next: express.NextFunction): void => {
@@ -141,7 +186,7 @@ router.post(
 
 // PUT ROUTE
 router.put("/assign", (req: Request, res: Response): void => {
-  const queryText: string = `UPDATE "event" SET "educator_user_id" = $1 WHERE "id" = $2;`;
+  const queryText: string = `UPDATE "event" SET "educator_id" = $1 WHERE "id" = $2;`;
 
   pool
     .query(queryText, [req.body.user, req.body.event])

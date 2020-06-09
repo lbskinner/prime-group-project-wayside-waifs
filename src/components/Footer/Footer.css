@@ -1,3 +1,22 @@
 footer {
-    margin-top: 80px;
+  margin-top: 42px;
+  width: 100%;
+  background: #333333 url("../../images/footer_background.jpg") repeat-x;
+  background-position: 0 -308px;
+  padding-top: 10px;
+}
+
+.footer-container {
+  max-width: 90%;
+  width: 920px;
+  line-height: 20px;
+  text-align: center;
+  margin: auto;
+}
+
+.footer-text {
+  color: #fff;
+  font-size: 12px;
+  text-align: left;
+  margin: 5px 5px 2px 7px;
 }
