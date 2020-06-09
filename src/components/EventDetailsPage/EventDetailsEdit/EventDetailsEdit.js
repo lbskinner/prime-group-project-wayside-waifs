@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 class EventDetailsEdit extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      request_date: "",
+      request_date: this.props.store.event.detailsReducer.request_date,
       program: "",
       program_date: "",
       time_of_day: "",
@@ -112,58 +113,60 @@ class EventDetailsEdit extends Component {
 
   render() {
     return (
-      <div className="bg-img-edit">
-        <h3 className="edit-head">Edit This Event</h3>
+      <CssBaseline>
+        <div className="bg-img-edit">
+          <h3 className="edit-head">Edit This Event</h3>
 
-        <br />
-        <div align="center">
-          <input
-            className="input-field"
-            placeholder="Insert New Name"
-            onChange={this.changeDetails("name")}
-            type="text"
-          />
-        </div>
-        <div align="center">
-          <input
-            className="input-field"
-            placeholder="Insert New Hours"
-            onChange={this.changeDetails("hours")}
-            type="text"
-          />
-        </div>
-        <div align="center">
-          <input
-            className="input-field"
-            placeholder="Insert New Number"
-            onChange={this.changeDetails("number")}
-            type="text"
-          />
-        </div>
-        <div align="center">
-          <input
-            className="input-field"
-            placeholder="Insert New Address"
-            onChange={this.changeDetails("address")}
-            type="text"
-          />
-        </div>
-        <div align="center">
-          <input
-            className="input-field"
-            placeholder="Insert New Information"
-            onChange={this.changeDetails("information")}
-            type="text"
-          />
-        </div>
-        <br />
+          <br />
+          <div align="center">
+            <input
+              className="input-field"
+              placeholder={this.state.request_date}
+              onChange={this.changeDetails("name")}
+              type="text"
+            />
+          </div>
+          <div align="center">
+            <input
+              className="input-field"
+              placeholder="Insert New Hours"
+              onChange={this.changeDetails("hours")}
+              type="text"
+            />
+          </div>
+          <div align="center">
+            <input
+              className="input-field"
+              placeholder="Insert New Number"
+              onChange={this.changeDetails("number")}
+              type="text"
+            />
+          </div>
+          <div align="center">
+            <input
+              className="input-field"
+              placeholder="Insert New Address"
+              onChange={this.changeDetails("address")}
+              type="text"
+            />
+          </div>
+          <div align="center">
+            <input
+              className="input-field"
+              placeholder="Insert New Information"
+              onChange={this.changeDetails("information")}
+              type="text"
+            />
+          </div>
+          <br />
 
-        <div>
-          <button className="saveBtn" onClick={this.clickSaveDetails}>
-            Save
-          </button>
+          <div>
+            <button className="saveBtn" onClick={this.clickSaveDetails}>
+              Save
+            </button>
+          </div>
         </div>
-      </div>
+      </CssBaseline>
     );
   }
 }
