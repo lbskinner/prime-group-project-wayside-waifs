@@ -10,6 +10,7 @@ const mapStoreToProps = (reduxState) => {
     errors: reduxState.errors,
     event: reduxState.event,
     allUser: reduxState.allUser,
+    report: reduxState.report,
   };
 };
 

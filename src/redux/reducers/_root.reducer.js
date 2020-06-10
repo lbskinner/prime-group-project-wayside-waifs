@@ -5,6 +5,7 @@ import user from "./user.reducer";
 import event from "./event.reducer";
 import contact from "./contactLog.reducer";
 import allUser from "./allUser.reducer";
+import report from "./report.reducer";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   event, // will have all event data
   contact, // will have contact log data
   allUser, // will have all user list
+  report, // for reporting events
 });
 
 export default rootReducer;

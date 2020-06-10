@@ -60,26 +60,31 @@ class ReportPage extends Component {
       alert("Please enter a start date");
       return;
     }
+    if (date < this.state.startDate) {
+      alert("Please enter an end date greater than start date!");
+      return;
+    }
     this.setState(
       {
         ...this.state,
         endDate: date,
       },
       () => {
-        if (this.state.endDate < this.state.startDate) {
-          alert("Please enter an end date greater than start date!");
-          this.setState({
-            ...this.state,
-            endDate: "",
-          });
-        }
         console.log(this.state);
       }
     );
   };
 
+  generateReport = (event) => {
+    const dateRange = {
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+    };
+    this.props.dispatch({ type: "GET_REPORTING_EVENT", payload: dateRange });
+  };
+
   render() {
-    const eventDataArray = this.props.event.map((item, index) => {
+    const eventDataArray = this.props.report.map((item, index) => {
       return (
         <tr key={index}>
           <td>{item.program}</td>
@@ -87,7 +92,7 @@ class ReportPage extends Component {
           <td>{item.time_of_day}</td>
           <td>{item.organization}</td>
           <td>{item.student_number}</td>
-          <td>{item.adult_sponsors}n</td>
+          <td>{item.adult_sponsors}</td>
           <td>{item.grade_level}</td>
           <td>
             {item.contact_first_name} {item.contact_last_name}
@@ -224,6 +229,17 @@ class ReportPage extends Component {
               </FormControl>
             )}
           </div>
+        </div>
+
+        <div>
+          <Button
+            size="large"
+            variant="contained"
+            color="secondary"
+            onClick={this.generateReport}
+          >
+            Generate Report
+          </Button>
         </div>
 
         <div>

@@ -1,19 +1,21 @@
 import { Request, Response } from "express";
 import express from "express";
 import pool from "../modules/pool";
+import rejectUnauthenticated from "../modules/authentication-middleware";
 
 const router: express.Router = express.Router();
 
 /**
- * GET route template
+ * Using post route to get the event in date range
  */
-router.get(
+router.post(
   "/",
   (req: Request, res: Response, next: express.NextFunction): void => {
-    const queryText = `SELECT * FROM "event" ORDER BY "program_date" DESC LIMIT 4;`;
+    console.log(req.body);
+    const queryText: string = `SELECT * FROM "event" WHERE "program_date" >= $1 AND "program_date" <= $2 ORDER BY "program_date" ASC;`;
 
     pool
-      .query(queryText)
+      .query(queryText, [req.body.startDate, req.body.endDate])
       .then((responseDb) => {
         res.send(responseDb.rows);
       })
@@ -27,11 +29,11 @@ router.get(
 /**
  * POST route template
  */
-router.post(
-  "/",
-  (req: Request, res: Response, next: express.NextFunction): void => {
-    res.sendStatus(201);
-  }
-);
+// router.post(
+//   "/",
+//   (req: Request, res: Response, next: express.NextFunction): void => {
+//     res.sendStatus(201);
+//   }
+// );
 
 export default router;
