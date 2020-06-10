@@ -112,9 +112,9 @@ class ReportPage extends Component {
           case "Status":
             this.handleStatusOptions(this.state.statusSelection);
             break;
-          // case "Location":
-          // this.handleLocationOptions(this.state.locationSelection);
-          // break;
+          case "Location":
+            this.handleLocationOptions(this.state.locationSelection);
+            break;
           default:
             return;
         }
@@ -124,8 +124,8 @@ class ReportPage extends Component {
       });
   };
 
-  handleProgramOptions(programName) {
-    if (programName === "All") {
+  handleProgramOptions(program) {
+    if (program === "All") {
       this.setState({
         reportArray: [...this.state.allEventsInDateRange],
       });
@@ -133,7 +133,7 @@ class ReportPage extends Component {
     }
     const filteredReportArray = this.state.allEventsInDateRange.filter(
       (event) => {
-        return event.program === programName;
+        return event.program === program;
       }
     );
     this.setState({
@@ -158,8 +158,8 @@ class ReportPage extends Component {
     });
   }
 
-  handleStatusOptions(statusName) {
-    if (statusName === "All") {
+  handleStatusOptions(status) {
+    if (status === "All") {
       this.setState({
         reportArray: [...this.state.allEventsInDateRange],
       });
@@ -167,9 +167,31 @@ class ReportPage extends Component {
     }
     const filteredReportArray = this.state.allEventsInDateRange.filter(
       (event) => {
-        return event.status === statusName;
+        return event.status === status;
       }
     );
+    this.setState({
+      reportArray: [...filteredReportArray],
+    });
+  }
+
+  handleLocationOptions(location) {
+    if (location === "All") {
+      this.setState({
+        reportArray: [...this.state.allEventsInDateRange],
+      });
+      return;
+    }
+    let filteredReportArray = [];
+    if (location === "on_site") {
+      filteredReportArray = this.state.allEventsInDateRange.filter((event) => {
+        return event.location === "on_site";
+      });
+    } else {
+      filteredReportArray = this.state.allEventsInDateRange.filter((event) => {
+        return event.location !== "on_site";
+      });
+    }
     this.setState({
       reportArray: [...filteredReportArray],
     });
@@ -330,8 +352,8 @@ class ReportPage extends Component {
                   }
                 >
                   <MenuItem value="All">All Locations</MenuItem>
-                  <MenuItem value="onSite">Wayside Waifs</MenuItem>
-                  <MenuItem value="offSite">Off Site</MenuItem>
+                  <MenuItem value="on_site">Wayside Waifs</MenuItem>
+                  <MenuItem value="off_site">Other</MenuItem>
                 </Select>
               </FormControl>
             )}
