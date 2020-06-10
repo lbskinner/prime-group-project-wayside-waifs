@@ -52,10 +52,10 @@ class ReportPage extends Component {
     });
   };
 
-  handelProgramOptionsChange = (event) => {
+  handelSelectionOptionsChange = (event, propertyKey) => {
     this.setState({
       ...this.state,
-      programSelection: event.target.value,
+      [propertyKey]: event.target.value,
     });
   };
 
@@ -75,15 +75,10 @@ class ReportPage extends Component {
       alert("Please enter an end date greater than start date!");
       return;
     }
-    this.setState(
-      {
-        ...this.state,
-        endDate: date,
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
+    this.setState({
+      ...this.state,
+      endDate: date,
+    });
   };
 
   generateReport = (event) => {
@@ -99,13 +94,27 @@ class ReportPage extends Component {
     axios
       .post("/api/report", dateRange, config)
       .then((response) => {
-        this.setState({
-          allEventsInDateRange: response.data,
-        });
+        this.setState(
+          {
+            allEventsInDateRange: response.data,
+          },
+          () => {
+            console.log(this.state);
+          }
+        );
         switch (this.state.filterOption) {
           case "Program":
             this.handleProgramOptions(this.state.programSelection);
             break;
+          case "User":
+            this.handleUserOptions(this.state.userSelection);
+            break;
+          // case "Status":
+          // this.handleStatusOptions(this.state.statusSelection);
+          // break;
+          // case "Location":
+          // this.handleLocationOptions(this.state.locationSelection);
+          // break;
           default:
             return;
         }
@@ -114,22 +123,6 @@ class ReportPage extends Component {
         console.log("Get events for report request failed", error);
       });
   };
-  //   this.props.dispatch({ type: "GET_REPORTING_EVENT", payload: dateRange });
-  //   if (this.state.filterOption === "Program") {
-  //     if (this.state.programSelection === "All") {
-  //       this.setState(
-  //         {
-  //           reportArray: [...this.props.report],
-  //         },
-  //         () => {
-  //           console.log(this.state.reportArray);
-  //         }
-  //       );
-  //       return;
-  //     }
-  //     this.handleProgramOptions(this.state.programSelection);
-  //   }
-  // };
 
   handleProgramOptions(programName) {
     if (programName === "All") {
@@ -143,8 +136,23 @@ class ReportPage extends Component {
         return event.program === programName;
       }
     );
-    console.log(filteredReportArray);
+    this.setState({
+      reportArray: [...filteredReportArray],
+    });
+  }
 
+  handleUserOptions(userId) {
+    if (userId === "All") {
+      this.setState({
+        reportArray: [...this.state.allEventsInDateRange],
+      });
+      return;
+    }
+    const filteredReportArray = this.state.allEventsInDateRange.filter(
+      (event) => {
+        return event.educator_id === userId;
+      }
+    );
     this.setState({
       reportArray: [...filteredReportArray],
     });
@@ -164,7 +172,10 @@ class ReportPage extends Component {
           <td>
             {item.contact_first_name} {item.contact_last_name}
           </td>
-          <td>{item.educator_id}</td>
+          <td>{item.contact_email}</td>
+          <td>
+            {item.first_name} {item.last_name}
+          </td>
           <td>{item.location}</td>
         </tr>
       );
@@ -233,7 +244,9 @@ class ReportPage extends Component {
               <FormControl variant="outlined">
                 <Select
                   value={this.state.programSelection}
-                  onChange={this.handelProgramOptionsChange}
+                  onChange={(event) =>
+                    this.handelSelectionOptionsChange(event, "programSelection")
+                  }
                 >
                   <MenuItem value="All">All Programs</MenuItem>
                   <MenuItem value="FIA">
@@ -260,7 +273,9 @@ class ReportPage extends Component {
               <FormControl variant="outlined">
                 <Select
                   value={this.state.userSelection}
-                  // onChange={this.handelFilterOptionChange}
+                  onChange={(event) =>
+                    this.handelSelectionOptionsChange(event, "userSelection")
+                  }
                 >
                   <MenuItem value="All">All Users</MenuItem>
                   {userArray}
@@ -271,7 +286,9 @@ class ReportPage extends Component {
               <FormControl variant="outlined">
                 <Select
                   value={this.state.statusSelection}
-                  // onChange={this.handelFilterOptionChange}
+                  onChange={(event) =>
+                    this.handelSelectionOptionsChange(event, "statusSelection")
+                  }
                 >
                   <MenuItem value="All">All Status</MenuItem>
                   <MenuItem value="Received">Request Received</MenuItem>
@@ -287,7 +304,12 @@ class ReportPage extends Component {
               <FormControl variant="outlined">
                 <Select
                   value={this.state.locationSelection}
-                  // onChange={this.handelFilterOptionChange}
+                  onChange={(event) =>
+                    this.handelSelectionOptionsChange(
+                      event,
+                      "locationSelection"
+                    )
+                  }
                 >
                   <MenuItem value="All">All Locations</MenuItem>
                   <MenuItem value="onSite">Wayside Waifs</MenuItem>

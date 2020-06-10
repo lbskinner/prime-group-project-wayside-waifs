@@ -12,7 +12,7 @@ router.post(
   "/",
   (req: Request, res: Response, next: express.NextFunction): void => {
     console.log(req.body);
-    const queryText: string = `SELECT * FROM "event" WHERE "program_date" >= $1 AND "program_date" <= $2 ORDER BY "program_date" ASC;`;
+    const queryText: string = `SELECT "event".*, "user".first_name, "user".last_name FROM "event" JOIN "user" ON "event".educator_id = "user".id WHERE "program_date" >= $1 AND "program_date" <= $2 ORDER BY "program_date" ASC;`;
 
     pool
       .query(queryText, [req.body.startDate, req.body.endDate])
