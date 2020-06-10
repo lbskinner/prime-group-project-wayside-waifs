@@ -26,6 +26,10 @@ class ReportPage extends Component {
     startDate: "",
     endDate: "",
     filterOption: "",
+    programSelection: "All",
+    userSelection: "All",
+    statusSelection: "All",
+    locationSelection: "All",
   };
 
   componentDidMount() {
@@ -149,14 +153,88 @@ class ReportPage extends Component {
 
           <div>
             <h3>Filter Options</h3>
-            <input type="radio" className="filter1"></input>
-            <label htmlFor="filter1">Filter 1</label>
-            <br />
-            <input type="radio" className="filter2"></input>
-            <label htmlFor="filter2">Filter 2</label>
-            <br />
-            <input type="radio" className="filter3"></input>
-            <label htmlFor="filter3">Filter 3</label>
+            {this.state.filterOption === "Program" && (
+              <FormControl variant="outlined">
+                <Select
+                  value={this.state.programSelection}
+                  // onChange={this.handelFilterOptionChange}
+                >
+                  <MenuItem value="All">All Programs</MenuItem>
+                  <MenuItem value="FIA">
+                    "Kindness in Action!" (formerly Families in Action)
+                  </MenuItem>
+                  <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
+                  <MenuItem value="DS">
+                    PAW-etiquette for Pooches & People: Dog Safety
+                  </MenuItem>
+                  <MenuItem value="AE">
+                    Activating Em-PAW-thy: Exploring Similarities between Pets
+                    and People
+                  </MenuItem>
+                  <MenuItem value="OUT">
+                    Once U-PAW-n a Time Reading Program
+                  </MenuItem>
+                  <MenuItem value="KIA">Kids-in-Action</MenuItem>
+                  <MenuItem value="ET">Educational Tours</MenuItem>
+                  <MenuItem value="other">Other</MenuItem>
+                </Select>
+              </FormControl>
+            )}
+            {this.state.filterOption === "User" && (
+              <FormControl variant="outlined">
+                <Select
+                  value={this.state.userSelection}
+                  // onChange={this.handelFilterOptionChange}
+                >
+                  <MenuItem value="All">All Programs</MenuItem>
+                  <MenuItem value="FIA">
+                    "Kindness in Action!" (formerly Families in Action)
+                  </MenuItem>
+                  <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
+                  <MenuItem value="DS">
+                    PAW-etiquette for Pooches & People: Dog Safety
+                  </MenuItem>
+                  <MenuItem value="AE">
+                    Activating Em-PAW-thy: Exploring Similarities between Pets
+                    and People
+                  </MenuItem>
+                  <MenuItem value="OUT">
+                    Once U-PAW-n a Time Reading Program
+                  </MenuItem>
+                  <MenuItem value="KIA">Kids-in-Action</MenuItem>
+                  <MenuItem value="ET">Educational Tours</MenuItem>
+                  <MenuItem value="other">Other</MenuItem>
+                </Select>
+              </FormControl>
+            )}
+            {this.state.filterOption === "Status" && (
+              <FormControl variant="outlined">
+                <Select
+                  value={this.state.statusSelection}
+                  // onChange={this.handelFilterOptionChange}
+                >
+                  <MenuItem value="All">All Status</MenuItem>
+                  <MenuItem value="Received">Request Received</MenuItem>
+                  <MenuItem value="Contacted">Contacted</MenuItem>
+                  <MenuItem value="Assigned">Assigned</MenuItem>
+                  <MenuItem value="Scheduled">Scheduled</MenuItem>
+                  <MenuItem value="Complete">Complete</MenuItem>
+                  <MenuItem value="Missed">Missed Connections</MenuItem>
+                </Select>
+              </FormControl>
+            )}
+            {this.state.filterOption === "Location" && (
+              <FormControl variant="outlined">
+                <Select
+                  value={this.state.locationSelection}
+                  // onChange={this.handelFilterOptionChange}
+                >
+                  <MenuItem value="All">All Locations</MenuItem>
+                  <MenuItem value="onSite">Wayside Waifs</MenuItem>
+                  <MenuItem value="offSite">Off Site</MenuItem>
+                </Select>
+              </FormControl>
+            )}
           </div>
         </div>
 
