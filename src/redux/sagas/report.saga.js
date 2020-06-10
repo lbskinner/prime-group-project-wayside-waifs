@@ -8,7 +8,6 @@ function* getReportingEvent(action) {
       withCredentials: true,
     };
     const response = yield axios.post("/api/report", action.payload, config);
-    console.log(response.data);
     yield put({ type: "SET_REPORTING_EVENT", payload: response.data });
   } catch (error) {
     console.log("Get events for report request failed", error);

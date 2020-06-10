@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import moment from "moment";
@@ -20,6 +21,7 @@ import Button from "@material-ui/core/Button";
 // value setup. When making a new component be sure to replace
 // the component name TemplateClass with the name for the new
 // component.
+
 class ReportPage extends Component {
   state = {
     heading: "Reports",
@@ -30,6 +32,8 @@ class ReportPage extends Component {
     userSelection: "All",
     statusSelection: "All",
     locationSelection: "All",
+    allEventsInDateRange: [],
+    reportArray: [],
   };
 
   componentDidMount() {
@@ -45,6 +49,13 @@ class ReportPage extends Component {
     this.setState({
       ...this.state,
       filterOption: event.target.value,
+    });
+  };
+
+  handelProgramOptionsChange = (event) => {
+    this.setState({
+      ...this.state,
+      programSelection: event.target.value,
     });
   };
 
@@ -80,11 +91,67 @@ class ReportPage extends Component {
       startDate: this.state.startDate,
       endDate: this.state.endDate,
     };
-    this.props.dispatch({ type: "GET_REPORTING_EVENT", payload: dateRange });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    };
+    axios
+      .post("/api/report", dateRange, config)
+      .then((response) => {
+        this.setState({
+          allEventsInDateRange: response.data,
+        });
+        switch (this.state.filterOption) {
+          case "Program":
+            this.handleProgramOptions(this.state.programSelection);
+            break;
+          default:
+            return;
+        }
+      })
+      .catch((error) => {
+        console.log("Get events for report request failed", error);
+      });
   };
+  //   this.props.dispatch({ type: "GET_REPORTING_EVENT", payload: dateRange });
+  //   if (this.state.filterOption === "Program") {
+  //     if (this.state.programSelection === "All") {
+  //       this.setState(
+  //         {
+  //           reportArray: [...this.props.report],
+  //         },
+  //         () => {
+  //           console.log(this.state.reportArray);
+  //         }
+  //       );
+  //       return;
+  //     }
+  //     this.handleProgramOptions(this.state.programSelection);
+  //   }
+  // };
+
+  handleProgramOptions(programName) {
+    if (programName === "All") {
+      this.setState({
+        reportArray: [...this.state.allEventsInDateRange],
+      });
+      return;
+    }
+    const filteredReportArray = this.state.allEventsInDateRange.filter(
+      (event) => {
+        return event.program === programName;
+      }
+    );
+    console.log(filteredReportArray);
+
+    this.setState({
+      reportArray: [...filteredReportArray],
+    });
+  }
 
   render() {
-    const eventDataArray = this.props.report.map((item, index) => {
+    const eventDataArray = this.state.reportArray.map((item, index) => {
       return (
         <tr key={index}>
           <td>{item.program}</td>
@@ -166,7 +233,7 @@ class ReportPage extends Component {
               <FormControl variant="outlined">
                 <Select
                   value={this.state.programSelection}
-                  // onChange={this.handelFilterOptionChange}
+                  onChange={this.handelProgramOptionsChange}
                 >
                   <MenuItem value="All">All Programs</MenuItem>
                   <MenuItem value="FIA">
