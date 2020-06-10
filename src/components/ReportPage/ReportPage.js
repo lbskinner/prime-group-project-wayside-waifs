@@ -4,8 +4,8 @@ import mapStoreToProps from "../../redux/mapStoreToProps";
 
 import "./ReportPage.css";
 
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -14,6 +14,8 @@ import "./ReportPage.css";
 class ReportPage extends Component {
   state = {
     heading: "Reports",
+    startDate: "",
+    endDate: "",
   };
 
   componentDidMount() {
@@ -21,6 +23,43 @@ class ReportPage extends Component {
       type: "GET_EVENTS",
     });
   }
+
+  handleStartDateChange = (date) => {
+    this.setState({
+      ...this.state,
+      startDate: date,
+    });
+  };
+
+  handleEndDateChange = (date) => {
+    if (!this.state.startDate) {
+      alert("Please enter a start date");
+      return;
+    }
+    this.setState(
+      {
+        ...this.state,
+        endDate: date,
+      },
+      () => {
+        if (this.state.endDate < this.state.startDate) {
+          alert("Please enter an end date greater than start date!");
+          this.setState({
+            ...this.state,
+            endDate: "",
+          });
+        }
+        console.log(this.state);
+      }
+    );
+  };
+
+  // compareDays = (startDate, endDate) => {
+  //   if (endDate < startDate) {
+  //     alert("Please enter an end date greater than start date!");
+  //     return;
+  //   }
+  // };
 
   render() {
     const eventDataArray = this.props.store.event.map((item, index) => {
@@ -56,6 +95,26 @@ class ReportPage extends Component {
         <div className="inputField">
           <div>
             <h3>Date Picker</h3>
+            <DatePicker
+              placeholderText="Select a start date"
+              selected={this.state.startDate}
+              onChange={(date) => this.handleStartDateChange(date)}
+              selectsStart
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}
+            />
+            <DatePicker
+              placeholderText="Select a end date"
+              selected={this.state.endDate}
+              onChange={(date) => this.handleEndDateChange(date)}
+              selectsEnd
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}
+              // minDate={this.compareDays(
+              //   this.state.startDate,
+              //   this.state.endDate
+              // )}
+            />
           </div>
 
           <div>
