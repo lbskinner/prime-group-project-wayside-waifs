@@ -36,6 +36,9 @@ class ReportPage extends Component {
     this.props.dispatch({
       type: "GET_EVENTS",
     });
+    this.props.dispatch({
+      type: "GET_ALL_USERS",
+    });
   }
 
   handelFilterOptionChange = (event) => {
@@ -75,15 +78,8 @@ class ReportPage extends Component {
     );
   };
 
-  // compareDays = (startDate, endDate) => {
-  //   if (endDate < startDate) {
-  //     alert("Please enter an end date greater than start date!");
-  //     return;
-  //   }
-  // };
-
   render() {
-    const eventDataArray = this.props.store.event.map((item, index) => {
+    const eventDataArray = this.props.event.map((item, index) => {
       return (
         <tr key={index}>
           <td>{item.program}</td>
@@ -99,6 +95,14 @@ class ReportPage extends Component {
           <td>{item.educator_id}</td>
           <td>{item.location}</td>
         </tr>
+      );
+    });
+
+    const userArray = this.props.allUser.map((user) => {
+      return (
+        <MenuItem key={user.id} value={user.id}>
+          {user.first_name} {user.last_name}
+        </MenuItem>
       );
     });
     return (
@@ -186,24 +190,8 @@ class ReportPage extends Component {
                   value={this.state.userSelection}
                   // onChange={this.handelFilterOptionChange}
                 >
-                  <MenuItem value="All">All Programs</MenuItem>
-                  <MenuItem value="FIA">
-                    "Kindness in Action!" (formerly Families in Action)
-                  </MenuItem>
-                  <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
-                  <MenuItem value="DS">
-                    PAW-etiquette for Pooches & People: Dog Safety
-                  </MenuItem>
-                  <MenuItem value="AE">
-                    Activating Em-PAW-thy: Exploring Similarities between Pets
-                    and People
-                  </MenuItem>
-                  <MenuItem value="OUT">
-                    Once U-PAW-n a Time Reading Program
-                  </MenuItem>
-                  <MenuItem value="KIA">Kids-in-Action</MenuItem>
-                  <MenuItem value="ET">Educational Tours</MenuItem>
-                  <MenuItem value="other">Other</MenuItem>
+                  <MenuItem value="All">All Users</MenuItem>
+                  {userArray}
                 </Select>
               </FormControl>
             )}
