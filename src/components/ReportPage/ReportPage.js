@@ -1,11 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
-
+import moment from "moment";
 import "./ReportPage.css";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Button from "@material-ui/core/Button";
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -16,6 +25,7 @@ class ReportPage extends Component {
     heading: "Reports",
     startDate: "",
     endDate: "",
+    filterOption: "",
   };
 
   componentDidMount() {
@@ -23,6 +33,13 @@ class ReportPage extends Component {
       type: "GET_EVENTS",
     });
   }
+
+  handelFilterOptionChange = (event) => {
+    this.setState({
+      ...this.state,
+      filterOption: event.target.value,
+    });
+  };
 
   handleStartDateChange = (date) => {
     this.setState({
@@ -94,7 +111,7 @@ class ReportPage extends Component {
 
         <div className="inputField">
           <div>
-            <h3>Date Picker</h3>
+            <h3>Select Date Range</h3>
             <DatePicker
               placeholderText="Select a start date"
               selected={this.state.startDate}
@@ -110,20 +127,24 @@ class ReportPage extends Component {
               selectsEnd
               startDate={this.state.startDate}
               endDate={this.state.endDate}
-              // minDate={this.compareDays(
-              //   this.state.startDate,
-              //   this.state.endDate
-              // )}
             />
           </div>
 
           <div>
             <h3>Filter By</h3>
-            <ul>
-              <li>Program</li>
-              <li>User</li>
-              <li>Location</li>
-            </ul>
+            <FormControl variant="outlined">
+              <Select
+                displayEmpty
+                value={this.state.filterOption}
+                onChange={this.handelFilterOptionChange}
+              >
+                <MenuItem value="">Select an option</MenuItem>
+                <MenuItem value="Program">Program</MenuItem>
+                <MenuItem value="User">User</MenuItem>
+                <MenuItem value="Status">Status</MenuItem>
+                <MenuItem value="Location">Location</MenuItem>
+              </Select>
+            </FormControl>
           </div>
 
           <div>
