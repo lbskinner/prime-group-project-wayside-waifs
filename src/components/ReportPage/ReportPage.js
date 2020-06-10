@@ -109,9 +109,9 @@ class ReportPage extends Component {
           case "User":
             this.handleUserOptions(this.state.userSelection);
             break;
-          // case "Status":
-          // this.handleStatusOptions(this.state.statusSelection);
-          // break;
+          case "Status":
+            this.handleStatusOptions(this.state.statusSelection);
+            break;
           // case "Location":
           // this.handleLocationOptions(this.state.locationSelection);
           // break;
@@ -158,11 +158,29 @@ class ReportPage extends Component {
     });
   }
 
+  handleStatusOptions(statusName) {
+    if (statusName === "All") {
+      this.setState({
+        reportArray: [...this.state.allEventsInDateRange],
+      });
+      return;
+    }
+    const filteredReportArray = this.state.allEventsInDateRange.filter(
+      (event) => {
+        return event.status === statusName;
+      }
+    );
+    this.setState({
+      reportArray: [...filteredReportArray],
+    });
+  }
+
   render() {
     const eventDataArray = this.state.reportArray.map((item, index) => {
       return (
         <tr key={index}>
           <td>{item.program}</td>
+          <td>{item.status}</td>
           <td>{item.program_date}</td>
           <td>{item.time_of_day}</td>
           <td>{item.organization}</td>
@@ -336,12 +354,13 @@ class ReportPage extends Component {
             <thead>
               <tr>
                 <th>Program</th>
+                <th>Status</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>School/Organization</th>
                 <th>Number of Kids</th>
                 <th>Number of Adults</th>
-                <th>Garde</th>
+                <th>Grade</th>
                 <th>Contact</th>
                 <th>Email</th>
                 <th>Presenter</th>
