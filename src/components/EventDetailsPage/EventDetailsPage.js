@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
-  // moved this up to use it in the payload for get event
+
   const id = Number(props.match.params.id);
   const dispatch = props.dispatch;
 
@@ -61,9 +61,7 @@ function EventDetailsPage(props) {
   const onHandleClose = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  // const filteredEvent = props.store.event.details.filter((request) => {
-  //   return request.id === id;
-  // });
+
   console.log(props);
   const eventMap = props.store.event.detailsReducer.map((event) => {
     return (

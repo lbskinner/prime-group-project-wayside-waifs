@@ -7,7 +7,7 @@ class EventDetailsEdit extends Component {
     super(props);
 
     this.state = {
-      request_date: this.props.store.event.detailsReducer.request_date,
+      request_date: `${this.props.store.event.detailsReducer.request_date}`,
       program: "",
       program_date: "",
       time_of_day: "",
@@ -26,7 +26,7 @@ class EventDetailsEdit extends Component {
   componentDidMount() {
     // dispatch to saga to call server API
     this.props.dispatch({
-      type: "SET_DETAILS",
+      type: "SET_EVENT_DETAILS",
       payload: this.props.match.params.id,
     });
   }
