@@ -28,7 +28,7 @@ router.get(
  * PUT route, update all event details for individual event except status, educator and volunteer, these have their own put routes
  */
 router.put(
-  "/details/edit",
+  "/edit",
   (req: Request, res: Response, next: express.NextFunction): void => {
     const updatedEventData = req.body;
     const queryText = `Update "event" SET "organization" = $1, "program" = $2, "program_date" = $3, "time_of_day" = $4, 
