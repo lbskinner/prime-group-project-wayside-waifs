@@ -253,6 +253,37 @@ class ReportPage extends Component {
     });
   }
 
+  exportTableToExcel = (event, tableID, filename = "") => {
+    let downloadLink;
+    let dataType = "application/vnd.ms-excel";
+    let tableSelect = document.getElementById(tableID);
+    let tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
+
+    // Specify file name
+    filename = filename ? filename + ".xls" : "excel_data.xls";
+
+    // Create download link element
+    downloadLink = document.createElement("a");
+
+    document.body.appendChild(downloadLink);
+
+    if (navigator.msSaveOrOpenBlob) {
+      let blob = new Blob(["\ufeff", tableHTML], {
+        type: dataType,
+      });
+      navigator.msSaveOrOpenBlob(blob, filename);
+    } else {
+      // Create a link to the file
+      downloadLink.href = "data:" + dataType + ", " + tableHTML;
+
+      // Setting the file name
+      downloadLink.download = filename;
+
+      //triggering the function
+      downloadLink.click();
+    }
+  };
+
   render() {
     let totalNumberOfKids = 0;
     const eventDataArray = this.state.reportArray
@@ -309,7 +340,7 @@ class ReportPage extends Component {
         <div className="report-container">
           <Grid container>
             <Grid item>
-              <h3>Select Date Range</h3>
+              <Typography variant="h5">Select Date Range</Typography>
               <DatePicker
                 placeholderText="Select a start date"
                 selected={this.state.startDate}
@@ -328,6 +359,8 @@ class ReportPage extends Component {
               />
             </Grid>
             <Grid item>
+              <Typography variant="h5">&nbsp;</Typography>
+              <br />
               <Button
                 size="large"
                 variant="contained"
@@ -340,7 +373,7 @@ class ReportPage extends Component {
             <Grid item>
               {this.state.filterOption && (
                 <>
-                  <h3>Filter By</h3>
+                  <Typography>Filter By</Typography>
                   <FormControl variant="outlined">
                     <Select
                       displayEmpty
@@ -360,7 +393,7 @@ class ReportPage extends Component {
             <Grid item>
               {this.state.filterOption === "Program" && (
                 <>
-                  <h3>Filter Options</h3>
+                  <Typography>Filter Options</Typography>
                   <FormControl variant="outlined">
                     <Select
                       value={this.state.programSelection}
@@ -395,7 +428,7 @@ class ReportPage extends Component {
               )}
               {this.state.filterOption === "User" && (
                 <>
-                  <h3>Filter Options</h3>
+                  <Typography>Filter Options</Typography>
                   <FormControl variant="outlined">
                     <Select
                       value={this.state.userSelection}
@@ -414,7 +447,7 @@ class ReportPage extends Component {
               )}
               {this.state.filterOption === "Status" && (
                 <>
-                  <h3>Filter Options</h3>
+                  <Typography>Filter Options</Typography>
                   <FormControl variant="outlined">
                     <Select
                       value={this.state.statusSelection}
@@ -438,7 +471,7 @@ class ReportPage extends Component {
               )}
               {this.state.filterOption === "Location" && (
                 <>
-                  <h3>Filter Options</h3>
+                  <Typography>Filter Options</Typography>
                   <FormControl variant="outlined">
                     <Select
                       value={this.state.locationSelection}
@@ -477,14 +510,19 @@ class ReportPage extends Component {
             </Grid>
 
             <Grid item>
-              <Button size="large" variant="contained" color="secondary">
+              <Button
+                size="large"
+                variant="contained"
+                color="secondary"
+                onClick={(event) => this.exportTableToExcel(event, "tblData")}
+              >
                 Export to Excel
               </Button>
             </Grid>
           </Grid>
           <br />
           <TableContainer component={Paper}>
-            <Table>
+            <Table id="tblData">
               {/* (stickyHeader) - part of table */}
               <TableHead>
                 <TableRow>
