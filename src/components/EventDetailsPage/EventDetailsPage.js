@@ -58,11 +58,11 @@ function EventDetailsPage(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const onHandleClick = (event) => {
-    setAssignEl(event.currentTarget);
-  };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const onHandleClick = (event) => {
+    setAssignEl(event.currentTarget);
   };
   const onHandleClose = (event) => {
     setAssignEl(null);
@@ -98,6 +98,7 @@ function EventDetailsPage(props) {
               <MenuItem onClick={onHandleClose}>John</MenuItem>
             </Menu>
           </div>
+
           <div>
             <Button
               aria-controls="simple-menu"
@@ -120,41 +121,30 @@ function EventDetailsPage(props) {
               <MenuItem onClick={handleClose}>Missed Connections</MenuItem>
             </Menu>
           </div>
+
           <Card className={classes.root}>
             <CardContent>
-              <Typography variant="h5" color="textSecondary" gutterBottom>
-                {event.organization} Details:
-              </Typography>
               <Typography variant="h4" color="textSecondary" gutterBottom>
-                Event Details:
+                Event Details
               </Typography>
-              <Typography className={classes.pos}>
-                Event Information:
+              <Typography variant="h5" color="textSecondary" gutterBottom>
+                {event.organization}
               </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Date Received: {moment(event.request_date).format("MM-DD-YYYY")}{" "}
-                in the {event.time_of_day}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Program: {event.program}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Request Date and Time:{" "}
-                {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
-                {event.time_of_day}
-              </Typography>
+
               <Grid>
                 <Typography className={classes.pos}>
-                  Event Information:
+                  Event Information
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
-                  Date Received: {event.request_date}
+                  Date Received:{" "}
+                  {moment(event.request_date).format("MM-DD-YYYY")}
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
                   Program: {event.program}
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
-                  Requested Date and Time: {event.program_date} in the{" "}
+                  Requested Date and Time:{" "}
+                  {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
                   {event.time_of_day}
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
@@ -174,7 +164,7 @@ function EventDetailsPage(props) {
                 </Typography>
                 <br />
                 <Typography className={classes.pos} component="p">
-                  Contact Information:
+                  Contact Information
                   <br />
                 </Typography>
                 <Typography color="textSecondary" variant="body2">

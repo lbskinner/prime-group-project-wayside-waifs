@@ -47,7 +47,7 @@ class MyEvent extends Component {
     }
     return (
       <div>
-        {this.props.eventItem.educator_user_id === this.props.store.user.id && (
+        {this.props.eventItem.educator_id === this.props.store.user.id && (
           <div>
             <div onClick={this.eventDetails} style={background}>
               <p>

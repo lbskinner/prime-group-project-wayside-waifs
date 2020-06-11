@@ -31,9 +31,7 @@ router.get(
  * PUT route, update all event details for individual event except status, educator and volunteer, these have their own put routes
  */
 router.put(
-
   "/edit",
-
 
   rejectUnauthenticated,
 
@@ -116,7 +114,6 @@ router.post(
 
 // PUT ROUTE
 router.put("/assign", (req: Request, res: Response): void => {
-  console.log("In Assign:", req.body);
   const queryText: string = `UPDATE "event" SET  "status" = 'Assigned', "educator_id" = $1 WHERE "id" = $2;`;
 
   pool
