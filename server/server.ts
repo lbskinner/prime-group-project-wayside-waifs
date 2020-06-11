@@ -6,6 +6,7 @@ import userRouter from "./routes/user.router";
 import eventRouter from "./routes/event.router";
 import reportRouter from "./routes/report.router";
 import requestRouter from "./routes/request.router";
+import contactLogRouter from "./routes/contactLog.router";
 
 require("dotenv").config();
 
@@ -27,6 +28,7 @@ app.use("/api/user", userRouter);
 app.use("/api/event", eventRouter);
 app.use("/api/report", reportRouter);
 app.use("/api/request", requestRouter);
+app.use("/api/log", contactLogRouter);
 
 // Serve static files
 app.use(express.static("build"));

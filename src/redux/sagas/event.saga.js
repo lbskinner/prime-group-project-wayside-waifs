@@ -1,6 +1,6 @@
 import axios from "axios";
-
 import { put, takeLatest } from "redux-saga/effects";
+import swal from "sweetalert";
 
 function* getEvent() {
   try {
@@ -18,6 +18,7 @@ function* getEventDetails(action) {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
+    console.log("In GET Saga", action.payload);
     const response = yield axios.get(
       `/api/event/details/${action.payload}`,
       config
@@ -34,7 +35,11 @@ function* getEventDetails(action) {
 
 function* assignEvent(action) {
   try {
+    console.log("In assign event:", action.payload);
     yield axios.put("/api/event/assign", action.payload);
+    yield put({
+      type: "GET_EVENTS",
+    });
   } catch (error) {
     console.log("Error with Assign Event", error);
   }
@@ -43,7 +48,14 @@ function* assignEvent(action) {
 function* saveRequest(action) {
   try {
     // don't need the config since it does not require login to save events
-    yield axios.post("/api/request/new", action.payload);
+    const response = yield axios.post("/api/request/new", action.payload);
+    if (response.data === "Created") {
+      swal(
+        "Thank you for submitting your request. An educator will contact you soon."
+      );
+    } else {
+      swal("Oops, something went wrong, please try again!");
+    }
   } catch (error) {
     console.log("Save new event request failed", error);
   }

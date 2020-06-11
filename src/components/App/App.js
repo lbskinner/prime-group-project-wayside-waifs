@@ -12,12 +12,15 @@ import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import mapStoreToProps from "../../redux/mapStoreToProps";
 
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
-import LoginPage from "../LoginPage/LoginPage";
-import RegisterPage from "../RegisterPage/RegisterPage";
+
+// import LoginPage from "../LoginPage/LoginPage";
+// import LoginPage from "../LoginPage/LoginPageModal";
+
 import ReportPage from "../ReportPage/ReportPage";
 import RequestForm from "../RequestForm/RequestForm";
 import EventPage from "../EventPage/EventPage";
@@ -38,10 +41,6 @@ const theme = createMuiTheme({
 });
 
 class App extends Component {
-  componentDidMount() {
-    this.props.dispatch({ type: "FETCH_USER" });
-  }
-
   render() {
     return (
       <ThemeProvider theme={theme}>
@@ -50,12 +49,15 @@ class App extends Component {
             <Nav />
             <Switch>
               {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-              <Redirect exact from="/" to="/home" />
+              <Redirect exact from="/" to="/request" />
               {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
               <Route exact path="/about" component={AboutPage} />
-              <Route exact path="/home" component={RequestForm} />
+              {/* <Route exact path="/home" component={RequestForm} /> */}
               <Route exact path="/request" component={RequestForm} />
+
+              {/* login page not used */}
+              {/* <Route exact path="/login" component={LoginPage} /> */}
 
               {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -68,20 +70,20 @@ class App extends Component {
               {/* This works the same as the other protected route, except that if the user is logged in,
             they will be redirected to the authRedirect path provided. */}
 
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 exact
-                path="/login"
+                path="/request"
                 authRedirect="/event"
-                component={LoginPage}
-              />
-              <ProtectedRoute
+                component={RequestForm}
+              /> */}
+              {/* <ProtectedRoute
                 exact
                 path="/registration"
                 component={RegisterPage}
-              />
+              /> */}
 
               <ProtectedRoute exact path="/reports" component={ReportPage} />
-              <ProtectedRoute exact path="/request" component={RequestForm} />
+              {/* <ProtectedRoute exact path="/request" component={RequestForm} /> */}
               <ProtectedRoute exact path="/event" component={EventPage} />
               <ProtectedRoute
                 exact
@@ -105,4 +107,4 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+export default connect(mapStoreToProps)(App);

@@ -1,4 +1,6 @@
-const eventDetailsReducer = (state = [{}], action) => {
+
+const eventDetailsReducer = (state = [], action) => {
+
   switch (action.type) {
     case "SET_EVENT_DETAILS":
       return [...action.payload];
@@ -6,5 +8,9 @@ const eventDetailsReducer = (state = [{}], action) => {
       return state;
   }
 };
+
+
+// user will be on the redux state at:
+// state.eventDetails
 
 export default eventDetailsReducer;
