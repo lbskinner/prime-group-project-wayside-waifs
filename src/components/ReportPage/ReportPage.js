@@ -129,6 +129,7 @@ class ReportPage extends Component {
           {
             allEventsInDateRange: [...response.data],
             reportArray: [...response.data],
+            filterOption: "Program",
           },
           () => {
             console.log(this.state);
@@ -282,106 +283,139 @@ class ReportPage extends Component {
             </Button>
           </Grid>
           <Grid item>
-            <h3>Filter By</h3>
-            <FormControl variant="outlined">
-              <Select
-                displayEmpty
-                value={this.state.filterOption}
-                onChange={this.handelFilterOptionChange}
-              >
-                <MenuItem value="">Select an option</MenuItem>
-                <MenuItem value="Program">Program</MenuItem>
-                <MenuItem value="User">User</MenuItem>
-                <MenuItem value="Status">Status</MenuItem>
-                <MenuItem value="Location">Location</MenuItem>
-              </Select>
-            </FormControl>
+            {this.state.filterOption && (
+              <>
+                <h3>Filter By</h3>
+                <FormControl variant="outlined">
+                  <Select
+                    displayEmpty
+                    value={this.state.filterOption}
+                    onChange={this.handelFilterOptionChange}
+                  >
+                    <MenuItem value="">Select an option</MenuItem>
+                    <MenuItem value="Program">Program</MenuItem>
+                    <MenuItem value="User">User</MenuItem>
+                    <MenuItem value="Status">Status</MenuItem>
+                    <MenuItem value="Location">Location</MenuItem>
+                  </Select>
+                </FormControl>
+              </>
+            )}
           </Grid>
           <Grid item>
-            <h3>Filter Options</h3>
             {this.state.filterOption === "Program" && (
-              <FormControl variant="outlined">
-                <Select
-                  value={this.state.programSelection}
-                  onChange={(event) =>
-                    this.handelSelectionOptionsChange(event, "programSelection")
-                  }
-                >
-                  <MenuItem value="All">All Programs</MenuItem>
-                  <MenuItem value="FIA">
-                    "Kindness in Action!" (formerly Families in Action)
-                  </MenuItem>
-                  <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
-                  <MenuItem value="DS">
-                    PAW-etiquette for Pooches & People: Dog Safety
-                  </MenuItem>
-                  <MenuItem value="AE">
-                    Activating Em-PAW-thy: Exploring Similarities between Pets
-                    and People
-                  </MenuItem>
-                  <MenuItem value="OUT">
-                    Once U-PAW-n a Time Reading Program
-                  </MenuItem>
-                  <MenuItem value="KIA">Kids-in-Action</MenuItem>
-                  <MenuItem value="ET">Educational Tours</MenuItem>
-                  <MenuItem value="other">Other</MenuItem>
-                </Select>
-              </FormControl>
+              <>
+                <h3>Filter Options</h3>
+                <FormControl variant="outlined">
+                  <Select
+                    value={this.state.programSelection}
+                    onChange={(event) =>
+                      this.handelSelectionOptionsChange(
+                        event,
+                        "programSelection"
+                      )
+                    }
+                  >
+                    <MenuItem value="All">All Programs</MenuItem>
+                    <MenuItem value="FIA">
+                      "Kindness in Action!" (formerly Families in Action)
+                    </MenuItem>
+                    <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
+                    <MenuItem value="DS">
+                      PAW-etiquette for Pooches & People: Dog Safety
+                    </MenuItem>
+                    <MenuItem value="AE">
+                      Activating Em-PAW-thy: Exploring Similarities between Pets
+                      and People
+                    </MenuItem>
+                    <MenuItem value="OUT">
+                      Once U-PAW-n a Time Reading Program
+                    </MenuItem>
+                    <MenuItem value="KIA">Kids-in-Action</MenuItem>
+                    <MenuItem value="ET">Educational Tours</MenuItem>
+                    <MenuItem value="other">Other</MenuItem>
+                  </Select>
+                </FormControl>
+              </>
             )}
             {this.state.filterOption === "User" && (
-              <FormControl variant="outlined">
-                <Select
-                  value={this.state.userSelection}
-                  onChange={(event) =>
-                    this.handelSelectionOptionsChange(event, "userSelection")
-                  }
-                >
-                  <MenuItem value="All">All Users</MenuItem>
-                  {userArray}
-                </Select>
-              </FormControl>
+              <>
+                <h3>Filter Options</h3>
+                <FormControl variant="outlined">
+                  <Select
+                    value={this.state.userSelection}
+                    onChange={(event) =>
+                      this.handelSelectionOptionsChange(event, "userSelection")
+                    }
+                  >
+                    <MenuItem value="All">All Users</MenuItem>
+                    {userArray}
+                  </Select>
+                </FormControl>
+              </>
             )}
             {this.state.filterOption === "Status" && (
-              <FormControl variant="outlined">
-                <Select
-                  value={this.state.statusSelection}
-                  onChange={(event) =>
-                    this.handelSelectionOptionsChange(event, "statusSelection")
-                  }
-                >
-                  <MenuItem value="All">All Status</MenuItem>
-                  <MenuItem value="Received">Request Received</MenuItem>
-                  <MenuItem value="Contacted">Contacted</MenuItem>
-                  <MenuItem value="Assigned">Assigned</MenuItem>
-                  <MenuItem value="Scheduled">Scheduled</MenuItem>
-                  <MenuItem value="Complete">Complete</MenuItem>
-                  <MenuItem value="Missed">Missed Connections</MenuItem>
-                </Select>
-              </FormControl>
+              <>
+                <h3>Filter Options</h3>
+                <FormControl variant="outlined">
+                  <Select
+                    value={this.state.statusSelection}
+                    onChange={(event) =>
+                      this.handelSelectionOptionsChange(
+                        event,
+                        "statusSelection"
+                      )
+                    }
+                  >
+                    <MenuItem value="All">All Status</MenuItem>
+                    <MenuItem value="Received">Request Received</MenuItem>
+                    <MenuItem value="Contacted">Contacted</MenuItem>
+                    <MenuItem value="Assigned">Assigned</MenuItem>
+                    <MenuItem value="Scheduled">Scheduled</MenuItem>
+                    <MenuItem value="Complete">Complete</MenuItem>
+                    <MenuItem value="Missed">Missed Connections</MenuItem>
+                  </Select>
+                </FormControl>
+              </>
             )}
             {this.state.filterOption === "Location" && (
-              <FormControl variant="outlined">
-                <Select
-                  value={this.state.locationSelection}
-                  onChange={(event) =>
-                    this.handelSelectionOptionsChange(
-                      event,
-                      "locationSelection"
-                    )
-                  }
-                >
-                  <MenuItem value="All">All Locations</MenuItem>
-                  <MenuItem value="on_site">Wayside Waifs</MenuItem>
-                  <MenuItem value="off_site">Other</MenuItem>
-                </Select>
-              </FormControl>
+              <>
+                <h3>Filter Options</h3>
+                <FormControl variant="outlined">
+                  <Select
+                    value={this.state.locationSelection}
+                    onChange={(event) =>
+                      this.handelSelectionOptionsChange(
+                        event,
+                        "locationSelection"
+                      )
+                    }
+                  >
+                    <MenuItem value="All">All Locations</MenuItem>
+                    <MenuItem value="on_site">Wayside Waifs</MenuItem>
+                    <MenuItem value="off_site">Other</MenuItem>
+                  </Select>
+                </FormControl>
+              </>
             )}
           </Grid>
         </Grid>
-        <div>
-          <Typography>Total Number of Events:</Typography>
-          <Typography>Total Number of Students Reached:</Typography>
-        </div>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <Grid>
+            <Typography>Total Number of Events:</Typography>
+            <Typography>Total Number of Students Reached:</Typography>
+          </Grid>
+          <Grid>
+            <Button size="large" variant="contained" color="secondary">
+              Export to Excel
+            </Button>
+          </Grid>
+        </Grid>
 
         <div>
           <table>
