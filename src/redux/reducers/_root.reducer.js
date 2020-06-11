@@ -9,9 +9,6 @@ import eventDetails from "./eventDetails.reducer";
 
 import report from "./report.reducer";
 
-import eventDetails from "./eventDetails.reducer";
-
-
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -26,11 +23,9 @@ const rootReducer = combineReducers({
   contact, // will have contact log data
   allUser, // will have all user list
 
-
   report, // for reporting events
 
   eventDetails, // will have specific event details
-
 });
 
 export default rootReducer;
