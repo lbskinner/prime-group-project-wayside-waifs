@@ -23,6 +23,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+// import TablePagination from "@material-ui/core/TablePagination";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -54,7 +55,25 @@ class ReportPage extends Component {
     locationSelection: "All",
     allEventsInDateRange: [],
     reportArray: [],
+    // page: 0,
+    // rowsPerPage: 3,
   };
+
+  // handleChangePage = (event, newPage) => {
+  //   this.setState({
+  //     ...this.state,
+  //     page: newPage,
+  //   });
+  // };
+
+  // handleChangeRowsPerPage = (event) => {
+  //   const page = this.state.rowsPerPage + event.target.value;
+  //   this.setState({
+  //     ...this.state,
+  //     rowsPerPage: page,
+  //     page: 0,
+  //   });
+  // };
 
   componentDidMount() {
     this.props.dispatch({
@@ -236,34 +255,47 @@ class ReportPage extends Component {
 
   render() {
     let totalNumberOfKids = 0;
-    const eventDataArray = this.state.reportArray.map((item, index) => {
-      if (parseFloat(item.student_number) === NaN) {
-        totalNumberOfKids += 0;
-      }
-      totalNumberOfKids += parseFloat(item.student_number);
-      return (
-        <StyledTableRow key={index}>
-          <StyledTableCell component="th" scope="row">
-            {item.program}
-          </StyledTableCell>
-          <StyledTableCell>{item.status}</StyledTableCell>
-          <StyledTableCell>{item.program_date}</StyledTableCell>
-          <StyledTableCell>{item.time_of_day}</StyledTableCell>
-          <StyledTableCell>{item.organization}</StyledTableCell>
-          <StyledTableCell>{item.student_number}</StyledTableCell>
-          <StyledTableCell>{item.adult_sponsors}</StyledTableCell>
-          <StyledTableCell>{item.grade_level}</StyledTableCell>
-          <StyledTableCell>
-            {item.contact_first_name} {item.contact_last_name}
-          </StyledTableCell>
-          <StyledTableCell>{item.contact_email}</StyledTableCell>
-          <StyledTableCell>
-            {item.first_name} {item.last_name}
-          </StyledTableCell>
-          <StyledTableCell>{item.location}</StyledTableCell>
-        </StyledTableRow>
-      );
-    });
+    const eventDataArray = this.state.reportArray
+      // .slice(
+      //   this.state.page * this.state.rowsPerPage,
+      //   this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
+      // )
+      .map((item) => {
+        totalNumberOfKids += parseFloat(item.student_number);
+        return (
+          <StyledTableRow key={item.id}>
+            {/* (hover role="checkbox" tabIndex={-1}) part of TableRow */}
+            <StyledTableCell component="th" scope="row" align="center">
+              {item.program}
+            </StyledTableCell>
+            <StyledTableCell align="center">{item.status}</StyledTableCell>
+            <StyledTableCell align="center">
+              {item.program_date}
+            </StyledTableCell>
+            <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
+            <StyledTableCell align="center">
+              {item.organization}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {item.student_number}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {item.adult_sponsors}
+            </StyledTableCell>
+            <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
+            <StyledTableCell align="center">
+              {item.contact_first_name} {item.contact_last_name}
+            </StyledTableCell>
+            <StyledTableCell align="center">
+              {item.contact_email}
+            </StyledTableCell>
+            <StyledTableCell>
+              {item.first_name} {item.last_name}
+            </StyledTableCell>
+            <StyledTableCell align="center">{item.location}</StyledTableCell>
+          </StyledTableRow>
+        );
+      });
 
     const userArray = this.props.allUser.map((user) => {
       return (
@@ -275,12 +307,7 @@ class ReportPage extends Component {
     return (
       <div className="report-background-container">
         <div className="report-container">
-          <Grid
-            container
-            // direction="row"
-            // justify="space-between"
-            // alignItems="flex-start"
-          >
+          <Grid container>
             <Grid item>
               <h3>Select Date Range</h3>
               <DatePicker
@@ -458,25 +485,41 @@ class ReportPage extends Component {
           <br />
           <TableContainer component={Paper}>
             <Table>
+              {/* (stickyHeader) - part of table */}
               <TableHead>
                 <TableRow>
-                  <StyledTableCell>Program</StyledTableCell>
-                  <StyledTableCell>Status</StyledTableCell>
-                  <StyledTableCell>Date</StyledTableCell>
-                  <StyledTableCell>Time</StyledTableCell>
-                  <StyledTableCell>School/Organization</StyledTableCell>
-                  <StyledTableCell>Number of Kids</StyledTableCell>
-                  <StyledTableCell>Number of Adults</StyledTableCell>
-                  <StyledTableCell>Grade</StyledTableCell>
-                  <StyledTableCell>Contact</StyledTableCell>
-                  <StyledTableCell>Email</StyledTableCell>
-                  <StyledTableCell>Presenter</StyledTableCell>
-                  <StyledTableCell>Location</StyledTableCell>
+                  <StyledTableCell align="center">Program</StyledTableCell>
+                  <StyledTableCell align="center">Status</StyledTableCell>
+                  <StyledTableCell align="center">Date</StyledTableCell>
+                  <StyledTableCell align="center">Time</StyledTableCell>
+                  <StyledTableCell align="center">
+                    School/Organization
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    Number of Kids
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    Number of Adults
+                  </StyledTableCell>
+                  <StyledTableCell align="center">Grade</StyledTableCell>
+                  <StyledTableCell align="center">Contact</StyledTableCell>
+                  <StyledTableCell align="center">Email</StyledTableCell>
+                  <StyledTableCell align="center">Presenter</StyledTableCell>
+                  <StyledTableCell align="center">Location</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>{eventDataArray}</TableBody>
             </Table>
           </TableContainer>
+          {/* <TablePagination
+            rowsPerPageOptions={[3, 5, 10]}
+            component="div"
+            count={eventDataArray.length}
+            rowsPerPage={this.state.rowsPerPage}
+            page={this.state.page}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          /> */}
         </div>
       </div>
     );
