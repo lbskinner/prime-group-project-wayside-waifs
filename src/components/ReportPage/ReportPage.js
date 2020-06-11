@@ -22,11 +22,25 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name TemplateClass with the name for the new
-// component.
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
 
 class ReportPage extends Component {
   state = {
@@ -228,24 +242,26 @@ class ReportPage extends Component {
       }
       totalNumberOfKids += parseFloat(item.student_number);
       return (
-        <TableRow key={index}>
-          <TableCell>{item.program}</TableCell>
-          <TableCell>{item.status}</TableCell>
-          <TableCell>{item.program_date}</TableCell>
-          <TableCell>{item.time_of_day}</TableCell>
-          <TableCell>{item.organization}</TableCell>
-          <TableCell>{item.student_number}</TableCell>
-          <TableCell>{item.adult_sponsors}</TableCell>
-          <TableCell>{item.grade_level}</TableCell>
-          <TableCell>
+        <StyledTableRow key={index}>
+          <StyledTableCell component="th" scope="row">
+            {item.program}
+          </StyledTableCell>
+          <StyledTableCell>{item.status}</StyledTableCell>
+          <StyledTableCell>{item.program_date}</StyledTableCell>
+          <StyledTableCell>{item.time_of_day}</StyledTableCell>
+          <StyledTableCell>{item.organization}</StyledTableCell>
+          <StyledTableCell>{item.student_number}</StyledTableCell>
+          <StyledTableCell>{item.adult_sponsors}</StyledTableCell>
+          <StyledTableCell>{item.grade_level}</StyledTableCell>
+          <StyledTableCell>
             {item.contact_first_name} {item.contact_last_name}
-          </TableCell>
-          <TableCell>{item.contact_email}</TableCell>
-          <TableCell>
+          </StyledTableCell>
+          <StyledTableCell>{item.contact_email}</StyledTableCell>
+          <StyledTableCell>
             {item.first_name} {item.last_name}
-          </TableCell>
-          <TableCell>{item.location}</TableCell>
-        </TableRow>
+          </StyledTableCell>
+          <StyledTableCell>{item.location}</StyledTableCell>
+        </StyledTableRow>
       );
     });
 
@@ -439,23 +455,23 @@ class ReportPage extends Component {
               </Button>
             </Grid>
           </Grid>
-
+          <br />
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Program</TableCell>
-                  <TableCell>Status</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Time</TableCell>
-                  <TableCell>School/Organization</TableCell>
-                  <TableCell>Number of Kids</TableCell>
-                  <TableCell>Number of Adults</TableCell>
-                  <TableCell>Grade</TableCell>
-                  <TableCell>Contact</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Presenter</TableCell>
-                  <TableCell>Location</TableCell>
+                  <StyledTableCell>Program</StyledTableCell>
+                  <StyledTableCell>Status</StyledTableCell>
+                  <StyledTableCell>Date</StyledTableCell>
+                  <StyledTableCell>Time</StyledTableCell>
+                  <StyledTableCell>School/Organization</StyledTableCell>
+                  <StyledTableCell>Number of Kids</StyledTableCell>
+                  <StyledTableCell>Number of Adults</StyledTableCell>
+                  <StyledTableCell>Grade</StyledTableCell>
+                  <StyledTableCell>Contact</StyledTableCell>
+                  <StyledTableCell>Email</StyledTableCell>
+                  <StyledTableCell>Presenter</StyledTableCell>
+                  <StyledTableCell>Location</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>{eventDataArray}</TableBody>
