@@ -46,17 +46,48 @@ class ReportPage extends Component {
   }
 
   handelFilterOptionChange = (event) => {
-    this.setState({
-      ...this.state,
-      filterOption: event.target.value,
-    });
+    this.setState(
+      {
+        ...this.state,
+        filterOption: event.target.value,
+      },
+      () => {
+        this.setState({
+          reportArray: [...this.state.allEventsInDateRange],
+          programSelection: "All",
+          userSelection: "All",
+          statusSelection: "All",
+          locationSelection: "All",
+        });
+      }
+    );
   };
 
   handelSelectionOptionsChange = (event, propertyKey) => {
-    this.setState({
-      ...this.state,
-      [propertyKey]: event.target.value,
-    });
+    this.setState(
+      {
+        ...this.state,
+        [propertyKey]: event.target.value,
+      },
+      () => {
+        switch (this.state.filterOption) {
+          case "Program":
+            this.handleProgramOptions(this.state.programSelection);
+            break;
+          case "User":
+            this.handleUserOptions(this.state.userSelection);
+            break;
+          case "Status":
+            this.handleStatusOptions(this.state.statusSelection);
+            break;
+          case "Location":
+            this.handleLocationOptions(this.state.locationSelection);
+            break;
+          default:
+            return;
+        }
+      }
+    );
   };
 
   handleStartDateChange = (date) => {
@@ -96,28 +127,13 @@ class ReportPage extends Component {
       .then((response) => {
         this.setState(
           {
-            allEventsInDateRange: response.data,
+            allEventsInDateRange: [...response.data],
+            reportArray: [...response.data],
           },
           () => {
             console.log(this.state);
           }
         );
-        switch (this.state.filterOption) {
-          case "Program":
-            this.handleProgramOptions(this.state.programSelection);
-            break;
-          case "User":
-            this.handleUserOptions(this.state.userSelection);
-            break;
-          case "Status":
-            this.handleStatusOptions(this.state.statusSelection);
-            break;
-          case "Location":
-            this.handleLocationOptions(this.state.locationSelection);
-            break;
-          default:
-            return;
-        }
       })
       .catch((error) => {
         console.log("Get events for report request failed", error);
@@ -230,18 +246,13 @@ class ReportPage extends Component {
     });
     return (
       <div>
-        <div>
-          <h2>{this.state.heading}</h2>
-        </div>
-
-        <div>
-          <h4>Total Events This Month:</h4>
-          <h4>Total Events Last Month:</h4>
-          <h4>Total Events This Year:</h4>
-        </div>
-
-        <div className="inputField">
-          <div>
+        <Grid
+          container
+          // direction="row"
+          // justify="space-between"
+          // alignItems="flex-start"
+        >
+          <Grid item>
             <h3>Select Date Range</h3>
             <DatePicker
               placeholderText="Select a start date"
@@ -259,9 +270,18 @@ class ReportPage extends Component {
               startDate={this.state.startDate}
               endDate={this.state.endDate}
             />
-          </div>
-
-          <div>
+          </Grid>
+          <Grid item>
+            <Button
+              size="large"
+              variant="contained"
+              color="secondary"
+              onClick={this.generateReport}
+            >
+              Generate Report
+            </Button>
+          </Grid>
+          <Grid item>
             <h3>Filter By</h3>
             <FormControl variant="outlined">
               <Select
@@ -276,9 +296,8 @@ class ReportPage extends Component {
                 <MenuItem value="Location">Location</MenuItem>
               </Select>
             </FormControl>
-          </div>
-
-          <div>
+          </Grid>
+          <Grid item>
             <h3>Filter Options</h3>
             {this.state.filterOption === "Program" && (
               <FormControl variant="outlined">
@@ -357,18 +376,11 @@ class ReportPage extends Component {
                 </Select>
               </FormControl>
             )}
-          </div>
-        </div>
-
+          </Grid>
+        </Grid>
         <div>
-          <Button
-            size="large"
-            variant="contained"
-            color="secondary"
-            onClick={this.generateReport}
-          >
-            Generate Report
-          </Button>
+          <Typography>Total Number of Events:</Typography>
+          <Typography>Total Number of Students Reached:</Typography>
         </div>
 
         <div>
