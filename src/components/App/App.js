@@ -18,11 +18,9 @@ import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
 
-import LandingPage from "../LandingPage/LandingPage";
 // import LoginPage from "../LoginPage/LoginPage";
 // import LoginPage from "../LoginPage/LoginPageModal";
 
-import RegisterPage from "../RegisterPage/RegisterPage";
 import ReportPage from "../ReportPage/ReportPage";
 import RequestForm from "../RequestForm/RequestForm";
 import EventPage from "../EventPage/EventPage";
@@ -43,10 +41,6 @@ const theme = createMuiTheme({
 });
 
 class App extends Component {
-  componentDidMount() {
-    this.props.dispatch({ type: "FETCH_USER" });
-  }
-
   render() {
     return (
       <ThemeProvider theme={theme}>

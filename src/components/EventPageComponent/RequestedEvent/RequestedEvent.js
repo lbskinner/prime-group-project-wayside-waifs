@@ -10,9 +10,9 @@ class RequestedEvent extends Component {
   eventDetails = () => {
     this.props.dispatch({
       type: "GET_EVENT_DETAILS",
-      payload: this.props.eventItem,
+      payload: this.props.eventItem.id,
     });
-    this.props.history.push("/details");
+    this.props.history.push(`/details/${this.props.eventItem.id}`);
   };
 
   assign = (selectedOption) => {
@@ -38,6 +38,7 @@ class RequestedEvent extends Component {
         });
       }
     }
+
     let background = { backgroundColor: "white" };
     if (this.props.eventItem.status === "Contacted") {
       background = { backgroundColor: "lightblue" };

@@ -10,6 +10,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+const moment = require("moment");
 // import Select from "react-select";
 // const users = this.props.store.allUser;
 const useStyles = makeStyles((theme) => ({
@@ -64,8 +65,8 @@ function EventDetailsPage(props) {
   // const filteredEvent = props.store.event.details.filter((request) => {
   //   return request.id === id;
   // });
-  console.log(props);
-  const eventMap = props.store.event.detailsReducer.map((event) => {
+  // console.log(props);
+  const eventMap = props.store.eventDetails.map((event) => {
     return (
       <div key={event.id}>
         <CssBaseline>
@@ -121,13 +122,15 @@ function EventDetailsPage(props) {
                 Event Information:
               </Typography>
               <Typography color="textSecondary" variant="body2">
-                Date Received: {event.request_date}
+                Date Received: {moment(event.request_date).format("MM-DD-YYYY")}{" "}
+                in the {event.time_of_day}
               </Typography>
               <Typography color="textSecondary" variant="body2">
                 Program: {event.program}
               </Typography>
               <Typography color="textSecondary" variant="body2">
-                Request Date and Time: {event.program_date} in the{" "}
+                Request Date and Time:{" "}
+                {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
                 {event.time_of_day}
               </Typography>
               <Typography color="textSecondary" variant="body2">

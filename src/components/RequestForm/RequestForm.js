@@ -93,7 +93,7 @@ class RequestForm extends Component {
     // get recaptche value when click on submit request button to validate
     const recaptchaValue = recaptchaRef.current.getValue();
     // if recaptch does not have a value (not checked), display an error message
-    if (recaptchaValue == "") {
+    if (recaptchaValue === "") {
       this.setState({
         ...this.state,
         recaptchaErrorMessage: "Please validate that you are not a robot!",

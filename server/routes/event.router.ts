@@ -14,10 +14,9 @@ router.get(
   rejectUnauthenticated,
 
   (req: Request, res: Response, next: express.NextFunction): void => {
-    const eventId = req.params.id;
     const queryText = `SELECT * FROM "event" WHERE "id" = $1;`;
     pool
-      .query(queryText, [eventId])
+      .query(queryText, [req.params.id])
       .then((responseFromDb) => {
         res.send(responseFromDb.rows);
       })
@@ -86,55 +85,6 @@ router.put(
   }
 );
 
-/**
- * PUT route, update educator
- */
-router.put(
-  "/details/educator",
-
-  rejectUnauthenticated,
-
-  (req: Request, res: Response, next: express.NextFunction): void => {
-    const updatedEventStatus = req.body;
-    const queryText = `Update "event" SET "educator_id" = $1 WHERE "id" = $2;`;
-    pool
-      .query(queryText, [updatedEventStatus.educator_id, updatedEventStatus.id])
-      .then(() => res.sendStatus(200))
-      .catch((error) => {
-        console.log("Put Event Educator Error: ", error);
-
-      });
-  }
-);
-
-        res.sendStatus(500);
-      });
-  }
-);
-
-/**
- * PUT route, update volunteer
- */
-router.put(
-  "/details/volunteer",
-  rejectUnauthenticated,
-  (req: Request, res: Response, next: express.NextFunction): void => {
-    const updatedEventStatus = req.body;
-    const queryText = `Update "event" SET "volunteer_id" = $1 WHERE "id" = $2;`;
-    pool
-      .query(queryText, [
-        updatedEventStatus.volunteer_id,
-        updatedEventStatus.id,
-      ])
-      .then(() => res.sendStatus(200))
-      .catch((error) => {
-        console.log("Put Event Educator Error: ", error);
-        res.sendStatus(500);
-      });
-  }
-);
-
-
 //GET route for EVENT
 
 router.get(
@@ -155,12 +105,56 @@ router.get(
   }
 );
 
+router.post(
+  "/",
+  (req: Request, res: Response, next: express.NextFunction): void => {
+    res.sendStatus(201);
+  }
+);
+
+// PUT ROUTE
+router.put("/assign", (req: Request, res: Response): void => {
+  console.log("In Assign:", req.body);
+  const queryText: string = `UPDATE "event" SET  "status" = 'Assigned', "educator_id" = $1 WHERE "id" = $2;`;
+
+  pool
+    .query(queryText, [req.body.user, req.body.event])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(`Error putting Assign Users: ${err}`);
+      res.sendStatus(500);
+    });
+});
+
+/**
+ * PUT route, update educator
+ */
+router.put(
+  "/details/educator",
+
+  rejectUnauthenticated,
+
+  (req: Request, res: Response, next: express.NextFunction): void => {
+    const updatedEventStatus = req.body;
+    const queryText = `Update "event" SET "educator_id" = $1 WHERE "id" = $2;`;
+    pool
+      .query(queryText, [updatedEventStatus.educator_id, updatedEventStatus.id])
+      .then(() => res.sendStatus(200))
+      .catch((error) => {
+        console.log("Put Event Educator Error: ", error);
+        res.sendStatus(500);
+      });
+  }
+);
 
 /**
  * PUT route, update volunteer
  */
 router.put(
   "/details/volunteer",
+  rejectUnauthenticated,
   (req: Request, res: Response, next: express.NextFunction): void => {
     const updatedEventStatus = req.body;
     const queryText = `Update "event" SET "volunteer_id" = $1 WHERE "id" = $2;`;
@@ -176,27 +170,5 @@ router.put(
       });
   }
 );
-
-router.post(
-  "/",
-  (req: Request, res: Response, next: express.NextFunction): void => {
-    res.sendStatus(201);
-  }
-);
-
-// PUT ROUTE
-router.put("/assign", (req: Request, res: Response): void => {
-  const queryText: string = `UPDATE "event" SET "educator_id" = $1 WHERE "id" = $2;`;
-
-  pool
-    .query(queryText, [req.body.user, req.body.event])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((err) => {
-      console.log(`Error putting Assign Users: ${err}`);
-      res.sendStatus(500);
-    });
-});
 
 export default router;

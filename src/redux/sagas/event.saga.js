@@ -1,5 +1,5 @@
 import axios from "axios";
-import { put, takeEvery, takeLatest } from "redux-saga/effects";
+import { put, takeLatest } from "redux-saga/effects";
 import swal from "sweetalert";
 
 function* getEvent() {
@@ -18,6 +18,7 @@ function* getEventDetails(action) {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
+    console.log("In GET Saga", action.payload);
     const response = yield axios.get(
       `/api/event/details/${action.payload}`,
       config
@@ -34,7 +35,11 @@ function* getEventDetails(action) {
 
 function* assignEvent(action) {
   try {
+    console.log("In assign event:", action.payload);
     yield axios.put("/api/event/assign", action.payload);
+    yield put({
+      type: "GET_EVENTS",
+    });
   } catch (error) {
     console.log("Error with Assign Event", error);
   }
