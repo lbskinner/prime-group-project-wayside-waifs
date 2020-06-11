@@ -252,6 +252,7 @@ class RequestForm extends Component {
             <br />
             <TextField
               variant="outlined"
+              type="number"
               value={this.state.student_number}
               onChange={(event) => this.handelChange(event, "student_number")}
             />
@@ -275,6 +276,7 @@ class RequestForm extends Component {
             <Typography variant="h6">Number of Adult Sponsors*</Typography>
             <br />
             <TextField
+              type="number"
               variant="outlined"
               value={this.state.adult_sponsors}
               onChange={(event) => this.handelChange(event, "adult_sponsors")}

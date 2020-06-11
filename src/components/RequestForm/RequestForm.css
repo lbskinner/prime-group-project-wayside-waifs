@@ -5,6 +5,7 @@
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   border-radius: 4px;
   line-height: 1.1876em;
+  border: 0.7px solid #80808061;
 }
 
 .swal-button {
