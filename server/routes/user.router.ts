@@ -12,7 +12,9 @@ router.get("/", rejectUnauthenticated, (req: Request, res: Response): void => {
 });
 
 router.get("/alluser", (req: Request, res: Response): void => {
+
   const queryText: string = `SELECT "id", "first_name", "last_name", "role" FROM "user" ORDER BY last_name ASC;`;
+
   pool
     .query(queryText)
     .then((result) => {

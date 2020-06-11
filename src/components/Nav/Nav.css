@@ -1,3 +1,14 @@
+.nav-background {
+  background-color: #ae003f;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  overflow: visible;
+  box-shadow: 0 -10px 20px rgb(0, 0, 0, 0.2);
+  border-bottom: 4px solid #fff;
+}
+
 .nav-title {
   font-size: 24px;
   font-weight: 700;
@@ -6,17 +17,41 @@
   padding-left: 10px;
 }
 
+.nav-container-logo {
+  width: 10.5rem;
+  display: inline-block;
+  position: relative;
+  height: 60px;
+  box-shadow: 0 -8px 10px rgb(0, 0, 0, 0.5);
+}
+
+.nav-logo {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.img-container {
+  text-align: center;
+}
+
 .nav {
-  overflow: hidden;
-  background-color: #00acb0;
+  display: flex;
+  justify-content: space-between;
+  max-width: 90%;
+  width: 920px;
+  /* height: 30px; */
 }
 
 .nav-link {
-  float: left;
-  color: #f2f2f2;
-  background-color: #00acb0;
+  /* display: inline; */
+  /* float: left; */
+  color: #dddeda;
+  background-color: #ae003f;
   text-align: center;
-  padding: 24px 10px;
+  padding: 5px 5px;
   text-decoration: none;
   font-size: 15px;
 
@@ -28,9 +63,34 @@
 }
 
 .nav-link:hover {
-  background-color: #008183;
+  /* background-color: #008183; */
+  color: #fff;
 }
 
 .nav-right {
-  float: right;
+  /* float: right; */
+  display: flex;
+  /* justify-content: flex-end; */
+  align-self: flex-end;
+}
+
+.modalContent {
+  width: 450px;
+  height: 310px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  background-color: #fff;
+  border: 2px solid #ae003f;
+  padding: 10px 20px;
+}
+
+.login-input {
+  width: 100%;
+  margin: 10px 20px;
+}
+
+.center-login {
+  text-align: center;
 }
