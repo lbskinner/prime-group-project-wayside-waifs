@@ -52,7 +52,8 @@ function* saveRequest(action) {
 function* saveEvent(action) {
   try {
     // don't need the config since it does not require login to save events
-    yield axios.put("/api/request/edit", action.payload);
+    yield axios.put("/api/event/edit", action.payload);
+    yield put({ type: "GET_EVENT_DETAILS", payload: action.payload.id });
   } catch (error) {
     console.log("Edit event request failed", error);
   }

@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 // component.
 function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [assignEl, setAssignEl] = useState(null);
   const classes = useStyles();
   // moved this up to use it in the payload for get event
   const id = Number(props.match.params.id);
@@ -54,13 +55,13 @@ function EventDetailsPage(props) {
     setAnchorEl(event.currentTarget);
   };
   const onHandleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setAssignEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
   const onHandleClose = (event) => {
-    setAnchorEl(event.currentTarget);
+    setAssignEl(null);
   };
 
   console.log(props);
@@ -78,9 +79,9 @@ function EventDetailsPage(props) {
             </Button>
             <Menu
               id="simple-menu"
-              anchorEl={anchorEl}
+              anchorEl={assignEl}
               keepMounted
-              open={Boolean(anchorEl)}
+              open={Boolean(assignEl)}
               onClose={onHandleClose}
             >
               <MenuItem onClick={onHandleClose}>Amanda</MenuItem>

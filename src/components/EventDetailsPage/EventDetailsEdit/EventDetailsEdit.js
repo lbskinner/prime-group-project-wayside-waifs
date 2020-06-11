@@ -47,70 +47,76 @@ class EventDetailsEdit extends Component {
     // dispatch to saga to make API call
     let newDetails = this.state;
 
-    if (newDetails.request_date == null || newDetails.request_date === "") {
-      newDetails.request_date = this.props.store.eventDetails.request_date;
+    if (newDetails.request_date == null || newDetails.request_date === " ") {
+      newDetails.request_date = this.props.store.eventDetails[0].request_date;
     }
 
-    if (newDetails.program == null || newDetails.program === "") {
-      newDetails.program = this.props.store.eventDetails.program;
+    if (newDetails.program == null || newDetails.program === " ") {
+      newDetails.program = this.props.store.eventDetails[0].program;
     }
 
-    if (newDetails.program_date == null || newDetails.program_date === "") {
-      newDetails.program_date = this.props.store.eventDetails.program_date;
+    if (newDetails.program_date == null || newDetails.program_date === " ") {
+      newDetails.program_date = this.props.store.eventDetails[0].program_date;
     }
 
-    if (newDetails.time_of_day == null || newDetails.time_of_day === "") {
-      newDetails.time_of_day = this.props.store.eventDetails.time_of_day;
+    if (newDetails.time_of_day == null || newDetails.time_of_day === " ") {
+      newDetails.time_of_day = this.props.store.eventDetails[0].time_of_day;
     }
 
-    if (newDetails.location == null || newDetails.location === "") {
-      newDetails.location = this.props.store.eventDetails.location;
+    if (newDetails.location == null || newDetails.location === " ") {
+      newDetails.location = this.props.store.eventDetails[0].location;
     }
 
-    if (newDetails.organization == null || newDetails.organization === "") {
-      newDetails.organization = this.props.store.eventDetails.organization;
+    if (newDetails.organization == null || newDetails.organization === " ") {
+      newDetails.organization = this.props.store.eventDetails[0].organization;
     }
 
-    if (newDetails.grade_level == null || newDetails.grade_level === "") {
-      newDetails.grade_level = this.props.store.eventDetails.grade_level;
+    if (newDetails.grade_level == null || newDetails.grade_level === " ") {
+      newDetails.grade_level = this.props.store.eventDetails[0].grade_level;
     }
 
-    if (newDetails.student_number == null || newDetails.student_number === "") {
-      newDetails.student_number = this.props.store.eventDetails.student_number;
+    if (
+      newDetails.student_number == null ||
+      newDetails.student_number === " "
+    ) {
+      newDetails.student_number = this.props.store.eventDetails[0].student_number;
     }
 
-    if (newDetails.adult_sponsors == null || newDetails.adult_sponsors === "") {
-      newDetails.adult_sponsors = this.props.store.eventDetails.adult_sponsors;
+    if (
+      newDetails.adult_sponsors == null ||
+      newDetails.adult_sponsors === " "
+    ) {
+      newDetails.adult_sponsors = this.props.store.eventDetails[0].adult_sponsors;
     }
 
     if (
       newDetails.contact_first_name == null ||
-      newDetails.contact_first_name === ""
+      newDetails.contact_first_name === " "
     ) {
-      newDetails.contact_first_name = this.props.store.eventDetails.contact_first_name;
+      newDetails.contact_first_name = this.props.store.eventDetails[0].contact_first_name;
     }
 
     if (
       newDetails.contact_last_name == null ||
-      newDetails.contact_last_name === ""
+      newDetails.contact_last_name === " "
     ) {
-      newDetails.contact_last_name = this.props.store.eventDetails.contact_last_name;
+      newDetails.contact_last_name = this.props.store.eventDetails[0].contact_last_name;
     }
 
     if (
       newDetails.contact_phone_number == null ||
-      newDetails.contact_phone_number === ""
+      newDetails.contact_phone_number === " "
     ) {
-      newDetails.contact_phone_number = this.props.store.eventDetails.contact_phone_number;
+      newDetails.contact_phone_number = this.props.store.eventDetails[0].contact_phone_number;
     }
 
-    if (newDetails.contact_email == null || newDetails.contact_email === "") {
-      newDetails.contact_email = this.props.store.eventDetails.contact_email;
+    if (newDetails.contact_email == null || newDetails.contact_email === " ") {
+      newDetails.contact_email = this.props.store.eventDetails[0].contact_email;
     }
 
     this.props.dispatch({
       type: "SAVE_EVENT",
-      payload: { newDetails },
+      payload: { ...newDetails, id: this.props.match.params.id },
     });
 
     // navigate to the details page
@@ -132,7 +138,7 @@ class EventDetailsEdit extends Component {
               <Typography>Program Requested:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].program}
+                placeholder={`${this.props.store.eventDetails[0].program}`}
                 onChange={this.changeDetails("program")}
                 type="text"
               />
@@ -141,7 +147,7 @@ class EventDetailsEdit extends Component {
               <Typography>Requested Date and Time:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].program_date}
+                placeholder={`${this.props.store.eventDetails[0].program_date}`}
                 onChange={this.changeDetails("program_date")}
                 type="text"
               />
@@ -150,7 +156,7 @@ class EventDetailsEdit extends Component {
               <Typography>Time of Day:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].time_of_day}
+                placeholder={`${this.props.store.eventDetails[0].time_of_day}`}
                 onChange={this.changeDetails("time_of_day")}
                 type="text"
               />
@@ -159,7 +165,7 @@ class EventDetailsEdit extends Component {
               <Typography>Location:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].location}
+                placeholder={`${this.props.store.eventDetails[0].location}`}
                 onChange={this.changeDetails("location")}
                 type="text"
               />
@@ -168,7 +174,7 @@ class EventDetailsEdit extends Component {
               <Typography>Organization:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].organization}
+                placeholder={`${this.props.store.eventDetails[0].organization}`}
                 onChange={this.changeDetails("organization")}
                 type="text"
               />
@@ -177,7 +183,7 @@ class EventDetailsEdit extends Component {
               <Typography>Grade Level:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].grade_level}
+                placeholder={`${this.props.store.eventDetails[0].grade_level}`}
                 onChange={this.changeDetails("grade_level")}
                 type="text"
               />
@@ -186,7 +192,7 @@ class EventDetailsEdit extends Component {
               <Typography>Number of Students:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].student_number}
+                placeholder={`${this.props.store.eventDetails[0].student_number}`}
                 onChange={this.changeDetails("student_number")}
                 type="number"
               />
@@ -195,7 +201,7 @@ class EventDetailsEdit extends Component {
               <Typography>Number of Adults:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].adult_sponsors}
+                placeholder={`${this.props.store.eventDetails[0].adult_sponsors}`}
                 onChange={this.changeDetails("adult_sponsors")}
                 type="number"
               />
@@ -206,9 +212,7 @@ class EventDetailsEdit extends Component {
               <Typography>First Name:</Typography>
               <TextField
                 className="input-field"
-                placeholder={
-                  this.props.store.eventDetails[0].contact_first_name
-                }
+                placeholder={`${this.props.store.eventDetails[0].contact_first_name}`}
                 onChange={this.changeDetails("contact_first_name")}
                 type="text"
               />
@@ -217,7 +221,7 @@ class EventDetailsEdit extends Component {
               <Typography>Last Name:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].contact_last_name}
+                placeholder={`${this.props.store.eventDetails[0].contact_last_name}`}
                 onChange={this.changeDetails("contact_last_name")}
                 type="text"
               />
@@ -226,9 +230,7 @@ class EventDetailsEdit extends Component {
               <Typography>Phone Number:</Typography>
               <TextField
                 className="input-field"
-                placeholder={
-                  this.props.store.eventDetails[0].contact_phone_number
-                }
+                placeholder={`${this.props.store.eventDetails[0].contact_phone_number}`}
                 onChange={this.changeDetails("contact_phone_number")}
                 type="text"
               />
@@ -237,7 +239,7 @@ class EventDetailsEdit extends Component {
               <Typography>Email Address:</Typography>
               <TextField
                 className="input-field"
-                placeholder={this.props.store.eventDetails[0].contact_email}
+                placeholder={`${this.props.store.eventDetails[0].contact_email}`}
                 onChange={this.changeDetails("contact_email")}
                 type="text"
               />
