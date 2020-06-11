@@ -16,6 +16,12 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 
 // Basic class component structure for React with default state
 // value setup. When making a new component be sure to replace
@@ -215,26 +221,31 @@ class ReportPage extends Component {
   }
 
   render() {
+    let totalNumberOfKids = 0;
     const eventDataArray = this.state.reportArray.map((item, index) => {
+      if (parseFloat(item.student_number) === NaN) {
+        totalNumberOfKids += 0;
+      }
+      totalNumberOfKids += parseFloat(item.student_number);
       return (
-        <tr key={index}>
-          <td>{item.program}</td>
-          <td>{item.status}</td>
-          <td>{item.program_date}</td>
-          <td>{item.time_of_day}</td>
-          <td>{item.organization}</td>
-          <td>{item.student_number}</td>
-          <td>{item.adult_sponsors}</td>
-          <td>{item.grade_level}</td>
-          <td>
+        <TableRow key={index}>
+          <TableCell>{item.program}</TableCell>
+          <TableCell>{item.status}</TableCell>
+          <TableCell>{item.program_date}</TableCell>
+          <TableCell>{item.time_of_day}</TableCell>
+          <TableCell>{item.organization}</TableCell>
+          <TableCell>{item.student_number}</TableCell>
+          <TableCell>{item.adult_sponsors}</TableCell>
+          <TableCell>{item.grade_level}</TableCell>
+          <TableCell>
             {item.contact_first_name} {item.contact_last_name}
-          </td>
-          <td>{item.contact_email}</td>
-          <td>
+          </TableCell>
+          <TableCell>{item.contact_email}</TableCell>
+          <TableCell>
             {item.first_name} {item.last_name}
-          </td>
-          <td>{item.location}</td>
-        </tr>
+          </TableCell>
+          <TableCell>{item.location}</TableCell>
+        </TableRow>
       );
     });
 
@@ -246,197 +257,210 @@ class ReportPage extends Component {
       );
     });
     return (
-      <div>
-        <Grid
-          container
-          // direction="row"
-          // justify="space-between"
-          // alignItems="flex-start"
-        >
-          <Grid item>
-            <h3>Select Date Range</h3>
-            <DatePicker
-              placeholderText="Select a start date"
-              selected={this.state.startDate}
-              onChange={(date) => this.handleStartDateChange(date)}
-              selectsStart
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-            />
-            <DatePicker
-              placeholderText="Select a end date"
-              selected={this.state.endDate}
-              onChange={(date) => this.handleEndDateChange(date)}
-              selectsEnd
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-            />
+      <div className="report-background-container">
+        <div className="report-container">
+          <Grid
+            container
+            // direction="row"
+            // justify="space-between"
+            // alignItems="flex-start"
+          >
+            <Grid item>
+              <h3>Select Date Range</h3>
+              <DatePicker
+                placeholderText="Select a start date"
+                selected={this.state.startDate}
+                onChange={(date) => this.handleStartDateChange(date)}
+                selectsStart
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+              />
+              <DatePicker
+                placeholderText="Select a end date"
+                selected={this.state.endDate}
+                onChange={(date) => this.handleEndDateChange(date)}
+                selectsEnd
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+              />
+            </Grid>
+            <Grid item>
+              <Button
+                size="large"
+                variant="contained"
+                color="secondary"
+                onClick={this.generateReport}
+              >
+                Generate Report
+              </Button>
+            </Grid>
+            <Grid item>
+              {this.state.filterOption && (
+                <>
+                  <h3>Filter By</h3>
+                  <FormControl variant="outlined">
+                    <Select
+                      displayEmpty
+                      value={this.state.filterOption}
+                      onChange={this.handelFilterOptionChange}
+                    >
+                      <MenuItem value="">Select an option</MenuItem>
+                      <MenuItem value="Program">Program</MenuItem>
+                      <MenuItem value="User">User</MenuItem>
+                      <MenuItem value="Status">Status</MenuItem>
+                      <MenuItem value="Location">Location</MenuItem>
+                    </Select>
+                  </FormControl>
+                </>
+              )}
+            </Grid>
+            <Grid item>
+              {this.state.filterOption === "Program" && (
+                <>
+                  <h3>Filter Options</h3>
+                  <FormControl variant="outlined">
+                    <Select
+                      value={this.state.programSelection}
+                      onChange={(event) =>
+                        this.handelSelectionOptionsChange(
+                          event,
+                          "programSelection"
+                        )
+                      }
+                    >
+                      <MenuItem value="All">All Programs</MenuItem>
+                      <MenuItem value="FIA">
+                        "Kindness in Action!" (formerly Families in Action)
+                      </MenuItem>
+                      <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
+                      <MenuItem value="DS">
+                        PAW-etiquette for Pooches & People: Dog Safety
+                      </MenuItem>
+                      <MenuItem value="AE">
+                        Activating Em-PAW-thy: Exploring Similarities between
+                        Pets and People
+                      </MenuItem>
+                      <MenuItem value="OUT">
+                        Once U-PAW-n a Time Reading Program
+                      </MenuItem>
+                      <MenuItem value="KIA">Kids-in-Action</MenuItem>
+                      <MenuItem value="ET">Educational Tours</MenuItem>
+                      <MenuItem value="other">Other</MenuItem>
+                    </Select>
+                  </FormControl>
+                </>
+              )}
+              {this.state.filterOption === "User" && (
+                <>
+                  <h3>Filter Options</h3>
+                  <FormControl variant="outlined">
+                    <Select
+                      value={this.state.userSelection}
+                      onChange={(event) =>
+                        this.handelSelectionOptionsChange(
+                          event,
+                          "userSelection"
+                        )
+                      }
+                    >
+                      <MenuItem value="All">All Users</MenuItem>
+                      {userArray}
+                    </Select>
+                  </FormControl>
+                </>
+              )}
+              {this.state.filterOption === "Status" && (
+                <>
+                  <h3>Filter Options</h3>
+                  <FormControl variant="outlined">
+                    <Select
+                      value={this.state.statusSelection}
+                      onChange={(event) =>
+                        this.handelSelectionOptionsChange(
+                          event,
+                          "statusSelection"
+                        )
+                      }
+                    >
+                      <MenuItem value="All">All Status</MenuItem>
+                      <MenuItem value="Received">Request Received</MenuItem>
+                      <MenuItem value="Contacted">Contacted</MenuItem>
+                      <MenuItem value="Assigned">Assigned</MenuItem>
+                      <MenuItem value="Scheduled">Scheduled</MenuItem>
+                      <MenuItem value="Complete">Complete</MenuItem>
+                      <MenuItem value="Missed">Missed Connections</MenuItem>
+                    </Select>
+                  </FormControl>
+                </>
+              )}
+              {this.state.filterOption === "Location" && (
+                <>
+                  <h3>Filter Options</h3>
+                  <FormControl variant="outlined">
+                    <Select
+                      value={this.state.locationSelection}
+                      onChange={(event) =>
+                        this.handelSelectionOptionsChange(
+                          event,
+                          "locationSelection"
+                        )
+                      }
+                    >
+                      <MenuItem value="All">All Locations</MenuItem>
+                      <MenuItem value="on_site">Wayside Waifs</MenuItem>
+                      <MenuItem value="off_site">Other</MenuItem>
+                    </Select>
+                  </FormControl>
+                </>
+              )}
+            </Grid>
           </Grid>
-          <Grid item>
-            <Button
-              size="large"
-              variant="contained"
-              color="secondary"
-              onClick={this.generateReport}
-            >
-              Generate Report
-            </Button>
-          </Grid>
-          <Grid item>
-            {this.state.filterOption && (
-              <>
-                <h3>Filter By</h3>
-                <FormControl variant="outlined">
-                  <Select
-                    displayEmpty
-                    value={this.state.filterOption}
-                    onChange={this.handelFilterOptionChange}
-                  >
-                    <MenuItem value="">Select an option</MenuItem>
-                    <MenuItem value="Program">Program</MenuItem>
-                    <MenuItem value="User">User</MenuItem>
-                    <MenuItem value="Status">Status</MenuItem>
-                    <MenuItem value="Location">Location</MenuItem>
-                  </Select>
-                </FormControl>
-              </>
-            )}
-          </Grid>
-          <Grid item>
-            {this.state.filterOption === "Program" && (
-              <>
-                <h3>Filter Options</h3>
-                <FormControl variant="outlined">
-                  <Select
-                    value={this.state.programSelection}
-                    onChange={(event) =>
-                      this.handelSelectionOptionsChange(
-                        event,
-                        "programSelection"
-                      )
-                    }
-                  >
-                    <MenuItem value="All">All Programs</MenuItem>
-                    <MenuItem value="FIA">
-                      "Kindness in Action!" (formerly Families in Action)
-                    </MenuItem>
-                    <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
-                    <MenuItem value="DS">
-                      PAW-etiquette for Pooches & People: Dog Safety
-                    </MenuItem>
-                    <MenuItem value="AE">
-                      Activating Em-PAW-thy: Exploring Similarities between Pets
-                      and People
-                    </MenuItem>
-                    <MenuItem value="OUT">
-                      Once U-PAW-n a Time Reading Program
-                    </MenuItem>
-                    <MenuItem value="KIA">Kids-in-Action</MenuItem>
-                    <MenuItem value="ET">Educational Tours</MenuItem>
-                    <MenuItem value="other">Other</MenuItem>
-                  </Select>
-                </FormControl>
-              </>
-            )}
-            {this.state.filterOption === "User" && (
-              <>
-                <h3>Filter Options</h3>
-                <FormControl variant="outlined">
-                  <Select
-                    value={this.state.userSelection}
-                    onChange={(event) =>
-                      this.handelSelectionOptionsChange(event, "userSelection")
-                    }
-                  >
-                    <MenuItem value="All">All Users</MenuItem>
-                    {userArray}
-                  </Select>
-                </FormControl>
-              </>
-            )}
-            {this.state.filterOption === "Status" && (
-              <>
-                <h3>Filter Options</h3>
-                <FormControl variant="outlined">
-                  <Select
-                    value={this.state.statusSelection}
-                    onChange={(event) =>
-                      this.handelSelectionOptionsChange(
-                        event,
-                        "statusSelection"
-                      )
-                    }
-                  >
-                    <MenuItem value="All">All Status</MenuItem>
-                    <MenuItem value="Received">Request Received</MenuItem>
-                    <MenuItem value="Contacted">Contacted</MenuItem>
-                    <MenuItem value="Assigned">Assigned</MenuItem>
-                    <MenuItem value="Scheduled">Scheduled</MenuItem>
-                    <MenuItem value="Complete">Complete</MenuItem>
-                    <MenuItem value="Missed">Missed Connections</MenuItem>
-                  </Select>
-                </FormControl>
-              </>
-            )}
-            {this.state.filterOption === "Location" && (
-              <>
-                <h3>Filter Options</h3>
-                <FormControl variant="outlined">
-                  <Select
-                    value={this.state.locationSelection}
-                    onChange={(event) =>
-                      this.handelSelectionOptionsChange(
-                        event,
-                        "locationSelection"
-                      )
-                    }
-                  >
-                    <MenuItem value="All">All Locations</MenuItem>
-                    <MenuItem value="on_site">Wayside Waifs</MenuItem>
-                    <MenuItem value="off_site">Other</MenuItem>
-                  </Select>
-                </FormControl>
-              </>
-            )}
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="flex-start"
-        >
-          <Grid>
-            <Typography>Total Number of Events:</Typography>
-            <Typography>Total Number of Students Reached:</Typography>
-          </Grid>
-          <Grid>
-            <Button size="large" variant="contained" color="secondary">
-              Export to Excel
-            </Button>
-          </Grid>
-        </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
+          >
+            {/* <Grid container spacing={5}> */}
+            <Grid item>
+              <Typography variant="h6">
+                Total Number of Events: {eventDataArray.length}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6">
+                Total Number of Students Reached: {totalNumberOfKids}
+              </Typography>
+            </Grid>
 
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Program</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>School/Organization</th>
-                <th>Number of Kids</th>
-                <th>Number of Adults</th>
-                <th>Grade</th>
-                <th>Contact</th>
-                <th>Email</th>
-                <th>Presenter</th>
-                <th>Location</th>
-              </tr>
-            </thead>
-            <tbody>{eventDataArray}</tbody>
-          </table>
+            <Grid item>
+              <Button size="large" variant="contained" color="secondary">
+                Export to Excel
+              </Button>
+            </Grid>
+          </Grid>
+
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Program</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Time</TableCell>
+                  <TableCell>School/Organization</TableCell>
+                  <TableCell>Number of Kids</TableCell>
+                  <TableCell>Number of Adults</TableCell>
+                  <TableCell>Grade</TableCell>
+                  <TableCell>Contact</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Presenter</TableCell>
+                  <TableCell>Location</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{eventDataArray}</TableBody>
+            </Table>
+          </TableContainer>
         </div>
       </div>
     );
