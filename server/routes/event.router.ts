@@ -31,7 +31,9 @@ router.get(
  * PUT route, update all event details for individual event except status, educator and volunteer, these have their own put routes
  */
 router.put(
-  "/details/edit",
+
+  "/edit",
+
 
   rejectUnauthenticated,
 

@@ -10,7 +10,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+
+import Grid from "@material-ui/core/Grid";
+
 const moment = require("moment");
+
 // import Select from "react-select";
 // const users = this.props.store.allUser;
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 // component.
 function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [assignEl, setAssignEl] = useState(null);
   const classes = useStyles();
   // moved this up to use it in the payload for get event
   const id = Number(props.match.params.id);
@@ -54,18 +59,20 @@ function EventDetailsPage(props) {
     setAnchorEl(event.currentTarget);
   };
   const onHandleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    setAssignEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
   const onHandleClose = (event) => {
-    setAnchorEl(event.currentTarget);
+    setAssignEl(null);
   };
+
   // const filteredEvent = props.store.event.details.filter((request) => {
   //   return request.id === id;
   // });
   // console.log(props);
+
   const eventMap = props.store.eventDetails.map((event) => {
     return (
       <div key={event.id}>
@@ -80,9 +87,9 @@ function EventDetailsPage(props) {
             </Button>
             <Menu
               id="simple-menu"
-              anchorEl={anchorEl}
+              anchorEl={assignEl}
               keepMounted
-              open={Boolean(anchorEl)}
+              open={Boolean(assignEl)}
               onClose={onHandleClose}
             >
               <MenuItem onClick={onHandleClose}>Amanda</MenuItem>
@@ -115,6 +122,10 @@ function EventDetailsPage(props) {
           </div>
           <Card className={classes.root}>
             <CardContent>
+
+              <Typography variant="h5" color="textSecondary" gutterBottom>
+                {event.organization} Details:
+
               <Typography variant="h4" color="textSecondary" gutterBottom>
                 Event Details:
               </Typography>
@@ -132,44 +143,55 @@ function EventDetailsPage(props) {
                 Request Date and Time:{" "}
                 {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
                 {event.time_of_day}
+
               </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Location: {event.location}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Name of Organization: {event.organization}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Grade Level: {event.grade_level}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Number of Students: {event.student_number}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Number of Chaperones: {event.adult_sponsors}
-              </Typography>
-              <br />
-              <Typography className={classes.pos} component="p">
-                Contact Information:
+              <Grid>
+                <Typography className={classes.pos}>
+                  Event Information:
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Date Received: {event.request_date}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Program: {event.program}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Requested Date and Time: {event.program_date} in the{" "}
+                  {event.time_of_day}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Location: {event.location}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Name of Organization: {event.organization}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Grade Level: {event.grade_level}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Number of Students: {event.student_number}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Number of Chaperones: {event.adult_sponsors}
+                </Typography>
                 <br />
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Full Name: {event.contact_first_name} {event.contact_last_name}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Phone Number: {event.contact_phone_number}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Email Address: {event.contact_email}
-              </Typography>
+                <Typography className={classes.pos} component="p">
+                  Contact Information:
+                  <br />
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Full Name: {event.contact_first_name}{" "}
+                  {event.contact_last_name}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Phone Number: {event.contact_phone_number}
+                </Typography>
+                <Typography color="textSecondary" variant="body2">
+                  Email Address: {event.contact_email}
+                </Typography>
+              </Grid>
             </CardContent>
             <CardActions>
-              {/* <Select
-          value="Assign"
-          onChange={this.assign}
-          options={users}
-          className="selector_container"
-        /> */}
               <Button onClick={editHandleClick}>Edit</Button>
             </CardActions>
           </Card>
