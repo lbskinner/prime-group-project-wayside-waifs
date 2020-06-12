@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
+import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import Grid from "@material-ui/core/Grid";
@@ -69,6 +70,17 @@ function EventDetailsPage(props) {
     setAssignEl(null);
   };
 
+  const users = props.store.allUser;
+  let userList = [];
+  if (props.store.allUser.length > 1) {
+    for (let user of users) {
+      userList.push({
+        value: `${user.id}`,
+        label: `${user.first_name}  ${user.last_name}`,
+      });
+    }
+  }
+
   // const filteredEvent = props.store.event.details.filter((request) => {
   //   return request.id === id;
   // });
@@ -80,24 +92,20 @@ function EventDetailsPage(props) {
         <CssBaseline>
           <div>
             <Button
-              aria-controls="simple-menu"
+              aria-controls="simple-select"
               aria-haspopup="true"
               onClick={onHandleClick}
             >
               Assign
             </Button>
-            <Menu
-              id="simple-menu"
+            <Select
+              id="simple-select"
               anchorEl={assignEl}
               keepMounted
+              options={userList}
               open={Boolean(assignEl)}
-              onClose={onHandleClose}
-            >
-              <MenuItem onClick={onHandleClose}>Amanda</MenuItem>
-              <MenuItem onClick={onHandleClose}>Ashley</MenuItem>
-              <MenuItem onClick={onHandleClose}>Karen</MenuItem>
-              <MenuItem onClick={onHandleClose}>John</MenuItem>
-            </Menu>
+              onSelect={onHandleClose}
+            ></Select>
           </div>
 
           <div>
@@ -115,12 +123,24 @@ function EventDetailsPage(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Request Received</MenuItem>
-              <MenuItem onClick={handleClose}>Contacted</MenuItem>
-              <MenuItem onClick={handleClose}>Assigned</MenuItem>
-              <MenuItem onClick={handleClose}>Scheduled</MenuItem>
-              <MenuItem onClick={handleClose}>Complete</MenuItem>
-              <MenuItem onClick={handleClose}>Missed Connections</MenuItem>
+              <MenuItem onClick={handleClose} value="Received">
+                Request Received
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Contacted">
+                Contacted
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Assigned">
+                Assigned
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Scheduled">
+                Scheduled
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Complete">
+                Complete
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Missed">
+                Missed Connections
+              </MenuItem>
             </Menu>
           </div>
 
