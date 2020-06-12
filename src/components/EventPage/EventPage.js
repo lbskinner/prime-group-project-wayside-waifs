@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import mapStoreToProps from "../../redux/mapStoreToProps";
+import { withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+
+import "./EventPage.css";
 
 import RequestedEvent from "../EventPageComponent/RequestedEvent/RequestedEvent";
 import MyEvent from "../EventPageComponent/MyEvent/MyEvent";
@@ -11,6 +19,35 @@ import AllEvent from "../EventPageComponent/AllEvent/AllEvent";
 // value setup. When making a new component be sure to replace
 // the component name TemplateClass with the name for the new
 // component.
+
+const styles = (theme) => ({
+  root: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  paperTransparent: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: "#fff0",
+  },
+  padding: {
+    padding: "8px 20px",
+  },
+  selectorSize: {
+    minWidth: 600,
+  },
+  inputMargin: {
+    margin: "10px 0px",
+    minWidth: 600,
+  },
+});
+
 class EventPage extends Component {
   componentDidMount() {
     this.props.dispatch({
@@ -44,53 +81,106 @@ class EventPage extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        <h2>{this.state.heading}</h2>
-        <div>
-          <h5>
-            <label onClick={this.requestSelect}>Requested Events </label>
-            <label onClick={this.mySelect}> My Events </label>
-            <label onClick={this.allSelect}> All Events</label>
-          </h5>
-        </div>
-        <div>
+        <CssBaseline>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <Typography classes={{ root: classes.padding }} variant="h4">
+              {this.state.heading}
+            </Typography>
+          </Paper>
+          <div>
+            <Box display="flex" justifyContent="center" m={1} p={1}>
+              <Button onClick={this.requestSelect} color="secondary">
+                Requested Events{" "}
+              </Button>
+              <Button onClick={this.mySelect} color="secondary">
+                {" "}
+                My Events{" "}
+              </Button>
+              <Button onClick={this.allSelect} color="secondary">
+                {" "}
+                All Events
+              </Button>
+            </Box>
+            <Box display="flex" justifyContent="center" m={1} p={1}>
+              <Typography>
+                <img
+                  className="swatches"
+                  alt="blue"
+                  src="../images/blue.jpg"
+                ></img>{" "}
+                Contacted
+              </Typography>
+            </Box>
+            <Box display="flex" justifyContent="center" m={1} p={1}>
+              <Typography>
+                <img
+                  className="swatches"
+                  alt="yellow"
+                  src="../images/yellow.jpg"
+                ></img>{" "}
+                Scheduled
+              </Typography>
+            </Box>
+          </div>
+
           {this.state.status === "Requested Events" && (
-            <div>
-              <div>IN REQUESTED EVENTS!</div>
+            <Paper classes={{ root: classes.root }} elevation={1}>
               <div>
-                {this.props.store.event.map((eventItem) => {
-                  return (
-                    <RequestedEvent key={eventItem.id} eventItem={eventItem} />
-                  );
-                })}
+                <Typography variant="h6" align="center">
+                  IN REQUESTED EVENTS
+                </Typography>
+                <div className={classes.padding}>
+                  {this.props.store.event.map((eventItem) => {
+                    return (
+                      <RequestedEvent
+                        key={eventItem.id}
+                        eventItem={eventItem}
+                      />
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            </Paper>
           )}
           {this.state.status === "My Events" && (
-            <div>
-              <div>IN MY EVENTS!</div>
+            <Paper classes={{ root: classes.root }} elevation={1}>
               <div>
-                {this.props.store.event.map((eventItem) => {
-                  return <MyEvent key={eventItem.id} eventItem={eventItem} />;
-                })}
+                <Typography variant="h6" align="center">
+                  IN MY EVENTS!
+                </Typography>
+                <div className={classes.padding}>
+                  {this.props.store.event.map((eventItem) => {
+                    return <MyEvent key={eventItem.id} eventItem={eventItem} />;
+                  })}
+                </div>
               </div>
-            </div>
+            </Paper>
           )}
           {this.state.status === "All Events" && (
-            <div>
-              <div>IN ALL EVENTS!</div>
+            <Paper classes={{ root: classes.root }} elevation={1}>
               <div>
-                {this.props.store.event.map((eventItem) => {
-                  return <AllEvent key={eventItem.id} eventItem={eventItem} />;
-                })}
+                <Typography variant="h6" align="center">
+                  IN ALL EVENTS!
+                </Typography>
+                <div className={classes.padding}>
+                  {this.props.store.event.map((eventItem) => {
+                    return (
+                      <AllEvent key={eventItem.id} eventItem={eventItem} />
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            </Paper>
           )}
-        </div>
+        </CssBaseline>
       </div>
     );
   }
 }
 
-export default withRouter(connect(mapStoreToProps)(EventPage));
+export default withStyles(styles)(
+  withRouter(connect(mapStoreToProps)(EventPage))
+);
