@@ -57,8 +57,6 @@ class RequestedEvent extends Component {
       background = { backgroundColor: "yellow" };
     }
 
-    let programId = eval("this.state." + this.props.eventItem.program);
-
     return (
       <div>
         {this.props.eventItem.status === "Received" && (
@@ -77,7 +75,9 @@ class RequestedEvent extends Component {
                 Program Date:{" "}
                 {moment(this.props.eventItem.program_date).format("MM-DD-YYYY")}
               </p>
-              <p>Program Requested: {programId}</p>
+              <p>
+                Program Requested: {this.state[this.props.eventItem.program]}
+              </p>
             </div>
 
             <Select

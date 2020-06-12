@@ -33,8 +33,6 @@ class MyEvent extends Component {
       background = { backgroundColor: "yellow" };
     }
 
-    let programId = eval("this.state." + this.props.eventItem.program);
-
     return (
       <div>
         {this.props.eventItem.educator_id === this.props.store.user.id && (
@@ -53,7 +51,9 @@ class MyEvent extends Component {
                 Program Date:{" "}
                 {moment(this.props.eventItem.program_date).format("MM-DD-YYYY")}
               </p>
-              <p>Program Requested: {programId}</p>
+              <p>
+                Program Requested: {this.state[this.props.eventItem.program]}
+              </p>
             </div>
           </div>
         )}

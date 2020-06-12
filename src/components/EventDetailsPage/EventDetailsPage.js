@@ -59,8 +59,10 @@ function EventDetailsPage(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (event, status) => {
     setAnchorEl(null);
+    let info = { status: status, id: props.match.params.id };
+    props.dispatch({ type: "SET_STATUS", payload: info });
   };
 
   const onHandleClick = (event) => {
@@ -123,22 +125,22 @@ function EventDetailsPage(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose} value="Received">
+              <MenuItem onClick={(event) => handleClose(event, "Received")}>
                 Request Received
               </MenuItem>
-              <MenuItem onClick={handleClose} value="Contacted">
+              <MenuItem onClick={(event) => handleClose(event, "Contacted")}>
                 Contacted
               </MenuItem>
-              <MenuItem onClick={handleClose} value="Assigned">
+              <MenuItem onClick={(event) => handleClose(event, "Assigned")}>
                 Assigned
               </MenuItem>
-              <MenuItem onClick={handleClose} value="Scheduled">
+              <MenuItem onClick={(event) => handleClose(event, "Scheduled")}>
                 Scheduled
               </MenuItem>
-              <MenuItem onClick={handleClose} value="Complete">
+              <MenuItem onClick={(event) => handleClose(event, "Complete")}>
                 Complete
               </MenuItem>
-              <MenuItem onClick={handleClose} value="Missed">
+              <MenuItem onClick={(event) => handleClose(event, "Missed")}>
                 Missed Connections
               </MenuItem>
             </Menu>
@@ -146,7 +148,6 @@ function EventDetailsPage(props) {
 
           <Card className={classes.root}>
             <CardContent>
-
               <Typography variant="h5" color="textSecondary" gutterBottom>
                 {event.organization} Details:
               </Typography>

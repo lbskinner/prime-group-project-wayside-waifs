@@ -68,7 +68,7 @@ router.put(
  * PUT route, update status
  */
 router.put(
-  "/details/status",
+  "/status",
 
   rejectUnauthenticated,
 
