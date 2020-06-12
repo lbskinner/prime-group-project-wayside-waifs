@@ -1,8 +1,8 @@
 INSERT INTO "user" ("username","password","first_name","last_name","phone_number","role","street_address","city","state","zip" )
-VALUES ('ashley@example.com','1234','Ashley','Stanley','9134561234','Educator','1234 Main Street','Kansas City','MO','64108'),
-('karen@example.com','1234','Karen','Wallace','91345664321','Educator','4567 Main Street','Kansas City','MO','64108'),
-('john@example.com','1234','John','Parker','9134567896','Educator','555 Main Street','Kansas City','MO','64108'),
-('amanday@example.com','1234','Amanda','Smasal','9134564455','Educator','896 Main Street','Kansas City','MO','64108');
+VALUES ('ashley@example.com','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Ashley','Stanley','9134561234','Educator','1234 Main Street','Kansas City','MO','64108'),
+('karen@example.com','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Karen','Wallace','91345664321','Educator','4567 Main Street','Kansas City','MO','64108'),
+('john@example.com','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','John','Parker','9134567896','Educator','555 Main Street','Kansas City','MO','64108'),
+('amanday@example.com','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Amanda','Smasal','9134564455','Educator','896 Main Street','Kansas City','MO','64108');
 
 
 INSERT INTO "event" ("request_date","status","organization","program","program_date","time_of_day",

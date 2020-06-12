@@ -146,11 +146,22 @@ function EventDetailsPage(props) {
 
           <Card className={classes.root}>
             <CardContent>
+
+              <Typography variant="h5" color="textSecondary" gutterBottom>
+                {event.organization} Details:
+              </Typography>
+
               <Typography variant="h4" color="textSecondary" gutterBottom>
                 Event Details
               </Typography>
               <Typography variant="h5" color="textSecondary" gutterBottom>
                 {event.organization}
+              </Typography>
+
+              <Typography color="textSecondary" variant="body2">
+                Request Date and Time:{" "}
+                {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
+                {event.time_of_day}
               </Typography>
 
               <Grid>

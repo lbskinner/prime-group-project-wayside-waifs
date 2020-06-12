@@ -55,7 +55,7 @@ class App extends Component {
               <Route exact path="/about" component={AboutPage} />
               {/* <Route exact path="/home" component={RequestForm} /> */}
               <Route exact path="/request" component={RequestForm} />
-
+              <Route exact path="/reports" component={ReportPage} />
               {/* login page not used */}
               {/* <Route exact path="/login" component={LoginPage} /> */}
 
@@ -82,7 +82,7 @@ class App extends Component {
                 component={RegisterPage}
               /> */}
 
-              <ProtectedRoute exact path="/reports" component={ReportPage} />
+              {/* <ProtectedRoute exact path="/reports" component={ReportPage} /> */}
               {/* <ProtectedRoute exact path="/request" component={RequestForm} /> */}
               <ProtectedRoute exact path="/event" component={EventPage} />
               <ProtectedRoute
