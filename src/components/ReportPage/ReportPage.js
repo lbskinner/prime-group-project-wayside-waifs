@@ -285,8 +285,6 @@ class ReportPage extends Component {
         Location: item.location,
       };
     });
-    console.log(exportData);
-
     const userArray = this.props.allUser.map((user) => {
       return (
         <MenuItem key={user.id} value={user.id}>
@@ -473,7 +471,9 @@ class ReportPage extends Component {
 
             <Grid item>
               <Button size="large" variant="contained" color="secondary">
-                <CSVLink data={exportData}>Download me</CSVLink>
+                <CSVLink className="link-text" data={exportData}>
+                  Download me
+                </CSVLink>
               </Button>
             </Grid>
           </Grid>
