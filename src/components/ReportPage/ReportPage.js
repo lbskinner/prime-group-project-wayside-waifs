@@ -24,6 +24,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { InputLabel } from "@material-ui/core";
+import { CSVLink, CSVDownload } from "react-csv";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -235,37 +236,6 @@ class ReportPage extends Component {
     });
   }
 
-  exportTableToExcel = (event, tableID, filename = "") => {
-    let downloadLink;
-    let dataType = "application/vnd.ms-excel";
-    let tableSelect = document.getElementById(tableID);
-    let tableHTML = tableSelect.outerHTML.replace(/ /g, "%20");
-
-    // Specify file name
-    filename = filename ? filename + ".xls" : "excel_data.xls";
-
-    // Create download link element
-    downloadLink = document.createElement("a");
-
-    document.body.appendChild(downloadLink);
-
-    if (navigator.msSaveOrOpenBlob) {
-      let blob = new Blob(["\ufeff", tableHTML], {
-        type: dataType,
-      });
-      navigator.msSaveOrOpenBlob(blob, filename);
-    } else {
-      // Create a link to the file
-      downloadLink.href = "data:" + dataType + ", " + tableHTML;
-
-      // Setting the file name
-      downloadLink.download = filename;
-
-      //triggering the function
-      downloadLink.click();
-    }
-  };
-
   render() {
     let totalNumberOfKids = 0;
     const eventDataArray = this.state.reportArray.map((item) => {
@@ -299,6 +269,23 @@ class ReportPage extends Component {
         </StyledTableRow>
       );
     });
+    const exportData = this.state.reportArray.map((item) => {
+      return {
+        Program: item.program,
+        Status: item.status,
+        Date: moment(item.program_date).format("MM-DD-YYYY"),
+        Time: item.time_of_day,
+        "School/Organization": item.organization,
+        "# of Kids": item.student_number,
+        "# of Adults": item.adult_sponsors,
+        Grade: item.grade_level,
+        Contact: `${item.contact_first_name} ${item.contact_last_name}`,
+        Email: item.contact_email,
+        Presenter: `${item.first_name} ${item.last_name}`,
+        Location: item.location,
+      };
+    });
+    console.log(exportData);
 
     const userArray = this.props.allUser.map((user) => {
       return (
@@ -485,13 +472,8 @@ class ReportPage extends Component {
             </Grid>
 
             <Grid item>
-              <Button
-                size="large"
-                variant="contained"
-                color="secondary"
-                onClick={(event) => this.exportTableToExcel(event, "tblData")}
-              >
-                Export to Excel
+              <Button size="large" variant="contained" color="secondary">
+                <CSVLink data={exportData}>Download me</CSVLink>
               </Button>
             </Grid>
           </Grid>
