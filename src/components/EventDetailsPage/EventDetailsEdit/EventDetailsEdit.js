@@ -18,7 +18,7 @@ class EventDetailsEdit extends Component {
 
     this.state = {
       request_date: " ",
-      program: " ",
+      program: this.props.store.eventDetails[0].program || " ",
       program_date: " ",
       time_of_day: " ",
       location: " ",
@@ -148,7 +148,7 @@ class EventDetailsEdit extends Component {
             <Grid>
               <FormControl variant="outlined">
                 <Select
-                  value={this.props.store.eventDetails[0].program}
+                  value={this.state.program}
                   onChange={(event) => this.programSelect(event)}
                 >
                   <MenuItem value="All">All Programs</MenuItem>
