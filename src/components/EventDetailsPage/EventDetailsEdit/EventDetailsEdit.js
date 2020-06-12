@@ -6,6 +6,11 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Select from "@material-ui/core/Select";
+import FormControl from "@material-ui/core/FormControl";
+import MenuItem from "@material-ui/core/MenuItem";
+
+const moment = require("moment");
 
 class EventDetailsEdit extends Component {
   constructor(props) {
@@ -40,6 +45,12 @@ class EventDetailsEdit extends Component {
   changeDetails = (fieldKey) => (event) => {
     this.setState({
       [fieldKey]: event.target.value,
+    });
+  };
+
+  programSelect = (event) => {
+    this.setState({
+      program: event.target.value,
     });
   };
 
@@ -135,19 +146,39 @@ class EventDetailsEdit extends Component {
             <Typography variant="h6">Edit Event Information:</Typography>
 
             <Grid>
-              <Typography>Program Requested:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].program}`}
-                onChange={this.changeDetails("program")}
-                type="text"
-              />
+              <FormControl variant="outlined">
+                <Select
+                  value={this.props.store.eventDetails[0].program}
+                  onChange={(event) => this.programSelect(event)}
+                >
+                  <MenuItem value="All">All Programs</MenuItem>
+                  <MenuItem value="FIA">
+                    "Kindness in Action!" (formerly Families in Action)
+                  </MenuItem>
+                  <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
+                  <MenuItem value="DS">
+                    PAW-etiquette for Pooches & People: Dog Safety
+                  </MenuItem>
+                  <MenuItem value="AE">
+                    Activating Em-PAW-thy: Exploring Similarities between Pets
+                    and People
+                  </MenuItem>
+                  <MenuItem value="OUT">
+                    Once U-PAW-n a Time Reading Program
+                  </MenuItem>
+                  <MenuItem value="KIA">Kids-in-Action</MenuItem>
+                  <MenuItem value="ET">Educational Tours</MenuItem>
+                  <MenuItem value="other">Other</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid>
               <Typography>Requested Date and Time:</Typography>
               <TextField
                 className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].program_date}`}
+                placeholder={`${moment(
+                  this.props.store.eventDetails[0].program_date
+                ).format("MM-DD-YYYY")}`}
                 onChange={this.changeDetails("program_date")}
                 type="text"
               />
