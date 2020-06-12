@@ -8,7 +8,7 @@ import "./ReportPage.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import TextField from "@material-ui/core/TextField";
+// import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -22,7 +22,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles /*makeStyles*/ } from "@material-ui/core/styles";
 // import TablePagination from "@material-ui/core/TablePagination";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -270,7 +270,7 @@ class ReportPage extends Component {
             </StyledTableCell>
             <StyledTableCell align="center">{item.status}</StyledTableCell>
             <StyledTableCell align="center">
-              {item.program_date}
+              {moment(item.program_date).format("MM-DD-YYYY")}
             </StyledTableCell>
             <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
             <StyledTableCell align="center">

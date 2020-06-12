@@ -61,6 +61,7 @@ function EventDetailsPage(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const onHandleClick = (event) => {
     setAssignEl(event.currentTarget);
   };
