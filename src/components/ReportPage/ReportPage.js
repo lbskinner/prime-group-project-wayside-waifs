@@ -23,7 +23,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-// import TablePagination from "@material-ui/core/TablePagination";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableFooter from "@material-ui/core/TableFooter";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -55,25 +56,25 @@ class ReportPage extends Component {
     locationSelection: "All",
     allEventsInDateRange: [],
     reportArray: [],
-    // page: 0,
-    // rowsPerPage: 3,
+    page: 0,
+    rowsPerPage: 3,
   };
 
-  // handleChangePage = (event, newPage) => {
-  //   this.setState({
-  //     ...this.state,
-  //     page: newPage,
-  //   });
-  // };
+  handleChangePage = (event, newPage) => {
+    this.setState({
+      ...this.state,
+      page: newPage,
+    });
+  };
 
-  // handleChangeRowsPerPage = (event) => {
-  //   const page = this.state.rowsPerPage + event.target.value;
-  //   this.setState({
-  //     ...this.state,
-  //     rowsPerPage: page,
-  //     page: 0,
-  //   });
-  // };
+  handleChangeRowsPerPage = (event) => {
+    const page = this.state.rowsPerPage + event.target.value;
+    this.setState({
+      ...this.state,
+      rowsPerPage: page,
+      page: 0,
+    });
+  };
 
   componentDidMount() {
     this.props.dispatch({
@@ -287,14 +288,14 @@ class ReportPage extends Component {
   render() {
     let totalNumberOfKids = 0;
     const eventDataArray = this.state.reportArray
-      // .slice(
-      //   this.state.page * this.state.rowsPerPage,
-      //   this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
-      // )
+      .slice(
+        this.state.page * this.state.rowsPerPage,
+        this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
+      )
       .map((item) => {
         totalNumberOfKids += parseFloat(item.student_number);
         return (
-          <StyledTableRow key={item.id}>
+          <StyledTableRow key={item.id} hover role="checkbox" tabIndex={-1}>
             {/* (hover role="checkbox" tabIndex={-1}) part of TableRow */}
             <StyledTableCell component="th" scope="row" align="center">
               {item.program}
@@ -338,9 +339,9 @@ class ReportPage extends Component {
     return (
       <div className="report-background-container">
         <div className="report-container">
+          <Typography variant="h5">Select Date Range</Typography>
           <Grid container>
             <Grid item>
-              <Typography variant="h5">Select Date Range</Typography>
               <DatePicker
                 placeholderText="Select a start date"
                 selected={this.state.startDate}
@@ -349,6 +350,8 @@ class ReportPage extends Component {
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
               />
+            </Grid>
+            <Grid item>
               <DatePicker
                 placeholderText="Select a end date"
                 selected={this.state.endDate}
@@ -522,7 +525,7 @@ class ReportPage extends Component {
           </Grid>
           <br />
           <TableContainer component={Paper}>
-            <Table id="tblData">
+            <Table id="tblData" stickyHeader>
               {/* (stickyHeader) - part of table */}
               <TableHead>
                 <TableRow>
@@ -547,17 +550,22 @@ class ReportPage extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>{eventDataArray}</TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    rowsPerPageOptions={[3, 5, 10]}
+                    component="div"
+                    count={eventDataArray.length}
+                    rowsPerPage={this.state.rowsPerPage}
+                    page={this.state.page}
+                    onChangePage={this.handleChangePage}
+                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                    colSpan={12}
+                  />
+                </TableRow>
+              </TableFooter>
             </Table>
           </TableContainer>
-          {/* <TablePagination
-            rowsPerPageOptions={[3, 5, 10]}
-            component="div"
-            count={eventDataArray.length}
-            rowsPerPage={this.state.rowsPerPage}
-            page={this.state.page}
-            onChangePage={this.handleChangePage}
-            onChangeRowsPerPage={this.handleChangeRowsPerPage}
-          /> */}
         </div>
       </div>
     );
