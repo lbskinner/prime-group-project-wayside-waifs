@@ -8,7 +8,7 @@ import "./ReportPage.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import TextField from "@material-ui/core/TextField";
+// import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -22,9 +22,13 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { InputLabel } from "@material-ui/core";
 import { CSVLink, CSVDownload } from "react-csv";
+
+// import TablePagination from "@material-ui/core/TablePagination";
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -238,6 +242,7 @@ class ReportPage extends Component {
 
   render() {
     let totalNumberOfKids = 0;
+
     const eventDataArray = this.state.reportArray.map((item) => {
       totalNumberOfKids += parseFloat(item.student_number);
       return (
@@ -285,6 +290,50 @@ class ReportPage extends Component {
         Location: item.location,
       };
     });
+
+//     const eventDataArray = this.state.reportArray
+//       // .slice(
+//       //   this.state.page * this.state.rowsPerPage,
+//       //   this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
+//       // )
+//       .map((item) => {
+//         totalNumberOfKids += parseFloat(item.student_number);
+//         return (
+//           <StyledTableRow key={item.id}>
+//             {/* (hover role="checkbox" tabIndex={-1}) part of TableRow */}
+//             <StyledTableCell component="th" scope="row" align="center">
+//               {item.program}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">{item.status}</StyledTableCell>
+//             <StyledTableCell align="center">
+//               {moment(item.program_date).format("MM-DD-YYYY")}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.organization}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.student_number}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.adult_sponsors}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.contact_first_name} {item.contact_last_name}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.contact_email}
+//             </StyledTableCell>
+//             <StyledTableCell>
+//               {item.first_name} {item.last_name}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">{item.location}</StyledTableCell>
+//           </StyledTableRow>
+//         );
+//       });
+
+
     const userArray = this.props.allUser.map((user) => {
       return (
         <MenuItem key={user.id} value={user.id}>

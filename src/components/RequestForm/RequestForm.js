@@ -103,7 +103,7 @@ class RequestForm extends Component {
     }
     // create new request object to save to database
     const newRequest = {
-      status: "requestReceived",
+      status: "Received",
       contact_first_name: this.state.contact_first_name,
       contact_last_name: this.state.contact_last_name,
       contact_email: this.state.contact_email,

@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
+import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import Grid from "@material-ui/core/Grid";
@@ -58,15 +59,27 @@ function EventDetailsPage(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const onHandleClick = (event) => {
-    setAssignEl(event.currentTarget);
-  };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const onHandleClick = (event) => {
+    setAssignEl(event.currentTarget);
   };
   const onHandleClose = (event) => {
     setAssignEl(null);
   };
+
+  const users = props.store.allUser;
+  let userList = [];
+  if (props.store.allUser.length > 1) {
+    for (let user of users) {
+      userList.push({
+        value: `${user.id}`,
+        label: `${user.first_name}  ${user.last_name}`,
+      });
+    }
+  }
 
   // const filteredEvent = props.store.event.details.filter((request) => {
   //   return request.id === id;
@@ -79,25 +92,22 @@ function EventDetailsPage(props) {
         <CssBaseline>
           <div>
             <Button
-              aria-controls="simple-menu"
+              aria-controls="simple-select"
               aria-haspopup="true"
               onClick={onHandleClick}
             >
               Assign
             </Button>
-            <Menu
-              id="simple-menu"
+            <Select
+              id="simple-select"
               anchorEl={assignEl}
               keepMounted
+              options={userList}
               open={Boolean(assignEl)}
-              onClose={onHandleClose}
-            >
-              <MenuItem onClick={onHandleClose}>Amanda</MenuItem>
-              <MenuItem onClick={onHandleClose}>Ashley</MenuItem>
-              <MenuItem onClick={onHandleClose}>Karen</MenuItem>
-              <MenuItem onClick={onHandleClose}>John</MenuItem>
-            </Menu>
+              onSelect={onHandleClose}
+            ></Select>
           </div>
+
           <div>
             <Button
               aria-controls="simple-menu"
@@ -113,48 +123,61 @@ function EventDetailsPage(props) {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Request Received</MenuItem>
-              <MenuItem onClick={handleClose}>Contacted</MenuItem>
-              <MenuItem onClick={handleClose}>Assignment</MenuItem>
-              <MenuItem onClick={handleClose}>Scheduled</MenuItem>
-              <MenuItem onClick={handleClose}>Missed Connections</MenuItem>
+              <MenuItem onClick={handleClose} value="Received">
+                Request Received
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Contacted">
+                Contacted
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Assigned">
+                Assigned
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Scheduled">
+                Scheduled
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Complete">
+                Complete
+              </MenuItem>
+              <MenuItem onClick={handleClose} value="Missed">
+                Missed Connections
+              </MenuItem>
             </Menu>
           </div>
+
           <Card className={classes.root}>
             <CardContent>
+
               <Typography variant="h5" color="textSecondary" gutterBottom>
                 {event.organization} Details:
               </Typography>
+
               <Typography variant="h4" color="textSecondary" gutterBottom>
-                Event Details:
+                Event Details
               </Typography>
-              <Typography className={classes.pos}>
-                Event Information:
+              <Typography variant="h5" color="textSecondary" gutterBottom>
+                {event.organization}
               </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Date Received: {moment(event.request_date).format("MM-DD-YYYY")}{" "}
-                in the {event.time_of_day}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Program: {event.program}
-              </Typography>
+
               <Typography color="textSecondary" variant="body2">
                 Request Date and Time:{" "}
                 {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
                 {event.time_of_day}
               </Typography>
+
               <Grid>
                 <Typography className={classes.pos}>
-                  Event Information:
+                  Event Information
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
-                  Date Received: {event.request_date}
+                  Date Received:{" "}
+                  {moment(event.request_date).format("MM-DD-YYYY")}
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
                   Program: {event.program}
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
-                  Requested Date and Time: {event.program_date} in the{" "}
+                  Requested Date and Time:{" "}
+                  {moment(event.program_date).format("MM-DD-YYYY")} at{" "}
                   {event.time_of_day}
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
@@ -174,7 +197,7 @@ function EventDetailsPage(props) {
                 </Typography>
                 <br />
                 <Typography className={classes.pos} component="p">
-                  Contact Information:
+                  Contact Information
                   <br />
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
