@@ -23,8 +23,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableFooter from "@material-ui/core/TableFooter";
+import { InputLabel } from "@material-ui/core";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -56,24 +55,6 @@ class ReportPage extends Component {
     locationSelection: "All",
     allEventsInDateRange: [],
     reportArray: [],
-    page: 0,
-    rowsPerPage: 3,
-  };
-
-  handleChangePage = (event, newPage) => {
-    this.setState({
-      ...this.state,
-      page: newPage,
-    });
-  };
-
-  handleChangeRowsPerPage = (event) => {
-    const page = this.state.rowsPerPage + event.target.value;
-    this.setState({
-      ...this.state,
-      rowsPerPage: page,
-      page: 0,
-    });
   };
 
   componentDidMount() {
@@ -287,47 +268,37 @@ class ReportPage extends Component {
 
   render() {
     let totalNumberOfKids = 0;
-    const eventDataArray = this.state.reportArray
-      .slice(
-        this.state.page * this.state.rowsPerPage,
-        this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
-      )
-      .map((item) => {
-        totalNumberOfKids += parseFloat(item.student_number);
-        return (
-          <StyledTableRow key={item.id} hover role="checkbox" tabIndex={-1}>
-            {/* (hover role="checkbox" tabIndex={-1}) part of TableRow */}
-            <StyledTableCell component="th" scope="row" align="center">
-              {item.program}
-            </StyledTableCell>
-            <StyledTableCell align="center">{item.status}</StyledTableCell>
-            <StyledTableCell align="center">
-              {item.program_date}
-            </StyledTableCell>
-            <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
-            <StyledTableCell align="center">
-              {item.organization}
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {item.student_number}
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {item.adult_sponsors}
-            </StyledTableCell>
-            <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
-            <StyledTableCell align="center">
-              {item.contact_first_name} {item.contact_last_name}
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {item.contact_email}
-            </StyledTableCell>
-            <StyledTableCell>
-              {item.first_name} {item.last_name}
-            </StyledTableCell>
-            <StyledTableCell align="center">{item.location}</StyledTableCell>
-          </StyledTableRow>
-        );
-      });
+    const eventDataArray = this.state.reportArray.map((item) => {
+      totalNumberOfKids += parseFloat(item.student_number);
+      return (
+        <StyledTableRow key={item.id}>
+          <StyledTableCell component="th" scope="row" align="center">
+            {item.program}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.status}</StyledTableCell>
+          <StyledTableCell align="center">
+            {moment(item.program_date).format("MM-DD-YYYY")}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
+          <StyledTableCell align="center">{item.organization}</StyledTableCell>
+          <StyledTableCell align="center">
+            {item.student_number}
+          </StyledTableCell>
+          <StyledTableCell align="center">
+            {item.adult_sponsors}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
+          <StyledTableCell align="center">
+            {item.contact_first_name} {item.contact_last_name}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.contact_email}</StyledTableCell>
+          <StyledTableCell>
+            {item.first_name} {item.last_name}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.location}</StyledTableCell>
+        </StyledTableRow>
+      );
+    });
 
     const userArray = this.props.allUser.map((user) => {
       return (
@@ -340,7 +311,7 @@ class ReportPage extends Component {
       <div className="report-background-container">
         <div className="report-container">
           <Typography variant="h5">Select Date Range</Typography>
-          <Grid container>
+          <Grid container alignItems="center" spacing={2}>
             <Grid item>
               <DatePicker
                 placeholderText="Select a start date"
@@ -361,9 +332,7 @@ class ReportPage extends Component {
                 endDate={this.state.endDate}
               />
             </Grid>
-            <Grid item>
-              <Typography variant="h5">&nbsp;</Typography>
-              <br />
+            <Grid item alignItems="center">
               <Button
                 size="large"
                 variant="contained"
@@ -373,17 +342,17 @@ class ReportPage extends Component {
                 Generate Report
               </Button>
             </Grid>
+            {/* </Grid>
+          <Grid container> */}
             <Grid item>
               {this.state.filterOption && (
                 <>
-                  <Typography>Filter By</Typography>
+                  <InputLabel>Filter By</InputLabel>
                   <FormControl variant="outlined">
                     <Select
-                      displayEmpty
                       value={this.state.filterOption}
                       onChange={this.handelFilterOptionChange}
                     >
-                      <MenuItem value="">Select an option</MenuItem>
                       <MenuItem value="Program">Program</MenuItem>
                       <MenuItem value="User">User</MenuItem>
                       <MenuItem value="Status">Status</MenuItem>
@@ -393,10 +362,11 @@ class ReportPage extends Component {
                 </>
               )}
             </Grid>
+
             <Grid item>
               {this.state.filterOption === "Program" && (
                 <>
-                  <Typography>Filter Options</Typography>
+                  <InputLabel>Filter Options</InputLabel>
                   <FormControl variant="outlined">
                     <Select
                       value={this.state.programSelection}
@@ -429,69 +399,71 @@ class ReportPage extends Component {
                   </FormControl>
                 </>
               )}
-              {this.state.filterOption === "User" && (
-                <>
-                  <Typography>Filter Options</Typography>
-                  <FormControl variant="outlined">
-                    <Select
-                      value={this.state.userSelection}
-                      onChange={(event) =>
-                        this.handelSelectionOptionsChange(
-                          event,
-                          "userSelection"
-                        )
-                      }
-                    >
-                      <MenuItem value="All">All Users</MenuItem>
-                      {userArray}
-                    </Select>
-                  </FormControl>
-                </>
-              )}
-              {this.state.filterOption === "Status" && (
-                <>
-                  <Typography>Filter Options</Typography>
-                  <FormControl variant="outlined">
-                    <Select
-                      value={this.state.statusSelection}
-                      onChange={(event) =>
-                        this.handelSelectionOptionsChange(
-                          event,
-                          "statusSelection"
-                        )
-                      }
-                    >
-                      <MenuItem value="All">All Status</MenuItem>
-                      <MenuItem value="Received">Request Received</MenuItem>
-                      <MenuItem value="Contacted">Contacted</MenuItem>
-                      <MenuItem value="Assigned">Assigned</MenuItem>
-                      <MenuItem value="Scheduled">Scheduled</MenuItem>
-                      <MenuItem value="Complete">Complete</MenuItem>
-                      <MenuItem value="Missed">Missed Connections</MenuItem>
-                    </Select>
-                  </FormControl>
-                </>
-              )}
-              {this.state.filterOption === "Location" && (
-                <>
-                  <Typography>Filter Options</Typography>
-                  <FormControl variant="outlined">
-                    <Select
-                      value={this.state.locationSelection}
-                      onChange={(event) =>
-                        this.handelSelectionOptionsChange(
-                          event,
-                          "locationSelection"
-                        )
-                      }
-                    >
-                      <MenuItem value="All">All Locations</MenuItem>
-                      <MenuItem value="on_site">Wayside Waifs</MenuItem>
-                      <MenuItem value="off_site">Other</MenuItem>
-                    </Select>
-                  </FormControl>
-                </>
-              )}
+              <Grid item>
+                {this.state.filterOption === "User" && (
+                  <>
+                    <InputLabel>Filter Options</InputLabel>
+                    <FormControl variant="outlined">
+                      <Select
+                        value={this.state.userSelection}
+                        onChange={(event) =>
+                          this.handelSelectionOptionsChange(
+                            event,
+                            "userSelection"
+                          )
+                        }
+                      >
+                        <MenuItem value="All">All Users</MenuItem>
+                        {userArray}
+                      </Select>
+                    </FormControl>
+                  </>
+                )}
+                {this.state.filterOption === "Status" && (
+                  <>
+                    <InputLabel>Filter Options</InputLabel>
+                    <FormControl variant="outlined">
+                      <Select
+                        value={this.state.statusSelection}
+                        onChange={(event) =>
+                          this.handelSelectionOptionsChange(
+                            event,
+                            "statusSelection"
+                          )
+                        }
+                      >
+                        <MenuItem value="All">All Status</MenuItem>
+                        <MenuItem value="Received">Request Received</MenuItem>
+                        <MenuItem value="Contacted">Contacted</MenuItem>
+                        <MenuItem value="Assigned">Assigned</MenuItem>
+                        <MenuItem value="Scheduled">Scheduled</MenuItem>
+                        <MenuItem value="Complete">Complete</MenuItem>
+                        <MenuItem value="Missed">Missed Connections</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </>
+                )}
+                {this.state.filterOption === "Location" && (
+                  <>
+                    <InputLabel>Filter Options</InputLabel>
+                    <FormControl variant="outlined">
+                      <Select
+                        value={this.state.locationSelection}
+                        onChange={(event) =>
+                          this.handelSelectionOptionsChange(
+                            event,
+                            "locationSelection"
+                          )
+                        }
+                      >
+                        <MenuItem value="All">All Locations</MenuItem>
+                        <MenuItem value="on_site">Wayside Waifs</MenuItem>
+                        <MenuItem value="off_site">Other</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </>
+                )}
+              </Grid>
             </Grid>
           </Grid>
           <Grid
@@ -525,8 +497,7 @@ class ReportPage extends Component {
           </Grid>
           <br />
           <TableContainer component={Paper}>
-            <Table id="tblData" stickyHeader>
-              {/* (stickyHeader) - part of table */}
+            <Table id="tblData">
               <TableHead>
                 <TableRow>
                   <StyledTableCell align="center">Program</StyledTableCell>
@@ -536,12 +507,8 @@ class ReportPage extends Component {
                   <StyledTableCell align="center">
                     School/Organization
                   </StyledTableCell>
-                  <StyledTableCell align="center">
-                    Number of Kids
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    Number of Adults
-                  </StyledTableCell>
+                  <StyledTableCell align="center"># of Kids</StyledTableCell>
+                  <StyledTableCell align="center"># of Adults</StyledTableCell>
                   <StyledTableCell align="center">Grade</StyledTableCell>
                   <StyledTableCell align="center">Contact</StyledTableCell>
                   <StyledTableCell align="center">Email</StyledTableCell>
@@ -550,20 +517,6 @@ class ReportPage extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>{eventDataArray}</TableBody>
-              <TableFooter>
-                <TableRow>
-                  <TablePagination
-                    rowsPerPageOptions={[3, 5, 10]}
-                    component="div"
-                    count={eventDataArray.length}
-                    rowsPerPage={this.state.rowsPerPage}
-                    page={this.state.page}
-                    onChangePage={this.handleChangePage}
-                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                    colSpan={12}
-                  />
-                </TableRow>
-              </TableFooter>
             </Table>
           </TableContainer>
         </div>
