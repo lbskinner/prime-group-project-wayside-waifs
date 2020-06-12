@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
-import Select from "react-select";
 const moment = require("moment");
 
 class MyEvent extends Component {
@@ -15,30 +14,7 @@ class MyEvent extends Component {
     this.props.history.push(`/details/${this.props.eventItem.id}`);
   };
 
-  assign = (selectedOption) => {
-    let submission = {
-      user: selectedOption.value,
-      event: this.props.eventItem.id,
-    };
-
-    this.props.dispatch({
-      type: "ASSIGN_EVENT",
-      payload: submission,
-    });
-  };
-
   render() {
-    const users = this.props.store.allUser;
-    let userList = [];
-    if (this.props.store.allUser.length > 1) {
-      for (let user of users) {
-        userList.push({
-          value: `${user.id}`,
-          label: `${user.first_name}  ${user.last_name}`,
-        });
-      }
-    }
-
     let background = { backgroundColor: "white" };
     if (this.props.eventItem.status === "Contacted") {
       background = { backgroundColor: "lightblue" };
@@ -65,12 +41,6 @@ class MyEvent extends Component {
               </p>
               <p>Program Requested: {this.props.eventItem.program}</p>
             </div>
-            <Select
-              placeholder="Assign"
-              onChange={this.assign}
-              options={userList}
-              className="selector_container"
-            />
           </div>
         )}
       </div>

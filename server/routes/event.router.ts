@@ -90,7 +90,7 @@ router.put(
 router.get(
   "/",
   (req: Request, res: Response, next: express.NextFunction): void => {
-    const queryText = `SELECT * FROM "event";`;
+    const queryText = `SELECT * FROM "event" WHERE NOT "status" = 'Complete' AND "status" != 'Missed';`;
 
     pool
       .query(queryText)

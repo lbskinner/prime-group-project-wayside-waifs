@@ -117,8 +117,9 @@ function EventDetailsPage(props) {
             >
               <MenuItem onClick={handleClose}>Request Received</MenuItem>
               <MenuItem onClick={handleClose}>Contacted</MenuItem>
-              <MenuItem onClick={handleClose}>Assignment</MenuItem>
+              <MenuItem onClick={handleClose}>Assigned</MenuItem>
               <MenuItem onClick={handleClose}>Scheduled</MenuItem>
+              <MenuItem onClick={handleClose}>Complete</MenuItem>
               <MenuItem onClick={handleClose}>Missed Connections</MenuItem>
             </Menu>
           </div>
