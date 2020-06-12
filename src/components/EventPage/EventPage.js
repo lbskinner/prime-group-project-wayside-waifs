@@ -8,6 +8,8 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
 import "./EventPage.css";
 
@@ -92,37 +94,23 @@ class EventPage extends Component {
           </Paper>
           <div>
             <Box display="flex" justifyContent="center" m={1} p={1}>
-              <Button onClick={this.requestSelect} color="secondary">
-                Requested Events{" "}
-              </Button>
-              <Button onClick={this.mySelect} color="secondary">
-                {" "}
-                My Events{" "}
-              </Button>
-              <Button onClick={this.allSelect} color="secondary">
-                {" "}
-                All Events
-              </Button>
-            </Box>
-            <Box display="flex" justifyContent="center" m={1} p={1}>
-              <Typography>
-                <img
-                  className="swatches"
-                  alt="blue"
-                  src="../images/blue.jpg"
-                ></img>{" "}
-                Contacted
-              </Typography>
-            </Box>
-            <Box display="flex" justifyContent="center" m={1} p={1}>
-              <Typography>
-                <img
-                  className="swatches"
-                  alt="yellow"
-                  src="../images/yellow.jpg"
-                ></img>{" "}
-                Scheduled
-              </Typography>
+              <Tabs>
+                <Tab
+                  label="Requested Events"
+                  onClick={this.requestSelect}
+                  color="secondary"
+                ></Tab>
+                <Tab
+                  label="My Events"
+                  onClick={this.mySelect}
+                  color="secondary"
+                ></Tab>
+                <Tab
+                  label="All Events"
+                  onClick={this.allSelect}
+                  color="secondary"
+                ></Tab>
+              </Tabs>
             </Box>
           </div>
 
@@ -149,7 +137,7 @@ class EventPage extends Component {
             <Paper classes={{ root: classes.root }} elevation={1}>
               <div>
                 <Typography variant="h6" align="center">
-                  IN MY EVENTS!
+                  IN MY EVENTS
                 </Typography>
                 <div className={classes.padding}>
                   {this.props.store.event.map((eventItem) => {
@@ -163,7 +151,27 @@ class EventPage extends Component {
             <Paper classes={{ root: classes.root }} elevation={1}>
               <div>
                 <Typography variant="h6" align="center">
-                  IN ALL EVENTS!
+                  IN ALL EVENTS
+                  <Box display="flex" justifyContent="center" m={1} p={1}>
+                    <Typography>
+                      <img
+                        className="swatches"
+                        alt="blue"
+                        src="../images/blue.jpg"
+                      ></img>{" "}
+                      Contacted
+                    </Typography>
+                  </Box>
+                  <Box display="flex" justifyContent="center" m={1} p={1}>
+                    <Typography>
+                      <img
+                        className="swatches"
+                        alt="yellow"
+                        src="../images/yellow.jpg"
+                      ></img>{" "}
+                      Scheduled
+                    </Typography>
+                  </Box>
                 </Typography>
                 <div className={classes.padding}>
                   {this.props.store.event.map((eventItem) => {
