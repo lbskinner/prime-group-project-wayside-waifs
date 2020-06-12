@@ -146,7 +146,7 @@ function EventDetailsPage(props) {
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
                   Requested Date and Time:{" "}
-                  {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
+                  {moment(event.program_date).format("MM-DD-YYYY")} at{" "}
                   {event.time_of_day}
                 </Typography>
                 <Typography color="textSecondary" variant="body2">
