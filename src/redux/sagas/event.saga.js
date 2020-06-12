@@ -18,7 +18,7 @@ function* getEventDetails(action) {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
-    console.log("In GET Saga", action.payload);
+    // console.log("In GET Saga", action.payload);
     const response = yield axios.get(
       `/api/event/details/${action.payload}`,
       config

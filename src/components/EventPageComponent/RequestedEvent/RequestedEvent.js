@@ -6,6 +6,17 @@ import Select from "react-select";
 const moment = require("moment");
 
 class RequestedEvent extends Component {
+  state = {
+    FIA: "Kindness in Action (Formerly Families in Action",
+    NMB: "No More Bullying",
+    DS: "PAW-tiquette for Pooches & People: Dog Safety",
+    AE: "Activating Em-PAW-thy: Exploring Similarities Between Pets & People",
+    OUT: "Once U-PAW-n a Time Reading Program",
+    KIA: "Kids in Action",
+    ET: "Educational Tours",
+    Other: "Other",
+  };
+
   // click handlers
   eventDetails = () => {
     this.props.dispatch({
@@ -46,6 +57,8 @@ class RequestedEvent extends Component {
       background = { backgroundColor: "yellow" };
     }
 
+    let programId = eval("this.state." + this.props.eventItem.program);
+
     return (
       <div>
         {this.props.eventItem.status === "Received" && (
@@ -64,7 +77,7 @@ class RequestedEvent extends Component {
                 Program Date:{" "}
                 {moment(this.props.eventItem.program_date).format("MM-DD-YYYY")}
               </p>
-              <p>Program Requested: {this.props.eventItem.program}</p>
+              <p>Program Requested: {programId}</p>
             </div>
 
             <Select

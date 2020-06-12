@@ -7,8 +7,10 @@ import "./ReportPage.css";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
+
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -22,9 +24,15 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+
 import Box from "@material-ui/core/Box";
+
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { InputLabel } from "@material-ui/core";
+import { CSVLink, CSVDownload } from "react-csv";
+
 // import TablePagination from "@material-ui/core/TablePagination";
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -56,25 +64,7 @@ class ReportPage extends Component {
     locationSelection: "All",
     allEventsInDateRange: [],
     reportArray: [],
-    // page: 0,
-    // rowsPerPage: 3,
   };
-
-  // handleChangePage = (event, newPage) => {
-  //   this.setState({
-  //     ...this.state,
-  //     page: newPage,
-  //   });
-  // };
-
-  // handleChangeRowsPerPage = (event) => {
-  //   const page = this.state.rowsPerPage + event.target.value;
-  //   this.setState({
-  //     ...this.state,
-  //     rowsPerPage: page,
-  //     page: 0,
-  //   });
-  // };
 
   componentDidMount() {
     this.props.dispatch({
@@ -256,47 +246,97 @@ class ReportPage extends Component {
 
   render() {
     let totalNumberOfKids = 0;
-    const eventDataArray = this.state.reportArray
-      // .slice(
-      //   this.state.page * this.state.rowsPerPage,
-      //   this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
-      // )
-      .map((item) => {
-        totalNumberOfKids += parseFloat(item.student_number);
-        return (
-          <StyledTableRow key={item.id}>
-            {/* (hover role="checkbox" tabIndex={-1}) part of TableRow */}
-            <StyledTableCell component="th" scope="row" align="center">
-              {item.program}
-            </StyledTableCell>
-            <StyledTableCell align="center">{item.status}</StyledTableCell>
-            <StyledTableCell align="center">
-              {item.program_date}
-            </StyledTableCell>
-            <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
-            <StyledTableCell align="center">
-              {item.organization}
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {item.student_number}
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {item.adult_sponsors}
-            </StyledTableCell>
-            <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
-            <StyledTableCell align="center">
-              {item.contact_first_name} {item.contact_last_name}
-            </StyledTableCell>
-            <StyledTableCell align="center">
-              {item.contact_email}
-            </StyledTableCell>
-            <StyledTableCell>
-              {item.first_name} {item.last_name}
-            </StyledTableCell>
-            <StyledTableCell align="center">{item.location}</StyledTableCell>
-          </StyledTableRow>
-        );
-      });
+
+    const eventDataArray = this.state.reportArray.map((item) => {
+      totalNumberOfKids += parseFloat(item.student_number);
+      return (
+        <StyledTableRow key={item.id}>
+          <StyledTableCell component="th" scope="row" align="center">
+            {item.program}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.status}</StyledTableCell>
+          <StyledTableCell align="center">
+            {moment(item.program_date).format("MM-DD-YYYY")}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
+          <StyledTableCell align="center">{item.organization}</StyledTableCell>
+          <StyledTableCell align="center">
+            {item.student_number}
+          </StyledTableCell>
+          <StyledTableCell align="center">
+            {item.adult_sponsors}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
+          <StyledTableCell align="center">
+            {item.contact_first_name} {item.contact_last_name}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.contact_email}</StyledTableCell>
+          <StyledTableCell>
+            {item.first_name} {item.last_name}
+          </StyledTableCell>
+          <StyledTableCell align="center">{item.location}</StyledTableCell>
+        </StyledTableRow>
+      );
+    });
+    const exportData = this.state.reportArray.map((item) => {
+      return {
+        Program: item.program,
+        Status: item.status,
+        Date: moment(item.program_date).format("MM-DD-YYYY"),
+        Time: item.time_of_day,
+        "School/Organization": item.organization,
+        "# of Kids": item.student_number,
+        "# of Adults": item.adult_sponsors,
+        Grade: item.grade_level,
+        Contact: `${item.contact_first_name} ${item.contact_last_name}`,
+        Email: item.contact_email,
+        Presenter: `${item.first_name} ${item.last_name}`,
+        Location: item.location,
+      };
+    });
+
+//     const eventDataArray = this.state.reportArray
+//       // .slice(
+//       //   this.state.page * this.state.rowsPerPage,
+//       //   this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
+//       // )
+//       .map((item) => {
+//         totalNumberOfKids += parseFloat(item.student_number);
+//         return (
+//           <StyledTableRow key={item.id}>
+//             {/* (hover role="checkbox" tabIndex={-1}) part of TableRow */}
+//             <StyledTableCell component="th" scope="row" align="center">
+//               {item.program}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">{item.status}</StyledTableCell>
+//             <StyledTableCell align="center">
+//               {moment(item.program_date).format("MM-DD-YYYY")}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.organization}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.student_number}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.adult_sponsors}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.contact_first_name} {item.contact_last_name}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">
+//               {item.contact_email}
+//             </StyledTableCell>
+//             <StyledTableCell>
+//               {item.first_name} {item.last_name}
+//             </StyledTableCell>
+//             <StyledTableCell align="center">{item.location}</StyledTableCell>
+//           </StyledTableRow>
+//         );
+//       });
+
 
     const userArray = this.props.allUser.map((user) => {
       return (
@@ -308,6 +348,7 @@ class ReportPage extends Component {
     return (
       <div className="report-background-container">
         <div className="report-container">
+
           <CssBaseline>
             <Grid container>
               <Box display="flex" p={1} flexWrap="nowrap">
@@ -403,6 +444,7 @@ class ReportPage extends Component {
                 {this.state.filterOption === "User" && (
                   <>
                     <h3>Filter Options</h3>
+
                     <FormControl variant="outlined">
                       <Select
                         value={this.state.userSelection}
@@ -421,7 +463,9 @@ class ReportPage extends Component {
                 )}
                 {this.state.filterOption === "Status" && (
                   <>
+
                     <h3>Filter Options</h3>
+
                     <FormControl variant="outlined">
                       <Select
                         value={this.state.statusSelection}
@@ -445,7 +489,9 @@ class ReportPage extends Component {
                 )}
                 {this.state.filterOption === "Location" && (
                   <>
+
                     <h3>Filter Options</h3>
+
                     <FormControl variant="outlined">
                       <Select
                         value={this.state.locationSelection}
@@ -464,6 +510,26 @@ class ReportPage extends Component {
                   </>
                 )}
               </Grid>
+
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
+          >
+            {/* <Grid container spacing={5}> */}
+            <Grid item>
+              <Typography variant="h6">
+                Total Number of Events: {eventDataArray.length}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6">
+                Total Number of Students Reached: {totalNumberOfKids}
+              </Typography>
+
             </Grid>
             <Grid
               container
@@ -528,6 +594,7 @@ class ReportPage extends Component {
             onChangeRowsPerPage={this.handleChangeRowsPerPage}
           /> */}
           </CssBaseline>
+
         </div>
       </div>
     );

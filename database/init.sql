@@ -40,7 +40,8 @@ CREATE TABLE "event" (
 
 CREATE TABLE "contact_log" (
   	"id" SERIAL PRIMARY KEY,
-    "date_time" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "date" DATE DEFAULT CURRENT_DATE,
+	"time" TIME DEFAULT CURRENT_TIME,
     "educator_id" INTEGER,
     "event_id" INTEGER,
     "notes" VARCHAR (1000)
