@@ -71,12 +71,23 @@ function* saveEvent(action) {
   }
 }
 
+function* setStatus(action) {
+  try {
+    console.log("In Status:", action.payload);
+    yield axios.put("/api/event/status", action.payload);
+    yield put({ type: "GET_EVENT_DETAILS", payload: action.payload.id });
+  } catch (error) {
+    console.log("Set Status request failed", error);
+  }
+}
+
 function* eventSaga() {
   yield takeLatest("GET_EVENTS", getEvent);
   yield takeLatest("GET_EVENT_DETAILS", getEventDetails);
   yield takeLatest("ASSIGN_EVENT", assignEvent);
   yield takeLatest("SAVE_NEW_REQUEST", saveRequest);
   yield takeLatest("SAVE_EVENT", saveEvent);
+  yield takeLatest("SET_STATUS", setStatus);
 }
 
 export default eventSaga;
