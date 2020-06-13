@@ -3,12 +3,10 @@ import axios from "axios";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import moment from "moment";
-import "./ReportPage.css";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -23,12 +21,11 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import { InputLabel } from "@material-ui/core";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
-// import TablePagination from "@material-ui/core/TablePagination";
-
+import "./ReportPage.css";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -48,6 +45,26 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
+const styles = (theme) => ({
+  selectorPosition: {
+    marginBottom: "15px",
+  },
+  filterByStyles: {
+    padding: "10px 30px 10px 10px",
+    minWidth: "70px",
+    minHeight: "1.2rem",
+    fontSize: "1rem",
+    backgroundColor: "#fff",
+  },
+  filterOptionsStyles: {
+    padding: "10px 30px 10px 10px",
+    minWidth: "550px",
+    minHeight: "1.2rem",
+    fontSize: "1rem",
+    backgroundColor: "#fff",
+  },
+});
+
 class ReportPage extends Component {
   state = {
     heading: "Reports",
@@ -63,9 +80,6 @@ class ReportPage extends Component {
   };
 
   componentDidMount() {
-    this.props.dispatch({
-      type: "GET_EVENTS",
-    });
     this.props.dispatch({
       type: "GET_ALL_USERS",
     });
@@ -241,8 +255,8 @@ class ReportPage extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     let totalNumberOfKids = 0;
-
     const eventDataArray = this.state.reportArray.map((item) => {
       totalNumberOfKids += parseFloat(item.student_number);
       return (
@@ -274,6 +288,7 @@ class ReportPage extends Component {
         </StyledTableRow>
       );
     });
+    // create array of literal objects for export to csv
     const exportData = this.state.reportArray.map((item) => {
       return {
         Program: item.program,
@@ -291,49 +306,6 @@ class ReportPage extends Component {
       };
     });
 
-//     const eventDataArray = this.state.reportArray
-//       // .slice(
-//       //   this.state.page * this.state.rowsPerPage,
-//       //   this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
-//       // )
-//       .map((item) => {
-//         totalNumberOfKids += parseFloat(item.student_number);
-//         return (
-//           <StyledTableRow key={item.id}>
-//             {/* (hover role="checkbox" tabIndex={-1}) part of TableRow */}
-//             <StyledTableCell component="th" scope="row" align="center">
-//               {item.program}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">{item.status}</StyledTableCell>
-//             <StyledTableCell align="center">
-//               {moment(item.program_date).format("MM-DD-YYYY")}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.organization}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.student_number}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.adult_sponsors}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.contact_first_name} {item.contact_last_name}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.contact_email}
-//             </StyledTableCell>
-//             <StyledTableCell>
-//               {item.first_name} {item.last_name}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">{item.location}</StyledTableCell>
-//           </StyledTableRow>
-//         );
-//       });
-
-
     const userArray = this.props.allUser.map((user) => {
       return (
         <MenuItem key={user.id} value={user.id}>
@@ -348,7 +320,7 @@ class ReportPage extends Component {
           <Grid container alignItems="center" spacing={2}>
             <Grid item>
               <DatePicker
-                placeholderText="Select a start date"
+                placeholderText="Start date"
                 selected={this.state.startDate}
                 onChange={(date) => this.handleStartDateChange(date)}
                 selectsStart
@@ -358,7 +330,7 @@ class ReportPage extends Component {
             </Grid>
             <Grid item>
               <DatePicker
-                placeholderText="Select a end date"
+                placeholderText="End date"
                 selected={this.state.endDate}
                 onChange={(date) => this.handleEndDateChange(date)}
                 selectsEnd
@@ -366,7 +338,7 @@ class ReportPage extends Component {
                 endDate={this.state.endDate}
               />
             </Grid>
-            <Grid item alignItems="center">
+            <Grid item>
               <Button
                 size="large"
                 variant="contained"
@@ -376,16 +348,19 @@ class ReportPage extends Component {
                 Generate Report
               </Button>
             </Grid>
-            {/* </Grid>
-          <Grid container> */}
             <Grid item>
               {this.state.filterOption && (
                 <>
                   <InputLabel>Filter By</InputLabel>
-                  <FormControl variant="outlined">
+                  <FormControl
+                    variant="outlined"
+                    classes={{ root: classes.selectorPosition }}
+                  >
                     <Select
                       value={this.state.filterOption}
                       onChange={this.handelFilterOptionChange}
+                      classes={{ root: classes.filterByStyles }}
+                      className="selector-background"
                     >
                       <MenuItem value="Program">Program</MenuItem>
                       <MenuItem value="User">User</MenuItem>
@@ -396,13 +371,16 @@ class ReportPage extends Component {
                 </>
               )}
             </Grid>
-
             <Grid item>
               {this.state.filterOption === "Program" && (
                 <>
                   <InputLabel>Filter Options</InputLabel>
-                  <FormControl variant="outlined">
+                  <FormControl
+                    variant="outlined"
+                    classes={{ root: classes.selectorPosition }}
+                  >
                     <Select
+                      classes={{ root: classes.filterOptionsStyles }}
                       value={this.state.programSelection}
                       onChange={(event) =>
                         this.handelSelectionOptionsChange(
@@ -410,6 +388,7 @@ class ReportPage extends Component {
                           "programSelection"
                         )
                       }
+                      className="selector-background"
                     >
                       <MenuItem value="All">All Programs</MenuItem>
                       <MenuItem value="FIA">
@@ -437,8 +416,12 @@ class ReportPage extends Component {
                 {this.state.filterOption === "User" && (
                   <>
                     <InputLabel>Filter Options</InputLabel>
-                    <FormControl variant="outlined">
+                    <FormControl
+                      variant="outlined"
+                      classes={{ root: classes.selectorPosition }}
+                    >
                       <Select
+                        classes={{ root: classes.filterOptionsStyles }}
                         value={this.state.userSelection}
                         onChange={(event) =>
                           this.handelSelectionOptionsChange(
@@ -446,6 +429,7 @@ class ReportPage extends Component {
                             "userSelection"
                           )
                         }
+                        className="selector-background"
                       >
                         <MenuItem value="All">All Users</MenuItem>
                         {userArray}
@@ -456,8 +440,12 @@ class ReportPage extends Component {
                 {this.state.filterOption === "Status" && (
                   <>
                     <InputLabel>Filter Options</InputLabel>
-                    <FormControl variant="outlined">
+                    <FormControl
+                      variant="outlined"
+                      classes={{ root: classes.selectorPosition }}
+                    >
                       <Select
+                        classes={{ root: classes.filterOptionsStyles }}
                         value={this.state.statusSelection}
                         onChange={(event) =>
                           this.handelSelectionOptionsChange(
@@ -465,6 +453,7 @@ class ReportPage extends Component {
                             "statusSelection"
                           )
                         }
+                        className="selector-background"
                       >
                         <MenuItem value="All">All Status</MenuItem>
                         <MenuItem value="Received">Request Received</MenuItem>
@@ -480,8 +469,12 @@ class ReportPage extends Component {
                 {this.state.filterOption === "Location" && (
                   <>
                     <InputLabel>Filter Options</InputLabel>
-                    <FormControl variant="outlined">
+                    <FormControl
+                      variant="outlined"
+                      classes={{ root: classes.selectorPosition }}
+                    >
                       <Select
+                        classes={{ root: classes.filterOptionsStyles }}
                         value={this.state.locationSelection}
                         onChange={(event) =>
                           this.handelSelectionOptionsChange(
@@ -489,6 +482,7 @@ class ReportPage extends Component {
                             "locationSelection"
                           )
                         }
+                        className="selector-background"
                       >
                         <MenuItem value="All">All Locations</MenuItem>
                         <MenuItem value="on_site">Wayside Waifs</MenuItem>
@@ -500,13 +494,13 @@ class ReportPage extends Component {
               </Grid>
             </Grid>
           </Grid>
+          <br />
           <Grid
             container
             direction="row"
             justify="space-between"
             alignItems="flex-start"
           >
-            {/* <Grid container spacing={5}> */}
             <Grid item>
               <Typography variant="h6">
                 Total Number of Events: {eventDataArray.length}
@@ -517,7 +511,6 @@ class ReportPage extends Component {
                 Total Number of Students Reached: {totalNumberOfKids}
               </Typography>
             </Grid>
-
             <Grid item>
               <Button size="large" variant="contained" color="secondary">
                 <CSVLink className="link-text" data={exportData}>
@@ -528,7 +521,7 @@ class ReportPage extends Component {
           </Grid>
           <br />
           <TableContainer component={Paper}>
-            <Table id="tblData">
+            <Table>
               <TableHead>
                 <TableRow>
                   <StyledTableCell align="center">Program</StyledTableCell>
@@ -556,4 +549,4 @@ class ReportPage extends Component {
   }
 }
 
-export default connect(mapStoreToProps)(ReportPage);
+export default withStyles(styles)(connect(mapStoreToProps)(ReportPage));
