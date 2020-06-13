@@ -65,9 +65,20 @@ const styles = (theme) => ({
   },
 });
 
+const programKey = {
+  FIA: 'Kindness in Action!" (formerly Families in Action)',
+  NMB: '"No More Bullying!®"',
+  DS: "PAW-etiquette for Pooches & People: Dog Safety",
+  AE: "Activating Em-PAW-thy: Exploring Similarities between Pets and People",
+  OUT: "Once U-PAW-n a Time Reading Program",
+  KIA: "Kids-in-Action",
+  ET: "Educational Tours",
+  // didn't include other since other is free user input
+  // Other: "",
+};
+
 class ReportPage extends Component {
   state = {
-    heading: "Reports",
     startDate: "",
     endDate: "",
     filterOption: "",
@@ -262,7 +273,7 @@ class ReportPage extends Component {
       return (
         <StyledTableRow key={item.id}>
           <StyledTableCell component="th" scope="row" align="center">
-            {item.program}
+            {programKey[item.program] ? programKey[item.program] : item.program}
           </StyledTableCell>
           <StyledTableCell align="center">{item.status}</StyledTableCell>
           <StyledTableCell align="center">
