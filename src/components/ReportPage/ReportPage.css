@@ -6,8 +6,8 @@
 .report-container {
   padding: 20px;
   box-sizing: border-box;
-  /* max-width: 90%;
-  width: 920px; */
+  max-width: 100%;
+  /* width: 920px; */
 }
 
 .react-datepicker__input-container input {

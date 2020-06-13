@@ -24,6 +24,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { withStyles } from "@material-ui/core/styles";
 import { InputLabel } from "@material-ui/core";
 import { CSVLink } from "react-csv";
+import swal from "sweetalert";
 
 import "./ReportPage.css";
 
@@ -51,14 +52,14 @@ const styles = (theme) => ({
   },
   filterByStyles: {
     padding: "10px 30px 10px 10px",
-    minWidth: "70px",
+    minWidth: "78px",
     minHeight: "1.2rem",
     fontSize: "1rem",
     backgroundColor: "#fff",
   },
   filterOptionsStyles: {
     padding: "10px 30px 10px 10px",
-    minWidth: "550px",
+    minWidth: "500px",
     minHeight: "1.2rem",
     fontSize: "1rem",
     backgroundColor: "#fff",
@@ -74,7 +75,7 @@ const programKey = {
   KIA: "Kids-in-Action",
   ET: "Educational Tours",
   // didn't include other since other is free user input
-  // Other: "",
+  // other: "",
 };
 
 class ReportPage extends Component {
@@ -153,10 +154,6 @@ class ReportPage extends Component {
       alert("Please enter a start date");
       return;
     }
-    if (date < this.state.startDate) {
-      alert("Please enter an end date greater than start date!");
-      return;
-    }
     this.setState({
       ...this.state,
       endDate: date,
@@ -164,11 +161,18 @@ class ReportPage extends Component {
   };
 
   generateReport = (event) => {
+    if (!this.state.startDate || !this.state.endDate) {
+      swal("Please enter date range!");
+      return;
+    }
+    if (this.state.endDate < this.state.startDate) {
+      swal("Please enter an end date that is greater than the start date!");
+      return;
+    }
     const dateRange = {
       startDate: this.state.startDate,
       endDate: this.state.endDate,
     };
-
     const config = {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
@@ -189,6 +193,7 @@ class ReportPage extends Component {
       })
       .catch((error) => {
         console.log("Get events for report request failed", error);
+        swal("Oops, something went wrong, please try again!");
       });
   };
 
@@ -199,11 +204,16 @@ class ReportPage extends Component {
       });
       return;
     }
-    const filteredReportArray = this.state.allEventsInDateRange.filter(
-      (event) => {
+    let filteredReportArray = [];
+    if (program.toLowerCase() === "other") {
+      filteredReportArray = this.state.allEventsInDateRange.filter((event) => {
+        return !programKey.hasOwnProperty(event.program);
+      });
+    } else {
+      filteredReportArray = this.state.allEventsInDateRange.filter((event) => {
         return event.program === program;
-      }
-    );
+      });
+    }
     this.setState({
       reportArray: [...filteredReportArray],
     });
