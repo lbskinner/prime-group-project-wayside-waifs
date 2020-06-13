@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -84,54 +83,151 @@ class EventPage extends Component {
 
   render() {
     const { classes } = this.props;
-
     return (
       <div>
-        <h2>{this.state.heading}</h2>
-        <div>
-          <h5>
-            <label onClick={this.requestSelect}>Requested Events </label>
-            <label onClick={this.mySelect}> My Events </label>
-            <label onClick={this.allSelect}> All Events</label>
-          </h5>
-        </div>
-        <div>
+        <CssBaseline>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <Typography classes={{ root: classes.padding }} variant="h4">
+              {this.state.heading}
+            </Typography>
+          </Paper>
+          <div>
+            <Box display="flex" justifyContent="center" m={1} p={1}>
+              <Tabs>
+                <Tab
+                  label="Requested Events"
+                  onClick={this.requestSelect}
+                  color="secondary"
+                ></Tab>
+                <Tab
+                  label="My Events"
+                  onClick={this.mySelect}
+                  color="secondary"
+                ></Tab>
+                <Tab
+                  label="All Events"
+                  onClick={this.allSelect}
+                  color="secondary"
+                ></Tab>
+              </Tabs>
+            </Box>
+          </div>
+
           {this.state.status === "Requested Events" && (
-            <div>
-              <div>IN REQUESTED EVENTS!</div>
+            <Paper classes={{ root: classes.root }} elevation={1}>
               <div>
-                {this.props.store.event.map((eventItem) => {
-                  return (
-                    <RequestedEvent key={eventItem.id} eventItem={eventItem} />
-                  );
-                })}
+                <Typography variant="h6" align="center">
+                  IN REQUESTED EVENTS
+                  <Box display="flex" justifyContent="center" m={1} p={1}>
+                    <Typography>
+                      <img
+                        className="swatches"
+                        alt="blue"
+                        src="../images/blue.jpg"
+                      ></img>{" "}
+                      Contacted
+                    </Typography>
+                  </Box>
+                  <Box display="flex" justifyContent="center" m={1} p={1}>
+                    <Typography>
+                      <img
+                        className="swatches"
+                        alt="yellow"
+                        src="../images/yellow.jpg"
+                      ></img>{" "}
+                      Scheduled
+                    </Typography>
+                  </Box>
+                </Typography>
+                <div className={classes.padding}>
+                  {this.props.store.event.map((eventItem) => {
+                    return (
+                      <RequestedEvent
+                        key={eventItem.id}
+                        eventItem={eventItem}
+                      />
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            </Paper>
           )}
           {this.state.status === "My Events" && (
-            <div>
-              <div>IN MY EVENTS!</div>
+            <Paper classes={{ root: classes.root }} elevation={1}>
               <div>
-                {this.props.store.event.map((eventItem) => {
-                  return <MyEvent key={eventItem.id} eventItem={eventItem} />;
-                })}
+                <Typography variant="h6" align="center">
+                  IN MY EVENTS
+                  <Box display="flex" justifyContent="center" m={1} p={1}>
+                    <Typography>
+                      <img
+                        className="swatches"
+                        alt="blue"
+                        src="../images/blue.jpg"
+                      ></img>{" "}
+                      Contacted
+                    </Typography>
+                  </Box>
+                  <Box display="flex" justifyContent="center" m={1} p={1}>
+                    <Typography>
+                      <img
+                        className="swatches"
+                        alt="yellow"
+                        src="../images/yellow.jpg"
+                      ></img>{" "}
+                      Scheduled
+                    </Typography>
+                  </Box>
+                </Typography>
+                <div className={classes.padding}>
+                  {this.props.store.event.map((eventItem) => {
+                    return <MyEvent key={eventItem.id} eventItem={eventItem} />;
+                  })}
+                </div>
               </div>
-            </div>
+            </Paper>
           )}
           {this.state.status === "All Events" && (
-            <div>
-              <div>IN ALL EVENTS!</div>
+            <Paper classes={{ root: classes.root }} elevation={1}>
               <div>
-                {this.props.store.event.map((eventItem) => {
-                  return <AllEvent key={eventItem.id} eventItem={eventItem} />;
-                })}
+                <Typography variant="h6" align="center">
+                  IN ALL EVENTS
+                  <Box display="flex" justifyContent="center" m={1} p={1}>
+                    <Typography>
+                      <img
+                        className="swatches"
+                        alt="blue"
+                        src="../images/blue.jpg"
+                      ></img>{" "}
+                      Contacted
+                    </Typography>
+                  </Box>
+                  <Box display="flex" justifyContent="center" m={1} p={1}>
+                    <Typography>
+                      <img
+                        className="swatches"
+                        alt="yellow"
+                        src="../images/yellow.jpg"
+                      ></img>{" "}
+                      Scheduled
+                    </Typography>
+                  </Box>
+                </Typography>
+                <div className={classes.padding}>
+                  {this.props.store.event.map((eventItem) => {
+                    return (
+                      <AllEvent key={eventItem.id} eventItem={eventItem} />
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            </Paper>
           )}
-        </div>
+        </CssBaseline>
       </div>
     );
   }
 }
 
-export default withRouter(connect(mapStoreToProps)(EventPage));
+export default withStyles(styles)(
+  withRouter(connect(mapStoreToProps)(EventPage))
+);

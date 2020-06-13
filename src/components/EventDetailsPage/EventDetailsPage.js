@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
-import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
@@ -122,20 +121,20 @@ function EventDetailsPage(props) {
             <Box display="flex" justifyContent="center" m={1} p={1}>
               <div style={{ margin: 15 }}>
                 <Button
-                  aria-controls="simple-select"
+                  aria-controls="simple-menu"
                   aria-haspopup="true"
                   onClick={onHandleClick}
                 >
                   Assign
                 </Button>
-                <Select
-                  id="simple-select"
-                  anchorEl={assignEl}
+                <Menu
+                  id="simple-menu"
+                  assignEl={assignEl}
                   keepMounted
-                  options={userList}
+                  MenuItems={userList}
                   open={Boolean(assignEl)}
-                  onSelect={onHandleClose}
-                ></Select>
+                  onClose={onHandleClose}
+                ></Menu>
               </div>
 
               <div style={{ margin: 15 }}>
@@ -178,6 +177,7 @@ function EventDetailsPage(props) {
                 </Menu>
               </div>
             </Box>
+
             <Paper classes={{ root: classes.root }} elevation={1}>
               <Typography variant="h4" color="textSecondary" gutterBottom>
                 Event Details
@@ -185,7 +185,6 @@ function EventDetailsPage(props) {
               <Typography variant="h5" color="textSecondary" gutterBottom>
                 {event.organization}
               </Typography>
-
               <Typography color="textSecondary" variant="body2">
                 Request Date and Time:{" "}
                 {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
