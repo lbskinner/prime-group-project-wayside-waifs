@@ -2,17 +2,14 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-
-import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
 
 const moment = require("moment");
 
@@ -20,10 +17,29 @@ const moment = require("moment");
 // const users = this.props.store.allUser;
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 10,
+    paddingBottom: 10,
   },
-  pos: {
-    marginBottom: 12,
+  paperTransparent: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: "#fff0",
+  },
+  padding: {
+    padding: "8px 20px",
+  },
+  selectorSize: {
+    minWidth: 600,
+  },
+  inputMargin: {
+    margin: "10px 0px",
+    minWidth: 600,
   },
 }));
 
@@ -93,65 +109,76 @@ function EventDetailsPage(props) {
       <div key={event.id}>
         <CssBaseline>
           <div>
-            <Button
-              aria-controls="simple-select"
-              aria-haspopup="true"
-              onClick={onHandleClick}
-            >
-              Assign
-            </Button>
-            <Select
-              id="simple-select"
-              anchorEl={assignEl}
-              keepMounted
-              options={userList}
-              open={Boolean(assignEl)}
-              onSelect={onHandleClose}
-            ></Select>
-          </div>
-
-          <div>
-            <Button
-              aria-controls="simple-menu"
-              aria-haspopup="true"
-              onClick={handleClick}
-            >
-              Set Status
-            </Button>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={(event) => handleClose(event, "Received")}>
-                Request Received
-              </MenuItem>
-              <MenuItem onClick={(event) => handleClose(event, "Contacted")}>
-                Contacted
-              </MenuItem>
-              <MenuItem onClick={(event) => handleClose(event, "Assigned")}>
-                Assigned
-              </MenuItem>
-              <MenuItem onClick={(event) => handleClose(event, "Scheduled")}>
-                Scheduled
-              </MenuItem>
-              <MenuItem onClick={(event) => handleClose(event, "Complete")}>
-                Complete
-              </MenuItem>
-              <MenuItem onClick={(event) => handleClose(event, "Missed")}>
-                Missed Connections
-              </MenuItem>
-            </Menu>
-          </div>
-
-          <Card className={classes.root}>
-            <CardContent>
-              <Typography variant="h5" color="textSecondary" gutterBottom>
+            <Paper classes={{ root: classes.root }} elevation={1}>
+              <Typography
+                classes={{ root: classes.padding }}
+                variant="h4"
+                gutterBottom
+              >
                 {event.organization} Details:
               </Typography>
+            </Paper>
 
+            <Box display="flex" justifyContent="center" m={1} p={1}>
+              <div style={{ margin: 15 }}>
+                <Button
+                  aria-controls="simple-select"
+                  aria-haspopup="true"
+                  onClick={onHandleClick}
+                >
+                  Assign
+                </Button>
+                <Select
+                  id="simple-select"
+                  anchorEl={assignEl}
+                  keepMounted
+                  options={userList}
+                  open={Boolean(assignEl)}
+                  onSelect={onHandleClose}
+                ></Select>
+              </div>
+
+              <div style={{ margin: 15 }}>
+                <Button
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
+                  Set Status
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={(event) => handleClose(event, "Received")}>
+                    Request Received
+                  </MenuItem>
+                  <MenuItem
+                    onClick={(event) => handleClose(event, "Contacted")}
+                  >
+                    Contacted
+                  </MenuItem>
+                  <MenuItem onClick={(event) => handleClose(event, "Assigned")}>
+                    Assigned
+                  </MenuItem>
+                  <MenuItem
+                    onClick={(event) => handleClose(event, "Scheduled")}
+                  >
+                    Scheduled
+                  </MenuItem>
+                  <MenuItem onClick={(event) => handleClose(event, "Complete")}>
+                    Complete
+                  </MenuItem>
+                  <MenuItem onClick={(event) => handleClose(event, "Missed")}>
+                    Missed Connections
+                  </MenuItem>
+                </Menu>
+              </div>
+            </Box>
+            <Paper classes={{ root: classes.root }} elevation={1}>
               <Typography variant="h4" color="textSecondary" gutterBottom>
                 Event Details
               </Typography>
@@ -164,8 +191,9 @@ function EventDetailsPage(props) {
                 {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
                 {event.time_of_day}
               </Typography>
-
-              <Grid>
+            </Paper>
+            <Paper classes={{ root: classes.root }} elevation={1}>
+              <div className={classes.padding}>
                 <Typography className={classes.pos}>
                   Event Information
                 </Typography>
@@ -196,7 +224,11 @@ function EventDetailsPage(props) {
                 <Typography color="textSecondary" variant="body2">
                   Number of Chaperones: {event.adult_sponsors}
                 </Typography>
-                <br />
+              </div>
+            </Paper>
+
+            <Paper classes={{ root: classes.root }} elevation={1}>
+              <div className={classes.padding}>
                 <Typography className={classes.pos} component="p">
                   Contact Information
                   <br />
@@ -211,12 +243,13 @@ function EventDetailsPage(props) {
                 <Typography color="textSecondary" variant="body2">
                   Email Address: {event.contact_email}
                 </Typography>
-              </Grid>
-            </CardContent>
-            <CardActions>
+              </div>
+            </Paper>
+
+            <Box display="flex" justifyContent="flex-end" m={1} p={1}>
               <Button onClick={editHandleClick}>Edit</Button>
-            </CardActions>
-          </Card>
+            </Box>
+          </div>
         </CssBaseline>
       </div>
     );
