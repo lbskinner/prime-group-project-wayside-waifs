@@ -54,7 +54,7 @@ class RequestedEvent extends Component {
       <div>
         {this.props.eventItem.status === "Received" && (
           <div>
-            <div onClick={this.eventDetails} style={background}>
+            <div onClick={this.eventDetails}>
               <p>
                 {this.props.eventItem.organization}
                 <span>
