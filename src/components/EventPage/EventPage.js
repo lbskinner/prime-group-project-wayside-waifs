@@ -2,6 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import mapStoreToProps from "../../redux/mapStoreToProps";
+import { withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+
+import "./EventPage.css";
 
 import RequestedEvent from "../EventPageComponent/RequestedEvent/RequestedEvent";
 import MyEvent from "../EventPageComponent/MyEvent/MyEvent";
@@ -11,6 +21,35 @@ import AllEvent from "../EventPageComponent/AllEvent/AllEvent";
 // value setup. When making a new component be sure to replace
 // the component name TemplateClass with the name for the new
 // component.
+
+const styles = (theme) => ({
+  root: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  paperTransparent: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: "#fff0",
+  },
+  padding: {
+    padding: "8px 20px",
+  },
+  selectorSize: {
+    minWidth: 600,
+  },
+  inputMargin: {
+    margin: "10px 0px",
+    minWidth: 600,
+  },
+});
+
 class EventPage extends Component {
   componentDidMount() {
     this.props.dispatch({
@@ -44,6 +83,8 @@ class EventPage extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div>
         <h2>{this.state.heading}</h2>
