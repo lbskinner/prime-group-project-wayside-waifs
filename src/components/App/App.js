@@ -52,10 +52,9 @@ class App extends Component {
               <Redirect exact from="/" to="/request" />
               {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
-              <Route exact path="/about" component={AboutPage} />
+              {/* <Route exact path="/about" component={AboutPage} /> */}
               {/* <Route exact path="/home" component={RequestForm} /> */}
               <Route exact path="/request" component={RequestForm} />
-              <Route exact path="/reports" component={ReportPage} />
               {/* login page not used */}
               {/* <Route exact path="/login" component={LoginPage} /> */}
 
@@ -82,7 +81,7 @@ class App extends Component {
                 component={RegisterPage}
               /> */}
 
-              {/* <ProtectedRoute exact path="/reports" component={ReportPage} /> */}
+              <ProtectedRoute exact path="/reports" component={ReportPage} />
               {/* <ProtectedRoute exact path="/request" component={RequestForm} /> */}
               <ProtectedRoute exact path="/event" component={EventPage} />
               <ProtectedRoute

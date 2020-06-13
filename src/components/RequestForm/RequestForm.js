@@ -381,6 +381,7 @@ class RequestForm extends Component {
               selected={this.state.program_date}
               onChange={this.handleDateChange}
               minDate={new Date()}
+              id="size"
             />
             <Typography variant="h6">Time of day preferred*</Typography>
             <br />

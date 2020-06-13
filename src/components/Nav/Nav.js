@@ -40,13 +40,8 @@ const Nav = (props) => {
         >
           <img src={logoImage} alt="" className="nav-logo" />
         </a>
-        {/* <Link to="/home">
-        <h2 className="nav-title">Wayside Waifs Humane Education </h2>
-      </Link> */}
 
         <div className="nav-right">
-          {/* if the url is not the request page, show the request event link */}
-          {/* {location.pathname !== "/request" && ( */}
           <Link className="nav-link" to="/request">
             Request Event
           </Link>
@@ -67,17 +62,8 @@ const Nav = (props) => {
               Login
             </button>
           )}
-          {/* Always show this link since the about page is not protected */}
         </div>
       </div>
-      {/* <div className="img-container">
-        <a
-          target="_black"
-          href="https://secure.waysidewaifs.org/site/SPageServer/?pagename=Home_new"
-        >
-          <img src={logoImage} alt className="nav-logo" />
-        </a>
-      </div> */}
       <Modal open={open} onClose={handleClose}>
         <div className="modalContent">
           <LoginPageModal handleCloseModal={handleClose} />
