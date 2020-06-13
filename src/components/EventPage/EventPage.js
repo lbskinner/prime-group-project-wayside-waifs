@@ -118,26 +118,6 @@ class EventPage extends Component {
               <div>
                 <Typography variant="h6" align="center">
                   IN REQUESTED EVENTS
-                  <Box display="flex" justifyContent="center" m={1} p={1}>
-                    <Typography>
-                      <img
-                        className="swatches"
-                        alt="blue"
-                        src="../images/blue.jpg"
-                      ></img>{" "}
-                      Contacted
-                    </Typography>
-                  </Box>
-                  <Box display="flex" justifyContent="center" m={1} p={1}>
-                    <Typography>
-                      <img
-                        className="swatches"
-                        alt="yellow"
-                        src="../images/yellow.jpg"
-                      ></img>{" "}
-                      Scheduled
-                    </Typography>
-                  </Box>
                 </Typography>
                 <div className={classes.padding}>
                   {this.props.store.event.map((eventItem) => {

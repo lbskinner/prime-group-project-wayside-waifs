@@ -50,13 +50,6 @@ class RequestedEvent extends Component {
       }
     }
 
-    let background = { backgroundColor: "white" };
-    if (this.props.eventItem.status === "Contacted") {
-      background = { backgroundColor: "lightblue" };
-    } else if (this.props.eventItem.status === "Scheduled") {
-      background = { backgroundColor: "yellow" };
-    }
-
     return (
       <div>
         {this.props.eventItem.status === "Received" && (
