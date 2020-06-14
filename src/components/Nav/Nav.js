@@ -50,6 +50,9 @@ const Nav = (props) => {
               <Link className="nav-link" to="/reports">
                 Reports
               </Link>
+              <Link className="nav-link" to="/registration">
+                Add User
+              </Link>
               <LogOutButton className="nav-link" />
             </>
           ) : (
