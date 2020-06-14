@@ -285,7 +285,9 @@ class ReportPage extends Component {
           <StyledTableCell component="th" scope="row" align="center">
             {programKey[item.program] ? programKey[item.program] : item.program}
           </StyledTableCell>
-          <StyledTableCell align="center">{item.status}</StyledTableCell>
+          <StyledTableCell align="center">
+            {item.status === "Missed" ? "Missed Connection" : item.status}
+          </StyledTableCell>
           <StyledTableCell align="center">
             {moment(item.program_date).format("MM-DD-YYYY")}
           </StyledTableCell>
@@ -305,15 +307,19 @@ class ReportPage extends Component {
           <StyledTableCell>
             {item.first_name} {item.last_name}
           </StyledTableCell>
-          <StyledTableCell align="center">{item.location}</StyledTableCell>
+          <StyledTableCell align="center">
+            {item.location === "on_site" ? "Wayside Waifs" : item.location}
+          </StyledTableCell>
         </StyledTableRow>
       );
     });
     // create array of literal objects for export to csv
     const exportData = this.state.reportArray.map((item) => {
       return {
-        Program: item.program,
-        Status: item.status,
+        Program: programKey[item.program]
+          ? programKey[item.program]
+          : item.program,
+        Status: item.status === "Missed" ? "Missed Connection" : item.status,
         Date: moment(item.program_date).format("MM-DD-YYYY"),
         Time: item.time_of_day,
         "School/Organization": item.organization,
@@ -323,7 +329,7 @@ class ReportPage extends Component {
         Contact: `${item.contact_first_name} ${item.contact_last_name}`,
         Email: item.contact_email,
         Presenter: `${item.first_name} ${item.last_name}`,
-        Location: item.location,
+        Location: item.location === "on_site" ? "Wayside Waifs" : item.location,
       };
     });
 
