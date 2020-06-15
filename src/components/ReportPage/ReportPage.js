@@ -150,10 +150,6 @@ class ReportPage extends Component {
   };
 
   handleEndDateChange = (date) => {
-    if (!this.state.startDate) {
-      alert("Please enter a start date");
-      return;
-    }
     this.setState({
       ...this.state,
       endDate: date,

@@ -27,7 +27,6 @@ router.get("/alluser", (req: Request, res: Response): void => {
 
 router.post(
   "/register",
-
   (req: Request, res: Response, next: express.NextFunction): void => {
     const username: string | null = <string>req.body.username;
     const password: string | null = encryptPassword(req.body.password);
