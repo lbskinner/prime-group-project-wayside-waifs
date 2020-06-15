@@ -542,9 +542,9 @@ class ReportPage extends Component {
                 </Typography>
               </Grid>
               <Grid item>
-                <Button size="large" variant="contained" color="secondary">
+                <Button size="large" variant="contained" color="primary">
                   <CSVLink className="link-text" data={exportData}>
-                    Download me
+                    Download Report
                   </CSVLink>
                 </Button>
               </Grid>
