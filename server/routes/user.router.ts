@@ -12,7 +12,6 @@ router.get("/", rejectUnauthenticated, (req: Request, res: Response): void => {
 });
 
 router.get("/alluser", (req: Request, res: Response): void => {
-
   const queryText: string = `SELECT "id", "first_name", "last_name", "role" FROM "user" ORDER BY last_name ASC;`;
 
   pool
@@ -28,25 +27,30 @@ router.get("/alluser", (req: Request, res: Response): void => {
 
 router.post(
   "/register",
+  rejectUnauthenticated,
   (req: Request, res: Response, next: express.NextFunction): void => {
     const username: string | null = <string>req.body.username;
     const password: string | null = encryptPassword(req.body.password);
 
-    const queryText: string = `INSERT INTO "user" (username, password, first_name, last_name, phone_number, role, street_address, city, state, zip) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`;
+    const queryText: string = `INSERT INTO "user" (username, password, first_name, last_name, role) VALUES ($1, $2, $3, $4, $5) RETURNING id`;
     pool
       .query(queryText, [
         username,
         password,
         req.body.first_name,
         req.body.last_name,
-        req.body.phone_number,
         req.body.role,
-        req.body.street_address,
-        req.body.city,
-        req.body.state,
-        req.body.zip,
       ])
-      .then(() => res.sendStatus(201))
+      .then((responseFromDB) => {
+        const newUserId = responseFromDB.rows[0].id;
+        pool
+          .query(`SELECT "username" FROM "user" WHERE "id" = $1;`, [newUserId])
+          .then((response) => res.send(response.rows))
+          .catch((error) => {
+            console.log("Error getting newly created username");
+            res.sendStatus(500);
+          });
+      })
       .catch((err) => {
         console.log(`Error saving user to database: ${err}`);
         res.sendStatus(500);

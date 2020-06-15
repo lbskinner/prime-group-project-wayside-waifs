@@ -16,10 +16,10 @@ import mapStoreToProps from "../../redux/mapStoreToProps";
 
 // import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
-import InfoPage from "../InfoPage/InfoPage";
-
+// import InfoPage from "../InfoPage/InfoPage";
 // import LoginPage from "../LoginPage/LoginPage";
 // import LoginPage from "../LoginPage/LoginPageModal";
+import RegisterPage from "../RegisterPage/RegisterPage";
 
 import ReportPage from "../ReportPage/ReportPage";
 import RequestForm from "../RequestForm/RequestForm";
@@ -68,7 +68,7 @@ class App extends Component {
               <ProtectedRoute exact path="/admin" component={UserPage} />
               {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
-              <ProtectedRoute exact path="/info" component={InfoPage} />
+              {/* <ProtectedRoute exact path="/info" component={InfoPage} /> */}
               {/* This works the same as the other protected route, except that if the user is logged in,
             they will be redirected to the authRedirect path provided. */}
 
@@ -78,11 +78,11 @@ class App extends Component {
                 authRedirect="/event"
                 component={RequestForm}
               /> */}
-              {/* <ProtectedRoute
+              <ProtectedRoute
                 exact
                 path="/registration"
                 component={RegisterPage}
-              /> */}
+              />
 
               <ProtectedRoute exact path="/reports" component={ReportPage} />
               <ProtectedRoute exact path="/event" component={EventPage} />

@@ -9,12 +9,7 @@ CREATE TABLE "user" (
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (255),
     "last_name" VARCHAR (255),
-	"phone_number"  VARCHAR (25),
 	"role" VARCHAR (80),
-	"street_address" VARCHAR (255),
-	"city" VARCHAR (255),
-	"state" VARCHAR (25),
-	"zip"  INTEGER
 );
 
 -- request_date set DEFAULT to "Expression" CURRENT_DATE
