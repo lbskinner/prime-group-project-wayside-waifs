@@ -42,8 +42,7 @@ const Nav = (props) => {
             <Link className="nav-link" to="/request">
               Request Event
             </Link>
-            {/* )} */}
-            {/* Show the link to the events page, report page and the logout button if the user is logged in */}
+            {/* Show the link to the events page, report page, add user page and the logout button if the user is logged in */}
             {props.store.user.id ? (
               <>
                 <Link className="nav-link" to="/event">
@@ -51,6 +50,9 @@ const Nav = (props) => {
                 </Link>
                 <Link className="nav-link" to="/reports">
                   Reports
+                </Link>
+                <Link className="nav-link" to="/registration">
+                  Add User
                 </Link>
                 <LogOutButton className="nav-link" />
               </>
@@ -60,12 +62,12 @@ const Nav = (props) => {
               </button>
             )}
           </div>
+          <Modal open={open} onClose={handleClose}>
+            <div className="modalContent">
+              <LoginPageModal handleCloseModal={handleClose} />
+            </div>
+          </Modal>
         </div>
-        <Modal open={open} onClose={handleClose}>
-          <div className="modalContent">
-            <LoginPageModal handleCloseModal={handleClose} />
-          </div>
-        </Modal>
       </div>
     </CssBaseline>
   );
