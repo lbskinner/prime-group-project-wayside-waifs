@@ -5,6 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
 import Select from "react-select";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 const moment = require("moment");
 
 const styles = (theme) => ({
@@ -93,15 +94,15 @@ class AllEvent extends Component {
         <Paper classes={{ root: classes.root }} elevation={1}>
           <div className={classes.padding}>
             <div onClick={this.eventDetails} style={background}>
-              <p>
+              <Typography variant="h6">
                 {this.props.eventItem.organization}
                 <span>
-                  {" "}
+                  {" on "}
                   {moment(this.props.eventItem.request_date).format(
                     "MM-DD-YYYY"
                   )}
                 </span>
-              </p>
+              </Typography>
               <p>
                 Program Date:{" "}
                 {moment(this.props.eventItem.program_date).format("MM-DD-YYYY")}
