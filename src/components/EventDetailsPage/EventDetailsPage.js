@@ -114,13 +114,15 @@ function EventDetailsPage(props) {
                 variant="h4"
                 gutterBottom
               >
-                {event.organization} Details:
+                {event.organization} Event Details:
               </Typography>
             </Paper>
 
             <Box display="flex" justifyContent="center" m={1} p={1}>
               <div style={{ margin: 15 }}>
                 <Button
+                  variant="contained"
+                  color="secondary"
                   aria-controls="simple-menu"
                   aria-haspopup="true"
                   onClick={onHandleClick}
@@ -139,6 +141,8 @@ function EventDetailsPage(props) {
 
               <div style={{ margin: 15 }}>
                 <Button
+                  variant="contained"
+                  color="secondary"
                   aria-controls="simple-menu"
                   aria-haspopup="true"
                   onClick={handleClick}
@@ -178,19 +182,6 @@ function EventDetailsPage(props) {
               </div>
             </Box>
 
-            <Paper classes={{ root: classes.root }} elevation={1}>
-              <Typography variant="h4" color="textSecondary" gutterBottom>
-                Event Details
-              </Typography>
-              <Typography variant="h5" color="textSecondary" gutterBottom>
-                {event.organization}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Request Date and Time:{" "}
-                {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
-                {event.time_of_day}
-              </Typography>
-            </Paper>
             <Paper classes={{ root: classes.root }} elevation={1}>
               <div className={classes.padding}>
                 <Typography className={classes.pos}>
@@ -246,7 +237,13 @@ function EventDetailsPage(props) {
             </Paper>
 
             <Box display="flex" justifyContent="flex-end" m={1} p={1}>
-              <Button onClick={editHandleClick}>Edit</Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={editHandleClick}
+              >
+                Edit
+              </Button>
             </Box>
           </div>
         </CssBaseline>

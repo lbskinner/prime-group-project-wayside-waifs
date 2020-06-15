@@ -28,7 +28,7 @@ class AllEvent extends Component {
 
   assign = (selectedOption) => {
     let submission = {
-      user: selectedOption.value,
+      user: parseInt(selectedOption.value),
       event: this.props.eventItem.id,
     };
 
