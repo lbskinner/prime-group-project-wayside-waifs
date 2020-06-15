@@ -9,7 +9,7 @@ CREATE TABLE "user" (
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (255),
     "last_name" VARCHAR (255),
-	"role" VARCHAR (80),
+	"role" VARCHAR (80)
 );
 
 -- request_date set DEFAULT to "Expression" CURRENT_DATE

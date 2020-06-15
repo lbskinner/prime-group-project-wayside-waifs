@@ -62,6 +62,7 @@ class RequestedEvent extends Component {
     let submission = {
       user: selectedOption.value,
       event: this.props.eventItem.id,
+      name: selectedOption.label,
     };
 
     this.props.dispatch({
