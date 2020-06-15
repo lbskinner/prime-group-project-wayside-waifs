@@ -9,6 +9,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 
 const moment = require("moment");
 
@@ -83,10 +84,14 @@ function EventDetailsPage(props) {
   const onHandleClick = (event) => {
     setAssignEl(event.currentTarget);
   };
-  const onHandleClose = (event, userId) => {
+  const onHandleClose = (event, userItem) => {
     setAssignEl(null);
-    let assignInfo = { user: userId, event: props.match.params.id };
-    console.log("In onHandleClose", userId, assignInfo);
+    let assignInfo = {
+      user: userItem.value,
+      event: props.match.params.id,
+      name: userItem.label,
+    };
+    console.log("In onHandleClose", userItem.value, assignInfo);
     props.dispatch({ type: "ASSIGN_EVENT", payload: assignInfo });
   };
 
@@ -143,9 +148,7 @@ function EventDetailsPage(props) {
                     return (
                       <MenuItem
                         key={userItem.value}
-                        onClick={(event) =>
-                          onHandleClose(event, userItem.value)
-                        }
+                        onClick={(event) => onHandleClose(event, userItem)}
                       >
                         {userItem.label}
                       </MenuItem>
@@ -251,16 +254,19 @@ function EventDetailsPage(props) {
                 </Typography>
               </div>
             </Paper>
-
-            <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={editHandleClick}
-              >
-                Edit
-              </Button>
-            </Box>
+            <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
+              <Grid container justify="flex-end" alignItems="center">
+                {/* <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}> */}
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={editHandleClick}
+                >
+                  Edit
+                </Button>
+                {/* </Box> */}
+              </Grid>
+            </Paper>
           </div>
         </CssBaseline>
       </div>

@@ -29,13 +29,19 @@ const styles = (theme) => ({
     paddingTop: 10,
     paddingBottom: 10,
   },
-  paperTransparent: {
-    maxWidth: "90%",
-    width: "920px",
-    margin: "15px auto",
-    paddingTop: 5,
-    paddingBottom: 5,
-    backgroundColor: "#fff0",
+  colorKeyContacted: {
+    backgroundColor: "#BCD053",
+    width: "20px",
+    height: "20px",
+    display: "inline-block",
+    marginRight: "10px",
+  },
+  colorKeyScheduled: {
+    backgroundColor: "#51AEA4",
+    width: "20px",
+    height: "20px",
+    display: "inline-block",
+    marginRight: "10px",
   },
   padding: {
     padding: "8px 20px",
@@ -149,24 +155,11 @@ class EventPage extends Component {
                 <Typography variant="h6" align="center">
                   IN MY EVENTS
                   <Box display="flex" justifyContent="center" m={1} p={1}>
-                    <Typography>
-                      <img
-                        className="swatches"
-                        alt="blue"
-                        src="../images/blue.jpg"
-                      ></img>{" "}
-                      Contacted
-                    </Typography>
-                  </Box>
-                  <Box display="flex" justifyContent="center" m={1} p={1}>
-                    <Typography>
-                      <img
-                        className="swatches"
-                        alt="yellow"
-                        src="../images/yellow.jpg"
-                      ></img>{" "}
-                      Scheduled
-                    </Typography>
+                    <div className={classes.colorKeyContacted}></div>
+                    <Typography>Contacted</Typography>
+                    &nbsp;
+                    <div className={classes.colorKeyScheduled}></div>
+                    <Typography>Scheduled</Typography>
                   </Box>
                 </Typography>
               </Paper>
@@ -182,24 +175,11 @@ class EventPage extends Component {
                 <Typography variant="h6" align="center">
                   IN ALL EVENTS
                   <Box display="flex" justifyContent="center" m={1} p={1}>
-                    <Typography>
-                      <img
-                        className="swatches"
-                        alt="blue"
-                        src="../images/blue.jpg"
-                      ></img>{" "}
-                      Contacted
-                    </Typography>
-                  </Box>
-                  <Box display="flex" justifyContent="center" m={1} p={1}>
-                    <Typography>
-                      <img
-                        className="swatches"
-                        alt="yellow"
-                        src="../images/yellow.jpg"
-                      ></img>{" "}
-                      Scheduled
-                    </Typography>
+                    <div className={classes.colorKeyContacted}></div>
+                    <Typography>Contacted</Typography>
+                    &nbsp;
+                    <div className={classes.colorKeyScheduled}></div>
+                    <Typography>Scheduled</Typography>
                   </Box>
                 </Typography>
               </Paper>

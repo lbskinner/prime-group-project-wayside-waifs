@@ -2,7 +2,7 @@ INSERT INTO "user" ("username","password","first_name","last_name","role",)
 VALUES ('ashley','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Ashley','Stanley','Educator'),
 ('karen','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Karen','Wallace','Educator'),
 ('john','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','John','Parker','Educator'),
-('amanday','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Amanda','Smasal','Educator');
+('amanda','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Amanda','Smasal','Educator');
 
 
 INSERT INTO "event" ("request_date","status","organization","program","program_date","time_of_day",
