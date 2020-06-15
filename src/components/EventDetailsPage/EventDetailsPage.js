@@ -84,8 +84,10 @@ function EventDetailsPage(props) {
   const onHandleClick = (event) => {
     setAssignEl(event.currentTarget);
   };
-  const onHandleClose = (event) => {
+  const onHandleClose = (event, userId) => {
     setAssignEl(null);
+    let assignInfo = { user: userId, event: props.match.params.id };
+    props.dispatch({ type: "ASSIGN_EVENT", payload: assignInfo });
   };
 
   const users = props.store.allUser;
@@ -139,7 +141,7 @@ function EventDetailsPage(props) {
                     return (
                       <MenuItem
                         key={userItem.value}
-                        onClick={(event) => handleClose(event, "Received")}
+                        onClick={(event) => handleClose(event, userItem.value)}
                       >
                         {userItem.label}
                       </MenuItem>
