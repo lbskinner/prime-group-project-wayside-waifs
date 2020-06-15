@@ -14,16 +14,25 @@ const styles = (theme) => ({
     maxWidth: "90%",
     width: "920px",
     margin: "15px auto",
-    paddingTop: 10,
-    paddingBottom: 10,
+    padding: 10,
+    border: "1px solid white",
+    borderWidth: "0px 0px 0px 10px",
   },
-  paperTransparent: {
+  rootContacted: {
     maxWidth: "90%",
     width: "920px",
     margin: "15px auto",
-    paddingTop: 5,
-    paddingBottom: 5,
-    backgroundColor: "#fff0",
+    padding: 10,
+    border: "1px solid #BCD053",
+    borderWidth: "0px 0px 0px 10px",
+  },
+  rootScheduled: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    padding: 10,
+    border: "1px solid #51AEA4",
+    borderWidth: "0px 0px 0px 10px",
   },
   padding: {
     padding: "8px 20px",
@@ -62,6 +71,7 @@ class AllEvent extends Component {
     let submission = {
       user: parseInt(selectedOption.value),
       event: this.props.eventItem.id,
+      name: selectedOption.label,
     };
 
     this.props.dispatch({
@@ -83,45 +93,41 @@ class AllEvent extends Component {
       }
     }
 
-    let background = { backgroundColor: "white" };
+    let background = classes.root;
     if (this.props.eventItem.status === "Contacted") {
-      background = { backgroundColor: "lightblue" };
+      background = classes.rootContacted;
     } else if (this.props.eventItem.status === "Scheduled") {
-      background = { backgroundColor: "yellow" };
+      background = classes.rootScheduled;
     }
 
     return (
       <div>
         <CssBaseline>
-          <Paper classes={{ root: classes.root }} elevation={1}>
-            <div className={classes.padding}>
-              <div onClick={this.eventDetails} style={background}>
-                <Typography variant="h6">
-                  {this.props.eventItem.organization}
-                  <span>
-                    {" on "}
-                    {moment(this.props.eventItem.request_date).format(
-                      "MM-DD-YYYY"
-                    )}
-                  </span>
-                </Typography>
-                <p>
-                  Program Date:{" "}
-                  {moment(this.props.eventItem.program_date).format(
+          <Paper classes={{ root: background }} elevation={1}>
+            <div onClick={this.eventDetails}>
+              <Typography variant="h6">
+                {this.props.eventItem.organization}
+                <span>
+                  {" on "}
+                  {moment(this.props.eventItem.request_date).format(
                     "MM-DD-YYYY"
                   )}
-                </p>
-                <p>
-                  Program Requested: {this.state[this.props.eventItem.program]}
-                </p>
-              </div>
-              <Select
-                placeholder="Assign"
-                onChange={this.assign}
-                options={userList}
-                className="selector_container"
-              />
+                </span>
+              </Typography>
+              <p>
+                Program Date:{" "}
+                {moment(this.props.eventItem.program_date).format("MM-DD-YYYY")}
+              </p>
+              <p>
+                Program Requested: {this.state[this.props.eventItem.program]}
+              </p>
             </div>
+            <Select
+              placeholder="Assign"
+              onChange={this.assign}
+              options={userList}
+              className="selector_container"
+            />
           </Paper>
         </CssBaseline>
       </div>
