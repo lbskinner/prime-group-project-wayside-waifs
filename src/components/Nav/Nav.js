@@ -28,39 +28,38 @@ const Nav = (props) => {
 
   return (
     <CssBaseline>
-    <div className="nav-background">
-      <div className="nav">
-        <a
-          className="nav-container-logo"
-          target="_black"
-          href="https://secure.waysidewaifs.org/site/SPageServer/?pagename=Home_new"
-        >
-          <img src={logoImage} alt="" className="nav-logo" />
-        </a>
+      <div className="nav-background">
+        <div className="nav">
+          <a
+            className="nav-container-logo"
+            target="_black"
+            href="https://secure.waysidewaifs.org/site/SPageServer/?pagename=Home_new"
+          >
+            <img src={logoImage} alt="" className="nav-logo" />
+          </a>
 
-        <div className="nav-right">
-          <Link className="nav-link" to="/request">
-            Request Event
-          </Link>
-          {/* Show the link to the events page, report page, add user page and the logout button if the user is logged in */}
-          {props.store.user.id ? (
-            <>
-              <Link className="nav-link" to="/event">
-                Events
-              </Link>
-              <Link className="nav-link" to="/reports">
-                Reports
-              </Link>
-              <Link className="nav-link" to="/registration">
-                Add User
-              </Link>
-              <LogOutButton className="nav-link" />
-            </>
-          ) : (
-            <button className="nav-link" onClick={handleOpen}>
-              Login
-            </button>
-          )}
+          <div className="nav-right">
+            <Link className="nav-link" to="/request">
+              Request Event
+            </Link>
+            {/* )} */}
+            {/* Show the link to the events page, report page and the logout button if the user is logged in */}
+            {props.store.user.id ? (
+              <>
+                <Link className="nav-link" to="/event">
+                  Events
+                </Link>
+                <Link className="nav-link" to="/reports">
+                  Reports
+                </Link>
+                <LogOutButton className="nav-link" />
+              </>
+            ) : (
+              <button className="nav-link" onClick={handleOpen}>
+                Login
+              </button>
+            )}
+          </div>
         </div>
         <Modal open={open} onClose={handleClose}>
           <div className="modalContent">
