@@ -131,7 +131,7 @@ function EventDetailsPage(props) {
                 </Button>
                 <Menu
                   id="simple-menu"
-                  assignEl={assignEl}
+                  anchorEl={assignEl}
                   keepMounted
                   MenuItems={userList}
                   open={Boolean(assignEl)}
@@ -184,34 +184,35 @@ function EventDetailsPage(props) {
 
             <Paper classes={{ root: classes.root }} elevation={1}>
               <div className={classes.padding}>
-                <Typography className={classes.pos}>
+                <Typography variant="h6" className={classes.pos}>
                   Event Information
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <br />
+                <Typography variant="body2">
                   Date Received:{" "}
                   {moment(event.request_date).format("MM-DD-YYYY")}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Program: {event.program}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Requested Date and Time:{" "}
                   {moment(event.program_date).format("MM-DD-YYYY")} at{" "}
                   {event.time_of_day}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Location: {event.location}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Name of Organization: {event.organization}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Grade Level: {event.grade_level}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Number of Students: {event.student_number}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Number of Chaperones: {event.adult_sponsors}
                 </Typography>
               </div>
@@ -219,24 +220,24 @@ function EventDetailsPage(props) {
 
             <Paper classes={{ root: classes.root }} elevation={1}>
               <div className={classes.padding}>
-                <Typography className={classes.pos} component="p">
+                <Typography variant="h6" className={classes.pos} component="p">
                   Contact Information
-                  <br />
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <br />
+                <Typography variant="body2">
                   Full Name: {event.contact_first_name}{" "}
                   {event.contact_last_name}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Phone Number: {event.contact_phone_number}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Email Address: {event.contact_email}
                 </Typography>
               </div>
             </Paper>
 
-            <Box display="flex" justifyContent="flex-end" m={1} p={1}>
+            <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}>
               <Button
                 variant="contained"
                 color="secondary"

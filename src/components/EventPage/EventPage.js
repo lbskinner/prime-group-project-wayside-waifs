@@ -135,17 +135,12 @@ class EventPage extends Component {
                 >
                   IN REQUESTED EVENTS
                 </Typography>
-                <div className={classes.padding}>
-                  {this.props.store.event.map((eventItem) => {
-                    return (
-                      <RequestedEvent
-                        key={eventItem.id}
-                        eventItem={eventItem}
-                      />
-                    );
-                  })}
-                </div>
               </Paper>
+              {this.props.store.event.map((eventItem) => {
+                return (
+                  <RequestedEvent key={eventItem.id} eventItem={eventItem} />
+                );
+              })}
             </div>
           )}
           {this.state.status === "My Events" && (
@@ -177,13 +172,7 @@ class EventPage extends Component {
               </Paper>
 
               {this.props.store.event.map((eventItem) => {
-                return (
-                  <Paper classes={{ root: classes.root }} elevation={1}>
-                    <div className={classes.padding}>
-                      <MyEvent key={eventItem.id} eventItem={eventItem} />
-                    </div>
-                  </Paper>
-                );
+                return <MyEvent key={eventItem.id} eventItem={eventItem} />;
               })}
             </div>
           )}
@@ -216,13 +205,7 @@ class EventPage extends Component {
               </Paper>
 
               {this.props.store.event.map((eventItem) => {
-                return (
-                  <Paper classes={{ root: classes.root }} elevation={1}>
-                    <div className={classes.padding}>
-                      <AllEvent key={eventItem.id} eventItem={eventItem} />
-                    </div>
-                  </Paper>
-                );
+                return <AllEvent key={eventItem.id} eventItem={eventItem} />;
               })}
             </div>
           )}

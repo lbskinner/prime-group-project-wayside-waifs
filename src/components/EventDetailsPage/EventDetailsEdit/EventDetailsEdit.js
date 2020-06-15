@@ -1,16 +1,46 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 
 const moment = require("moment");
+
+const styles = (theme) => ({
+  root: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  paperTransparent: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: "#fff0",
+  },
+  padding: {
+    padding: "8px 20px",
+  },
+  selectorSize: {
+    minWidth: 600,
+  },
+  inputMargin: {
+    margin: "10px 0px",
+    minWidth: 600,
+  },
+});
 
 class EventDetailsEdit extends Component {
   constructor(props) {
@@ -135,154 +165,198 @@ class EventDetailsEdit extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <CssBaseline>
-        <div>
-          <Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
             <Typography variant="h4">Edit This Event</Typography>
-          </Paper>
-          <br />
-          <Paper>
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
             <Typography variant="h6">Edit Event Information:</Typography>
-
-            <Grid>
-              <FormControl variant="outlined">
-                <Select
-                  value={this.state.program}
-                  onChange={(event) => this.programSelect(event)}
-                >
-                  <MenuItem value="All">All Programs</MenuItem>
-                  <MenuItem value="FIA">
-                    "Kindness in Action!" (formerly Families in Action)
-                  </MenuItem>
-                  <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
-                  <MenuItem value="DS">
-                    PAW-etiquette for Pooches & People: Dog Safety
-                  </MenuItem>
-                  <MenuItem value="AE">
-                    Activating Em-PAW-thy: Exploring Similarities between Pets
-                    and People
-                  </MenuItem>
-                  <MenuItem value="OUT">
-                    Once U-PAW-n a Time Reading Program
-                  </MenuItem>
-                  <MenuItem value="KIA">Kids-in-Action</MenuItem>
-                  <MenuItem value="ET">Educational Tours</MenuItem>
-                  <MenuItem value="other">Other</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid>
-              <Typography>Requested Date and Time:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${moment(
-                  this.props.store.eventDetails[0].program_date
-                ).format("MM-DD-YYYY")}`}
-                onChange={this.changeDetails("program_date")}
-                type="text"
-              />
-            </Grid>
-            <Grid>
-              <Typography>Time of Day:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].time_of_day}`}
-                onChange={this.changeDetails("time_of_day")}
-                type="text"
-              />
-            </Grid>
-            <Grid>
-              <Typography>Location:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].location}`}
-                onChange={this.changeDetails("location")}
-                type="text"
-              />
-            </Grid>
-            <Grid>
-              <Typography>Organization:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].organization}`}
-                onChange={this.changeDetails("organization")}
-                type="text"
-              />
-            </Grid>
-            <Grid>
-              <Typography>Grade Level:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].grade_level}`}
-                onChange={this.changeDetails("grade_level")}
-                type="text"
-              />
-            </Grid>
-            <Grid>
-              <Typography>Number of Students:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].student_number}`}
-                onChange={this.changeDetails("student_number")}
-                type="number"
-              />
-            </Grid>
-            <Grid>
-              <Typography>Number of Adults:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].adult_sponsors}`}
-                onChange={this.changeDetails("adult_sponsors")}
-                type="number"
-              />
-            </Grid>
             <br />
+
+            <FormControl variant="outlined">
+              <Select
+                value={this.state.program}
+                onChange={(event) => this.programSelect(event)}
+              >
+                <MenuItem value="All">All Programs</MenuItem>
+                <MenuItem value="FIA">
+                  "Kindness in Action!" (formerly Families in Action)
+                </MenuItem>
+                <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
+                <MenuItem value="DS">
+                  PAW-etiquette for Pooches & People: Dog Safety
+                </MenuItem>
+                <MenuItem value="AE">
+                  Activating Em-PAW-thy: Exploring Similarities between Pets and
+                  People
+                </MenuItem>
+                <MenuItem value="OUT">
+                  Once U-PAW-n a Time Reading Program
+                </MenuItem>
+                <MenuItem value="KIA">Kids-in-Action</MenuItem>
+                <MenuItem value="ET">Educational Tours</MenuItem>
+                <MenuItem value="other">Other</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
+            <Typography variant="h6">
+              Requested Date and Time of Day:
+            </Typography>
+            <Grid container spacing={2}>
+              <Grid item>
+                <TextField
+                  variant="outlined"
+                  className="input-field"
+                  placeholder={`${moment(
+                    this.props.store.eventDetails[0].program_date
+                  ).format("MM-DD-YYYY")}`}
+                  onChange={this.changeDetails("program_date")}
+                  type="text"
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  variant="outlined"
+                  className="input-field"
+                  placeholder={`${this.props.store.eventDetails[0].time_of_day}`}
+                  onChange={this.changeDetails("time_of_day")}
+                  type="text"
+                />
+              </Grid>
+            </Grid>
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
+            <Typography variant="h6">Location:</Typography>
+            <TextField
+              variant="outlined"
+              className="input-field"
+              placeholder={`${this.props.store.eventDetails[0].location}`}
+              onChange={this.changeDetails("location")}
+              type="text"
+            />
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
+            <Typography variant="h6">Organization:</Typography>
+            <TextField
+              variant="outlined"
+              className="input-field"
+              fullWidth
+              placeholder={`${this.props.store.eventDetails[0].organization}`}
+              onChange={this.changeDetails("organization")}
+              type="text"
+            />
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
+            <Typography variant="h6">Grade Level:</Typography>
+            <TextField
+              variant="outlined"
+              className="input-field"
+              placeholder={`${this.props.store.eventDetails[0].grade_level}`}
+              onChange={this.changeDetails("grade_level")}
+              type="text"
+            />
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
+            <Typography variant="h6">Number of Students:</Typography>
+            <TextField
+              variant="outlined"
+              className="input-field"
+              placeholder={`${this.props.store.eventDetails[0].student_number}`}
+              onChange={this.changeDetails("student_number")}
+              type="number"
+            />
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
+            <Typography variant="h6">Number of Adults:</Typography>
+            <TextField
+              variant="outlined"
+              className="input-field"
+              placeholder={`${this.props.store.eventDetails[0].adult_sponsors}`}
+              onChange={this.changeDetails("adult_sponsors")}
+              type="number"
+            />
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
             <Typography variant="h6">Edit Contact Information:</Typography>
-            <Grid>
-              <Typography>First Name:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].contact_first_name}`}
-                onChange={this.changeDetails("contact_first_name")}
-                type="text"
-              />
+            <br />
+            <Typography variant="h6">Contact Name:</Typography>
+            <Grid container spacing={2}>
+              <Grid item>
+                <TextField
+                  variant="outlined"
+                  className="input-field"
+                  placeholder={`${this.props.store.eventDetails[0].contact_first_name}`}
+                  onChange={this.changeDetails("contact_first_name")}
+                  type="text"
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  variant="outlined"
+                  className="input-field"
+                  placeholder={`${this.props.store.eventDetails[0].contact_last_name}`}
+                  onChange={this.changeDetails("contact_last_name")}
+                  type="text"
+                />
+              </Grid>
             </Grid>
-            <Grid>
-              <Typography>Last Name:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].contact_last_name}`}
-                onChange={this.changeDetails("contact_last_name")}
-                type="text"
-              />
-            </Grid>
-            <Grid>
-              <Typography>Phone Number:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].contact_phone_number}`}
-                onChange={this.changeDetails("contact_phone_number")}
-                type="text"
-              />
-            </Grid>
-            <Grid>
-              <Typography>Email Address:</Typography>
-              <TextField
-                className="input-field"
-                placeholder={`${this.props.store.eventDetails[0].contact_email}`}
-                onChange={this.changeDetails("contact_email")}
-                type="text"
-              />
-            </Grid>
-          </Paper>
-          <br />
-          <Paper>
-            <Button className="saveBtn" onClick={this.clickSaveDetails}>
-              Save
-            </Button>
-          </Paper>
-        </div>
+          </div>
+        </Paper>
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
+            <Typography variant="h6">Phone Number:</Typography>
+            <TextField
+              variant="outlined"
+              className="input-field"
+              placeholder={`${this.props.store.eventDetails[0].contact_phone_number}`}
+              onChange={this.changeDetails("contact_phone_number")}
+              type="text"
+            />
+          </div>
+        </Paper>{" "}
+        <Paper classes={{ root: classes.root }} elevation={1}>
+          <div className={classes.padding}>
+            <Typography variant="h6">Email Address:</Typography>
+            <TextField
+              variant="outlined"
+              className="input-field"
+              fullWidth
+              placeholder={`${this.props.store.eventDetails[0].contact_email}`}
+              onChange={this.changeDetails("contact_email")}
+              type="text"
+            />
+          </div>
+        </Paper>
+        <br />
+        <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={this.clickSaveDetails}
+          >
+            Save
+          </Button>
+        </Box>
       </CssBaseline>
     );
   }
@@ -290,4 +364,4 @@ class EventDetailsEdit extends Component {
 
 const mapStoreToProps = (store) => ({ store });
 
-export default connect(mapStoreToProps)(EventDetailsEdit);
+export default withStyles(styles)(connect(mapStoreToProps)(EventDetailsEdit));
