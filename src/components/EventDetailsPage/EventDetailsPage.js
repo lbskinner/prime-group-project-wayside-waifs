@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 // component.
 function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
+
   const [assignEl, setAssignEl] = useState(null);
   const classes = useStyles();
   // moved this up to use it in the payload for get event
@@ -129,12 +130,22 @@ function EventDetailsPage(props) {
                 </Button>
                 <Menu
                   id="simple-menu"
-                  assignEl={assignEl}
+                  anchorEl={assignEl}
                   keepMounted
-                  MenuItems={userList}
                   open={Boolean(assignEl)}
                   onClose={onHandleClose}
-                ></Menu>
+                >
+                  {userList.map((userItem) => {
+                    return (
+                      <MenuItem
+                        key={userItem.value}
+                        onClick={(event) => handleClose(event, "Received")}
+                      >
+                        {userItem.label}
+                      </MenuItem>
+                    );
+                  })}
+                </Menu>
               </div>
 
               <div style={{ margin: 15 }}>
