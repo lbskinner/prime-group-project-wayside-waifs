@@ -24,11 +24,10 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import { InputLabel } from "@material-ui/core";
+import { InputLabel, CssBaseline } from "@material-ui/core";
 import { CSVLink, CSVDownload } from "react-csv";
 
 // import TablePagination from "@material-ui/core/TablePagination";
-
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -291,267 +290,272 @@ class ReportPage extends Component {
       };
     });
 
-//     const eventDataArray = this.state.reportArray
-//       // .slice(
-//       //   this.state.page * this.state.rowsPerPage,
-//       //   this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
-//       // )
-//       .map((item) => {
-//         totalNumberOfKids += parseFloat(item.student_number);
-//         return (
-//           <StyledTableRow key={item.id}>
-//             {/* (hover role="checkbox" tabIndex={-1}) part of TableRow */}
-//             <StyledTableCell component="th" scope="row" align="center">
-//               {item.program}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">{item.status}</StyledTableCell>
-//             <StyledTableCell align="center">
-//               {moment(item.program_date).format("MM-DD-YYYY")}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.organization}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.student_number}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.adult_sponsors}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.contact_first_name} {item.contact_last_name}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">
-//               {item.contact_email}
-//             </StyledTableCell>
-//             <StyledTableCell>
-//               {item.first_name} {item.last_name}
-//             </StyledTableCell>
-//             <StyledTableCell align="center">{item.location}</StyledTableCell>
-//           </StyledTableRow>
-//         );
-//       });
-
+    //     const eventDataArray = this.state.reportArray
+    //       // .slice(
+    //       //   this.state.page * this.state.rowsPerPage,
+    //       //   this.state.page * this.state.rowsPerPage + this.state.rowsPerPage
+    //       // )
+    //       .map((item) => {
+    //         totalNumberOfKids += parseFloat(item.student_number);
+    //         return (
+    //           <StyledTableRow key={item.id}>
+    //             {/* (hover role="checkbox" tabIndex={-1}) part of TableRow */}
+    //             <StyledTableCell component="th" scope="row" align="center">
+    //               {item.program}
+    //             </StyledTableCell>
+    //             <StyledTableCell align="center">{item.status}</StyledTableCell>
+    //             <StyledTableCell align="center">
+    //               {moment(item.program_date).format("MM-DD-YYYY")}
+    //             </StyledTableCell>
+    //             <StyledTableCell align="center">{item.time_of_day}</StyledTableCell>
+    //             <StyledTableCell align="center">
+    //               {item.organization}
+    //             </StyledTableCell>
+    //             <StyledTableCell align="center">
+    //               {item.student_number}
+    //             </StyledTableCell>
+    //             <StyledTableCell align="center">
+    //               {item.adult_sponsors}
+    //             </StyledTableCell>
+    //             <StyledTableCell align="center">{item.grade_level}</StyledTableCell>
+    //             <StyledTableCell align="center">
+    //               {item.contact_first_name} {item.contact_last_name}
+    //             </StyledTableCell>
+    //             <StyledTableCell align="center">
+    //               {item.contact_email}
+    //             </StyledTableCell>
+    //             <StyledTableCell>
+    //               {item.first_name} {item.last_name}
+    //             </StyledTableCell>
+    //             <StyledTableCell align="center">{item.location}</StyledTableCell>
+    //           </StyledTableRow>
+    //         );
+    //       });
 
     const userArray = this.props.allUser.map((user) => {
       return (
-        <MenuItem key={user.id} value={user.id}>
-          {user.first_name} {user.last_name}
-        </MenuItem>
+        <CssBaseline>
+          <MenuItem key={user.id} value={user.id}>
+            {user.first_name} {user.last_name}
+          </MenuItem>
+        </CssBaseline>
       );
     });
     return (
-      <div className="report-background-container">
-        <div className="report-container">
-          <Typography variant="h5">Select Date Range</Typography>
-          <Grid container alignItems="center" spacing={2}>
-            <Grid item>
-              <DatePicker
-                placeholderText="Select a start date"
-                selected={this.state.startDate}
-                onChange={(date) => this.handleStartDateChange(date)}
-                selectsStart
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-              />
-            </Grid>
-            <Grid item>
-              <DatePicker
-                placeholderText="Select a end date"
-                selected={this.state.endDate}
-                onChange={(date) => this.handleEndDateChange(date)}
-                selectsEnd
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-              />
-            </Grid>
-            <Grid item alignItems="center">
-              <Button
-                size="large"
-                variant="contained"
-                color="secondary"
-                onClick={this.generateReport}
-              >
-                Generate Report
-              </Button>
-            </Grid>
-            {/* </Grid>
-          <Grid container> */}
-            <Grid item>
-              {this.state.filterOption && (
-                <>
-                  <InputLabel>Filter By</InputLabel>
-                  <FormControl variant="outlined">
-                    <Select
-                      value={this.state.filterOption}
-                      onChange={this.handelFilterOptionChange}
-                    >
-                      <MenuItem value="Program">Program</MenuItem>
-                      <MenuItem value="User">User</MenuItem>
-                      <MenuItem value="Status">Status</MenuItem>
-                      <MenuItem value="Location">Location</MenuItem>
-                    </Select>
-                  </FormControl>
-                </>
-              )}
-            </Grid>
-
-            <Grid item>
-              {this.state.filterOption === "Program" && (
-                <>
-                  <InputLabel>Filter Options</InputLabel>
-                  <FormControl variant="outlined">
-                    <Select
-                      value={this.state.programSelection}
-                      onChange={(event) =>
-                        this.handelSelectionOptionsChange(
-                          event,
-                          "programSelection"
-                        )
-                      }
-                    >
-                      <MenuItem value="All">All Programs</MenuItem>
-                      <MenuItem value="FIA">
-                        "Kindness in Action!" (formerly Families in Action)
-                      </MenuItem>
-                      <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
-                      <MenuItem value="DS">
-                        PAW-etiquette for Pooches & People: Dog Safety
-                      </MenuItem>
-                      <MenuItem value="AE">
-                        Activating Em-PAW-thy: Exploring Similarities between
-                        Pets and People
-                      </MenuItem>
-                      <MenuItem value="OUT">
-                        Once U-PAW-n a Time Reading Program
-                      </MenuItem>
-                      <MenuItem value="KIA">Kids-in-Action</MenuItem>
-                      <MenuItem value="ET">Educational Tours</MenuItem>
-                      <MenuItem value="other">Other</MenuItem>
-                    </Select>
-                  </FormControl>
-                </>
-              )}
+      <CssBaseline>
+        <div className="report-background-container">
+          <div className="report-container">
+            <Typography variant="h5">Select Date Range</Typography>
+            <Grid container alignItems="center" spacing={2}>
               <Grid item>
-                {this.state.filterOption === "User" && (
+                <DatePicker
+                  placeholderText="Select a start date"
+                  selected={this.state.startDate}
+                  onChange={(date) => this.handleStartDateChange(date)}
+                  selectsStart
+                  startDate={this.state.startDate}
+                  endDate={this.state.endDate}
+                />
+              </Grid>
+              <Grid item>
+                <DatePicker
+                  placeholderText="Select a end date"
+                  selected={this.state.endDate}
+                  onChange={(date) => this.handleEndDateChange(date)}
+                  selectsEnd
+                  startDate={this.state.startDate}
+                  endDate={this.state.endDate}
+                />
+              </Grid>
+              <Grid item alignItems="center">
+                <Button
+                  size="large"
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.generateReport}
+                >
+                  Generate Report
+                </Button>
+              </Grid>
+              {/* </Grid>
+          <Grid container> */}
+              <Grid item>
+                {this.state.filterOption && (
                   <>
-                    <InputLabel>Filter Options</InputLabel>
+                    <InputLabel>Filter By</InputLabel>
                     <FormControl variant="outlined">
                       <Select
-                        value={this.state.userSelection}
-                        onChange={(event) =>
-                          this.handelSelectionOptionsChange(
-                            event,
-                            "userSelection"
-                          )
-                        }
+                        value={this.state.filterOption}
+                        onChange={this.handelFilterOptionChange}
                       >
-                        <MenuItem value="All">All Users</MenuItem>
-                        {userArray}
-                      </Select>
-                    </FormControl>
-                  </>
-                )}
-                {this.state.filterOption === "Status" && (
-                  <>
-                    <InputLabel>Filter Options</InputLabel>
-                    <FormControl variant="outlined">
-                      <Select
-                        value={this.state.statusSelection}
-                        onChange={(event) =>
-                          this.handelSelectionOptionsChange(
-                            event,
-                            "statusSelection"
-                          )
-                        }
-                      >
-                        <MenuItem value="All">All Status</MenuItem>
-                        <MenuItem value="Received">Request Received</MenuItem>
-                        <MenuItem value="Contacted">Contacted</MenuItem>
-                        <MenuItem value="Assigned">Assigned</MenuItem>
-                        <MenuItem value="Scheduled">Scheduled</MenuItem>
-                        <MenuItem value="Complete">Complete</MenuItem>
-                        <MenuItem value="Missed">Missed Connections</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </>
-                )}
-                {this.state.filterOption === "Location" && (
-                  <>
-                    <InputLabel>Filter Options</InputLabel>
-                    <FormControl variant="outlined">
-                      <Select
-                        value={this.state.locationSelection}
-                        onChange={(event) =>
-                          this.handelSelectionOptionsChange(
-                            event,
-                            "locationSelection"
-                          )
-                        }
-                      >
-                        <MenuItem value="All">All Locations</MenuItem>
-                        <MenuItem value="on_site">Wayside Waifs</MenuItem>
-                        <MenuItem value="off_site">Other</MenuItem>
+                        <MenuItem value="Program">Program</MenuItem>
+                        <MenuItem value="User">User</MenuItem>
+                        <MenuItem value="Status">Status</MenuItem>
+                        <MenuItem value="Location">Location</MenuItem>
                       </Select>
                     </FormControl>
                   </>
                 )}
               </Grid>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            {/* <Grid container spacing={5}> */}
-            <Grid item>
-              <Typography variant="h6">
-                Total Number of Events: {eventDataArray.length}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="h6">
-                Total Number of Students Reached: {totalNumberOfKids}
-              </Typography>
-            </Grid>
 
-            <Grid item>
-              <Button size="large" variant="contained" color="secondary">
-                <CSVLink className="link-text" data={exportData}>
-                  Download me
-                </CSVLink>
-              </Button>
+              <Grid item>
+                {this.state.filterOption === "Program" && (
+                  <>
+                    <InputLabel>Filter Options</InputLabel>
+                    <FormControl variant="outlined">
+                      <Select
+                        value={this.state.programSelection}
+                        onChange={(event) =>
+                          this.handelSelectionOptionsChange(
+                            event,
+                            "programSelection"
+                          )
+                        }
+                      >
+                        <MenuItem value="All">All Programs</MenuItem>
+                        <MenuItem value="FIA">
+                          "Kindness in Action!" (formerly Families in Action)
+                        </MenuItem>
+                        <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
+                        <MenuItem value="DS">
+                          PAW-etiquette for Pooches & People: Dog Safety
+                        </MenuItem>
+                        <MenuItem value="AE">
+                          Activating Em-PAW-thy: Exploring Similarities between
+                          Pets and People
+                        </MenuItem>
+                        <MenuItem value="OUT">
+                          Once U-PAW-n a Time Reading Program
+                        </MenuItem>
+                        <MenuItem value="KIA">Kids-in-Action</MenuItem>
+                        <MenuItem value="ET">Educational Tours</MenuItem>
+                        <MenuItem value="other">Other</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </>
+                )}
+                <Grid item>
+                  {this.state.filterOption === "User" && (
+                    <>
+                      <InputLabel>Filter Options</InputLabel>
+                      <FormControl variant="outlined">
+                        <Select
+                          value={this.state.userSelection}
+                          onChange={(event) =>
+                            this.handelSelectionOptionsChange(
+                              event,
+                              "userSelection"
+                            )
+                          }
+                        >
+                          <MenuItem value="All">All Users</MenuItem>
+                          {userArray}
+                        </Select>
+                      </FormControl>
+                    </>
+                  )}
+                  {this.state.filterOption === "Status" && (
+                    <>
+                      <InputLabel>Filter Options</InputLabel>
+                      <FormControl variant="outlined">
+                        <Select
+                          value={this.state.statusSelection}
+                          onChange={(event) =>
+                            this.handelSelectionOptionsChange(
+                              event,
+                              "statusSelection"
+                            )
+                          }
+                        >
+                          <MenuItem value="All">All Status</MenuItem>
+                          <MenuItem value="Received">Request Received</MenuItem>
+                          <MenuItem value="Contacted">Contacted</MenuItem>
+                          <MenuItem value="Assigned">Assigned</MenuItem>
+                          <MenuItem value="Scheduled">Scheduled</MenuItem>
+                          <MenuItem value="Complete">Complete</MenuItem>
+                          <MenuItem value="Missed">Missed Connections</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </>
+                  )}
+                  {this.state.filterOption === "Location" && (
+                    <>
+                      <InputLabel>Filter Options</InputLabel>
+                      <FormControl variant="outlined">
+                        <Select
+                          value={this.state.locationSelection}
+                          onChange={(event) =>
+                            this.handelSelectionOptionsChange(
+                              event,
+                              "locationSelection"
+                            )
+                          }
+                        >
+                          <MenuItem value="All">All Locations</MenuItem>
+                          <MenuItem value="on_site">Wayside Waifs</MenuItem>
+                          <MenuItem value="off_site">Other</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </>
+                  )}
+                </Grid>
+              </Grid>
             </Grid>
-          </Grid>
-          <br />
-          <TableContainer component={Paper}>
-            <Table id="tblData">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell align="center">Program</StyledTableCell>
-                  <StyledTableCell align="center">Status</StyledTableCell>
-                  <StyledTableCell align="center">Date</StyledTableCell>
-                  <StyledTableCell align="center">Time</StyledTableCell>
-                  <StyledTableCell align="center">
-                    School/Organization
-                  </StyledTableCell>
-                  <StyledTableCell align="center"># of Kids</StyledTableCell>
-                  <StyledTableCell align="center"># of Adults</StyledTableCell>
-                  <StyledTableCell align="center">Grade</StyledTableCell>
-                  <StyledTableCell align="center">Contact</StyledTableCell>
-                  <StyledTableCell align="center">Email</StyledTableCell>
-                  <StyledTableCell align="center">Presenter</StyledTableCell>
-                  <StyledTableCell align="center">Location</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>{eventDataArray}</TableBody>
-            </Table>
-          </TableContainer>
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="flex-start"
+            >
+              {/* <Grid container spacing={5}> */}
+              <Grid item>
+                <Typography variant="h6">
+                  Total Number of Events: {eventDataArray.length}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="h6">
+                  Total Number of Students Reached: {totalNumberOfKids}
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                <Button size="large" variant="contained" color="secondary">
+                  <CSVLink className="link-text" data={exportData}>
+                    Download me
+                  </CSVLink>
+                </Button>
+              </Grid>
+            </Grid>
+            <br />
+            <TableContainer component={Paper}>
+              <Table id="tblData">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell align="center">Program</StyledTableCell>
+                    <StyledTableCell align="center">Status</StyledTableCell>
+                    <StyledTableCell align="center">Date</StyledTableCell>
+                    <StyledTableCell align="center">Time</StyledTableCell>
+                    <StyledTableCell align="center">
+                      School/Organization
+                    </StyledTableCell>
+                    <StyledTableCell align="center"># of Kids</StyledTableCell>
+                    <StyledTableCell align="center">
+                      # of Adults
+                    </StyledTableCell>
+                    <StyledTableCell align="center">Grade</StyledTableCell>
+                    <StyledTableCell align="center">Contact</StyledTableCell>
+                    <StyledTableCell align="center">Email</StyledTableCell>
+                    <StyledTableCell align="center">Presenter</StyledTableCell>
+                    <StyledTableCell align="center">Location</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>{eventDataArray}</TableBody>
+              </Table>
+            </TableContainer>
+          </div>
         </div>
-      </div>
+      </CssBaseline>
     );
   }
 }

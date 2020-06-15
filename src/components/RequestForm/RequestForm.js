@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import swal from "sweetalert";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -176,262 +177,270 @@ class RequestForm extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div style={{ margin: 15 }}>
-        <Paper classes={{ root: classes.root }} elevation={2}>
-          <Typography classes={{ root: classes.padding }} variant="h4">
-            Humane Education Request Form
-          </Typography>
-        </Paper>
-        <Paper classes={{ root: classes.root }} elevation={1}>
-          <div className={classes.padding}>
-            <Typography variant="h6">Contact Information*</Typography>
-            <br />
-            <Grid container spacing={3}>
-              <Grid item>
-                <TextField
-                  required
-                  label="First Name"
-                  variant="outlined"
-                  value={this.state.contact_first_name}
-                  onChange={(event) =>
-                    this.handelChange(event, "contact_first_name")
-                  }
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  required
-                  label="Last Name"
-                  variant="outlined"
-                  value={this.state.contact_last_name}
-                  onChange={(event) =>
-                    this.handelChange(event, "contact_last_name")
-                  }
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  required
-                  label="Email"
-                  variant="outlined"
-                  value={this.state.contact_email}
-                  onChange={(event) =>
-                    this.handelChange(event, "contact_email")
-                  }
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  required
-                  label="Phone Number"
-                  variant="outlined"
-                  value={this.state.contact_phone_number}
-                  onChange={(event) =>
-                    this.handelChange(event, "contact_phone_number")
-                  }
-                />
-              </Grid>
-            </Grid>
-          </div>
-        </Paper>
-        <Paper classes={{ root: classes.root }} elevation={1}>
-          <div className={classes.padding}>
-            <Typography variant="h6">School or Organization Name*</Typography>
-            <br />
-            <TextField
-              variant="outlined"
-              fullWidth
-              value={this.state.organization}
-              onChange={(event) => this.handelChange(event, "organization")}
-            />
-          </div>
-        </Paper>
-        <Paper classes={{ root: classes.root }} elevation={1}>
-          <div className={classes.padding}>
-            <Typography variant="h6">Estimated Number of Students*</Typography>
-            <br />
-            <TextField
-              variant="outlined"
-              type="number"
-              value={this.state.student_number}
-              onChange={(event) => this.handelChange(event, "student_number")}
-            />
-          </div>
-        </Paper>
-        <Paper classes={{ root: classes.root }} elevation={1}>
-          <div className={classes.padding}>
-            <Typography variant="h6">
-              Please indicate the grade level and age of students*
+      <CssBaseline>
+        <div style={{ margin: 15 }}>
+          <Paper classes={{ root: classes.root }} elevation={2}>
+            <Typography classes={{ root: classes.padding }} variant="h4">
+              Humane Education Request Form
             </Typography>
-            <br />
-            <TextField
-              variant="outlined"
-              value={this.state.grade_level}
-              onChange={(event) => this.handelChange(event, "grade_level")}
-            />
-          </div>
-        </Paper>
-        <Paper classes={{ root: classes.root }} elevation={1}>
-          <div className={classes.padding}>
-            <Typography variant="h6">Number of Adult Sponsors*</Typography>
-            <br />
-            <TextField
-              type="number"
-              variant="outlined"
-              value={this.state.adult_sponsors}
-              onChange={(event) => this.handelChange(event, "adult_sponsors")}
-            />
-          </div>
-        </Paper>
-        <Paper classes={{ root: classes.root }} elevation={1}>
-          <div className={classes.padding}>
-            <Typography variant="h6">
-              Which Program are you interested in?*
-            </Typography>
-            <br />
-            <FormControl
-              variant="outlined"
-              classes={{ root: classes.selectorSize }}
-            >
-              <Select
-                displayEmpty
-                value={this.state.program}
-                onChange={(event) => this.handelChange(event, "program")}
-              >
-                <MenuItem value="">Select a program</MenuItem>
-                <MenuItem value="FIA">
-                  "Kindness in Action!" (formerly Families in Action)
-                </MenuItem>
-                <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
-                <MenuItem value="DS">
-                  PAW-etiquette for Pooches & People: Dog Safety
-                </MenuItem>
-                <MenuItem value="AE">
-                  Activating Em-PAW-thy: Exploring Similarities between Pets and
-                  People
-                </MenuItem>
-                <MenuItem value="OUT">
-                  Once U-PAW-n a Time Reading Program
-                </MenuItem>
-                <MenuItem value="KIA">Kids-in-Action</MenuItem>
-                <MenuItem value="ET">Educational Tours</MenuItem>
-                <MenuItem value="other">Other</MenuItem>
-              </Select>
-            </FormControl>
-            {this.state.program === "other" && (
+          </Paper>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <div className={classes.padding}>
+              <Typography variant="h6">Contact Information*</Typography>
+              <br />
+              <Grid container spacing={3}>
+                <Grid item>
+                  <TextField
+                    required
+                    label="First Name"
+                    variant="outlined"
+                    value={this.state.contact_first_name}
+                    onChange={(event) =>
+                      this.handelChange(event, "contact_first_name")
+                    }
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    required
+                    label="Last Name"
+                    variant="outlined"
+                    value={this.state.contact_last_name}
+                    onChange={(event) =>
+                      this.handelChange(event, "contact_last_name")
+                    }
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    required
+                    label="Email"
+                    variant="outlined"
+                    value={this.state.contact_email}
+                    onChange={(event) =>
+                      this.handelChange(event, "contact_email")
+                    }
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    required
+                    label="Phone Number"
+                    variant="outlined"
+                    value={this.state.contact_phone_number}
+                    onChange={(event) =>
+                      this.handelChange(event, "contact_phone_number")
+                    }
+                  />
+                </Grid>
+              </Grid>
+            </div>
+          </Paper>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <div className={classes.padding}>
+              <Typography variant="h6">School or Organization Name*</Typography>
+              <br />
               <TextField
                 variant="outlined"
-                label="Enter program name"
-                value={this.state.program_other}
-                onChange={(event) => this.handelChange(event, "program_other")}
-                classes={{ root: classes.inputMargin }}
+                fullWidth
+                value={this.state.organization}
+                onChange={(event) => this.handelChange(event, "organization")}
               />
-            )}
-          </div>
-        </Paper>
-        <Paper classes={{ root: classes.root }} elevation={1}>
-          <div className={classes.padding}>
-            <Typography variant="h6">Preferred location of Program*</Typography>
-            <br />
-            <FormControl
-              variant="outlined"
-              classes={{ root: classes.selectorSize }}
-            >
-              <Select
-                displayEmpty
-                value={this.state.location}
-                onChange={(event) => this.handelChange(event, "location")}
+            </div>
+          </Paper>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <div className={classes.padding}>
+              <Typography variant="h6">
+                Estimated Number of Students*
+              </Typography>
+              <br />
+              <TextField
+                variant="outlined"
+                type="number"
+                value={this.state.student_number}
+                onChange={(event) => this.handelChange(event, "student_number")}
+              />
+            </div>
+          </Paper>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <div className={classes.padding}>
+              <Typography variant="h6">
+                Please indicate the grade level and age of students*
+              </Typography>
+              <br />
+              <TextField
+                variant="outlined"
+                value={this.state.grade_level}
+                onChange={(event) => this.handelChange(event, "grade_level")}
+              />
+            </div>
+          </Paper>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <div className={classes.padding}>
+              <Typography variant="h6">Number of Adult Sponsors*</Typography>
+              <br />
+              <TextField
+                type="number"
+                variant="outlined"
+                value={this.state.adult_sponsors}
+                onChange={(event) => this.handelChange(event, "adult_sponsors")}
+              />
+            </div>
+          </Paper>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <div className={classes.padding}>
+              <Typography variant="h6">
+                Which Program are you interested in?*
+              </Typography>
+              <br />
+              <FormControl
+                variant="outlined"
+                classes={{ root: classes.selectorSize }}
               >
-                <MenuItem value="">Select a location</MenuItem>
-                <MenuItem value="on_site">Wayside Waifs</MenuItem>
-                <MenuItem value="off_site">Other</MenuItem>
-              </Select>
-            </FormControl>
-            {this.state.location === "off_site" && (
-              <div>
-                <Typography>
-                  * Please note that in order to be good stewards of our
-                  resources we are unable to deliver programming at locations
-                  outside of a 30 minute radius of Wayside Waifs.
-                </Typography>
+                <Select
+                  displayEmpty
+                  value={this.state.program}
+                  onChange={(event) => this.handelChange(event, "program")}
+                >
+                  <MenuItem value="">Select a program</MenuItem>
+                  <MenuItem value="FIA">
+                    "Kindness in Action!" (formerly Families in Action)
+                  </MenuItem>
+                  <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
+                  <MenuItem value="DS">
+                    PAW-etiquette for Pooches & People: Dog Safety
+                  </MenuItem>
+                  <MenuItem value="AE">
+                    Activating Em-PAW-thy: Exploring Similarities between Pets
+                    and People
+                  </MenuItem>
+                  <MenuItem value="OUT">
+                    Once U-PAW-n a Time Reading Program
+                  </MenuItem>
+                  <MenuItem value="KIA">Kids-in-Action</MenuItem>
+                  <MenuItem value="ET">Educational Tours</MenuItem>
+                  <MenuItem value="other">Other</MenuItem>
+                </Select>
+              </FormControl>
+              {this.state.program === "other" && (
                 <TextField
                   variant="outlined"
-                  label="Please enter full address"
-                  multiline
-                  rows="3"
-                  value={this.state.location_other}
+                  label="Enter program name"
+                  value={this.state.program_other}
                   onChange={(event) =>
-                    this.handelChange(event, "location_other")
+                    this.handelChange(event, "program_other")
                   }
                   classes={{ root: classes.inputMargin }}
                 />
-              </div>
-            )}
-          </div>
-        </Paper>
-        <Paper classes={{ root: classes.root }} elevation={1}>
-          <div className={classes.padding}>
-            <Typography variant="h6">Preferred date of program*</Typography>
-            <Typography>
-              * Because weekends are our busiest days for adoptions, educational
-              programs are typically held Monday-Friday.
-            </Typography>
-            <DatePicker
-              placeholderText="Click to select a date"
-              selected={this.state.program_date}
-              onChange={this.handleDateChange}
-              minDate={new Date()}
-            />
-            <Typography variant="h6">Time of day preferred*</Typography>
-            <br />
-            <FormControl
-              variant="outlined"
-              classes={{ root: classes.selectorSize }}
-            >
-              <Select
-                displayEmpty
-                value={this.state.time_of_day}
-                onChange={(event) => this.handelChange(event, "time_of_day")}
-              >
-                <MenuItem value="">Select time of day</MenuItem>
-                <MenuItem value="morning">Morning</MenuItem>
-                <MenuItem value="afternoon">Afternoon</MenuItem>
-                <MenuItem value="evening">Evening</MenuItem>
-                <MenuItem value="no_preference">No Preference</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        </Paper>
-
-        <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
-          <Grid container direction="column" alignItems="flex-end">
-            {this.state.recaptchaErrorMessage ? (
-              <Typography color="secondary">
-                {this.state.recaptchaErrorMessage}
+              )}
+            </div>
+          </Paper>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <div className={classes.padding}>
+              <Typography variant="h6">
+                Preferred location of Program*
               </Typography>
-            ) : (
-              <Typography>&nbsp;</Typography>
-            )}
-            <ReCAPTCHA
-              sitekey={process.env.REACT_APP_RECAPTCHA}
-              ref={recaptchaRef}
-              onChange={this.handleClickRecaptcha}
-            />
-          </Grid>
-        </Paper>
+              <br />
+              <FormControl
+                variant="outlined"
+                classes={{ root: classes.selectorSize }}
+              >
+                <Select
+                  displayEmpty
+                  value={this.state.location}
+                  onChange={(event) => this.handelChange(event, "location")}
+                >
+                  <MenuItem value="">Select a location</MenuItem>
+                  <MenuItem value="on_site">Wayside Waifs</MenuItem>
+                  <MenuItem value="off_site">Other</MenuItem>
+                </Select>
+              </FormControl>
+              {this.state.location === "off_site" && (
+                <div>
+                  <Typography>
+                    * Please note that in order to be good stewards of our
+                    resources we are unable to deliver programming at locations
+                    outside of a 30 minute radius of Wayside Waifs.
+                  </Typography>
+                  <TextField
+                    variant="outlined"
+                    label="Please enter full address"
+                    multiline
+                    rows="3"
+                    value={this.state.location_other}
+                    onChange={(event) =>
+                      this.handelChange(event, "location_other")
+                    }
+                    classes={{ root: classes.inputMargin }}
+                  />
+                </div>
+              )}
+            </div>
+          </Paper>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <div className={classes.padding}>
+              <Typography variant="h6">Preferred date of program*</Typography>
+              <Typography>
+                * Because weekends are our busiest days for adoptions,
+                educational programs are typically held Monday-Friday.
+              </Typography>
+              <DatePicker
+                placeholderText="Click to select a date"
+                selected={this.state.program_date}
+                onChange={this.handleDateChange}
+                minDate={new Date()}
+              />
+              <Typography variant="h6">Time of day preferred*</Typography>
+              <br />
+              <FormControl
+                variant="outlined"
+                classes={{ root: classes.selectorSize }}
+              >
+                <Select
+                  displayEmpty
+                  value={this.state.time_of_day}
+                  onChange={(event) => this.handelChange(event, "time_of_day")}
+                >
+                  <MenuItem value="">Select time of day</MenuItem>
+                  <MenuItem value="morning">Morning</MenuItem>
+                  <MenuItem value="afternoon">Afternoon</MenuItem>
+                  <MenuItem value="evening">Evening</MenuItem>
+                  <MenuItem value="no_preference">No Preference</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+          </Paper>
 
-        <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
-          <Grid container justify="flex-end" alignItems="center">
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={this.submitRequest}
-            >
-              Submit Request
-            </Button>
-          </Grid>
-        </Paper>
-      </div>
+          <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
+            <Grid container direction="column" alignItems="flex-end">
+              {this.state.recaptchaErrorMessage ? (
+                <Typography color="secondary">
+                  {this.state.recaptchaErrorMessage}
+                </Typography>
+              ) : (
+                <Typography>&nbsp;</Typography>
+              )}
+              <ReCAPTCHA
+                sitekey={process.env.REACT_APP_RECAPTCHA}
+                ref={recaptchaRef}
+                onChange={this.handleClickRecaptcha}
+              />
+            </Grid>
+          </Paper>
+
+          <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
+            <Grid container justify="flex-end" alignItems="center">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.submitRequest}
+              >
+                Submit Request
+              </Button>
+            </Grid>
+          </Paper>
+        </div>
+      </CssBaseline>
     );
   }
 }

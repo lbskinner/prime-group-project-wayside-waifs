@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -68,30 +69,33 @@ class MyEvent extends Component {
     return (
       <div>
         {this.props.eventItem.educator_id === this.props.store.user.id && (
-          <Paper classes={{ root: classes.root }} elevation={1}>
-            <div className={classes.padding}>
-              <div onClick={this.eventDetails} style={background}>
-                <Typography variant="h6">
-                  {this.props.eventItem.organization}
-                  <span>
-                    {" on "}
-                    {moment(this.props.eventItem.request_date).format(
+          <CssBaseline>
+            <Paper classes={{ root: classes.root }} elevation={1}>
+              <div className={classes.padding}>
+                <div onClick={this.eventDetails} style={background}>
+                  <Typography variant="h6">
+                    {this.props.eventItem.organization}
+                    <span>
+                      {" on "}
+                      {moment(this.props.eventItem.request_date).format(
+                        "MM-DD-YYYY"
+                      )}
+                    </span>
+                  </Typography>
+                  <p>
+                    Program Date:{" "}
+                    {moment(this.props.eventItem.program_date).format(
                       "MM-DD-YYYY"
                     )}
-                  </span>
-                </Typography>
-                <p>
-                  Program Date:{" "}
-                  {moment(this.props.eventItem.program_date).format(
-                    "MM-DD-YYYY"
-                  )}
-                </p>
-                <p>
-                  Program Requested: {this.state[this.props.eventItem.program]}
-                </p>
+                  </p>
+                  <p>
+                    Program Requested:{" "}
+                    {this.state[this.props.eventItem.program]}
+                  </p>
+                </div>
               </div>
-            </div>
-          </Paper>
+            </Paper>
+          </CssBaseline>
         )}
       </div>
     );
