@@ -99,7 +99,6 @@ class RequestForm extends Component {
         ...this.state,
         recaptchaErrorMessage: "Please validate that you are not a robot!",
       });
-      // swal("Please validate that you are not a robot!");
       return;
     }
     // create new request object to save to database
@@ -389,6 +388,7 @@ class RequestForm extends Component {
                 selected={this.state.program_date}
                 onChange={this.handleDateChange}
                 minDate={new Date()}
+                id="size"
               />
               <Typography variant="h6">Time of day preferred*</Typography>
               <br />

@@ -14,7 +14,7 @@ import Footer from "../Footer/Footer";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 
-import AboutPage from "../AboutPage/AboutPage";
+// import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
 
@@ -53,12 +53,11 @@ class App extends Component {
             <Switch>
               {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
               <Redirect exact from="/" to="/request" />
-              {/* Visiting localhost:3000/about will show the about page.
+              {/* Visiting localhost:3000/about will show the about page. about page not used
             This is a route anyone can see, no login necessary */}
-              <Route exact path="/about" component={AboutPage} />
+              {/* <Route exact path="/about" component={AboutPage} /> */}
               {/* <Route exact path="/home" component={RequestForm} /> */}
               <Route exact path="/request" component={RequestForm} />
-              <Route exact path="/reports" component={ReportPage} />
               {/* login page not used */}
               {/* <Route exact path="/login" component={LoginPage} /> */}
 
@@ -85,8 +84,7 @@ class App extends Component {
                 component={RegisterPage}
               /> */}
 
-              {/* <ProtectedRoute exact path="/reports" component={ReportPage} /> */}
-              {/* <ProtectedRoute exact path="/request" component={RequestForm} /> */}
+              <ProtectedRoute exact path="/reports" component={ReportPage} />
               <ProtectedRoute exact path="/event" component={EventPage} />
               <ProtectedRoute
                 exact

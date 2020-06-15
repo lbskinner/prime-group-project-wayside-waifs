@@ -83,8 +83,11 @@ function EventDetailsPage(props) {
   const onHandleClick = (event) => {
     setAssignEl(event.currentTarget);
   };
-  const onHandleClose = (event) => {
+  const onHandleClose = (event, userId) => {
     setAssignEl(null);
+    let assignInfo = { user: userId, event: props.match.params.id };
+    console.log("In onHandleClose", userId, assignInfo);
+    props.dispatch({ type: "ASSIGN_EVENT", payload: assignInfo });
   };
 
   const users = props.store.allUser;
@@ -133,10 +136,22 @@ function EventDetailsPage(props) {
                   id="simple-menu"
                   anchorEl={assignEl}
                   keepMounted
-                  MenuItems={userList}
                   open={Boolean(assignEl)}
                   onClose={onHandleClose}
-                ></Menu>
+                >
+                  {userList.map((userItem) => {
+                    return (
+                      <MenuItem
+                        key={userItem.value}
+                        onClick={(event) =>
+                          onHandleClose(event, userItem.value)
+                        }
+                      >
+                        {userItem.label}
+                      </MenuItem>
+                    );
+                  })}
+                </Menu>
               </div>
 
               <div style={{ margin: 15 }}>
