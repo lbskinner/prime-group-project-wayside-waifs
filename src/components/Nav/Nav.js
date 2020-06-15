@@ -7,6 +7,7 @@ import "./Nav.css";
 import mapStoreToProps from "../../redux/mapStoreToProps";
 import logoImage from "../../images/nav_logo3.png";
 import LoginPageModal from "../LoginPage/LoginPageModal";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const Nav = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -26,6 +27,7 @@ const Nav = (props) => {
   };
 
   return (
+    <CssBaseline>
     <div className="nav-background">
       <div className="nav">
         <a
@@ -40,8 +42,7 @@ const Nav = (props) => {
           <Link className="nav-link" to="/request">
             Request Event
           </Link>
-          {/* )} */}
-          {/* Show the link to the events page, report page and the logout button if the user is logged in */}
+          {/* Show the link to the events page, report page, add user page and the logout button if the user is logged in */}
           {props.store.user.id ? (
             <>
               <Link className="nav-link" to="/event">
@@ -61,13 +62,13 @@ const Nav = (props) => {
             </button>
           )}
         </div>
+        <Modal open={open} onClose={handleClose}>
+          <div className="modalContent">
+            <LoginPageModal handleCloseModal={handleClose} />
+          </div>
+        </Modal>
       </div>
-      <Modal open={open} onClose={handleClose}>
-        <div className="modalContent">
-          <LoginPageModal handleCloseModal={handleClose} />
-        </div>
-      </Modal>
-    </div>
+    </CssBaseline>
   );
 };
 
