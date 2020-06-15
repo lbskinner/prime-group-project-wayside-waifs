@@ -55,7 +55,6 @@ class AllEvent extends Component {
     OUT: "Once U-PAW-n a Time Reading Program",
     KIA: "Kids in Action",
     ET: "Educational Tours",
-    Other: "Other",
   };
 
   // click handlers
@@ -119,8 +118,19 @@ class AllEvent extends Component {
                 {moment(this.props.eventItem.program_date).format("MM-DD-YYYY")}
               </p>
               <p>
-                Program Requested: {this.state[this.props.eventItem.program]}
+                Program Requested:{" "}
+                {this.state[this.props.eventItem.program] ||
+                  this.props.eventItem.program}
               </p>
+              {this.props.store.allUser.map((userItem) => {
+                if (userItem.id === this.props.eventItem.educator_id) {
+                  return (
+                    <p key={userItem.id}>
+                      Educator: {userItem.first_name} {userItem.last_name}
+                    </p>
+                  );
+                }
+              })}
             </div>
             <Select
               placeholder="Assign"
