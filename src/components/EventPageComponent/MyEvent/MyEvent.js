@@ -1,8 +1,40 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 const moment = require("moment");
+
+const styles = (theme) => ({
+  root: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  paperTransparent: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: "#fff0",
+  },
+  padding: {
+    padding: "8px 20px",
+  },
+  selectorSize: {
+    minWidth: 600,
+  },
+  inputMargin: {
+    margin: "10px 0px",
+    minWidth: 600,
+  },
+});
 
 class MyEvent extends Component {
   state = {
@@ -26,6 +58,7 @@ class MyEvent extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     let background = { backgroundColor: "white" };
     if (this.props.eventItem.status === "Contacted") {
       background = { backgroundColor: "lightblue" };
@@ -36,29 +69,38 @@ class MyEvent extends Component {
     return (
       <div>
         {this.props.eventItem.educator_id === this.props.store.user.id && (
-          <div>
-            <div onClick={this.eventDetails} style={background}>
-              <p>
-                {this.props.eventItem.organization}
-                <span>
-                  {" "}
-                  {moment(this.props.eventItem.request_date).format(
-                    "MM-DD-YYYY"
-                  )}
-                </span>
-              </p>
-              <p>
-                Program Date:{" "}
-                {moment(this.props.eventItem.program_date).format("MM-DD-YYYY")}
-              </p>
-              <p>
-                Program Requested: {this.state[this.props.eventItem.program]}
-              </p>
-            </div>
-          </div>
+          <CssBaseline>
+            <Paper classes={{ root: classes.root }} elevation={1}>
+              <div className={classes.padding}>
+                <div onClick={this.eventDetails} style={background}>
+                  <Typography variant="h6">
+                    {this.props.eventItem.organization}
+                    <span>
+                      {" on "}
+                      {moment(this.props.eventItem.request_date).format(
+                        "MM-DD-YYYY"
+                      )}
+                    </span>
+                  </Typography>
+                  <p>
+                    Program Date:{" "}
+                    {moment(this.props.eventItem.program_date).format(
+                      "MM-DD-YYYY"
+                    )}
+                  </p>
+                  <p>
+                    Program Requested:{" "}
+                    {this.state[this.props.eventItem.program]}
+                  </p>
+                </div>
+              </div>
+            </Paper>
+          </CssBaseline>
         )}
       </div>
     );
   }
 }
-export default withRouter(connect(mapStoreToProps)(MyEvent));
+export default withStyles(styles)(
+  withRouter(connect(mapStoreToProps)(MyEvent))
+);

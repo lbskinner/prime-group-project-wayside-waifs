@@ -5,7 +5,7 @@ import swal from "sweetalert";
 function* getEvent() {
   try {
     const response = yield axios.get("/api/event");
-
+    console.log(response.data);
     yield put({ type: "SET_EVENT", payload: response.data });
   } catch (error) {
     console.log("Event get request failed", error);
@@ -44,6 +44,7 @@ function* assignEvent(action) {
     console.log("Error with Assign Event", error);
   }
 }
+
 // save new event request to database
 function* saveRequest(action) {
   try {

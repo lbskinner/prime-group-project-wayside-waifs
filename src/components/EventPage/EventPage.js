@@ -62,6 +62,7 @@ class EventPage extends Component {
   state = {
     heading: "Events",
     status: "Requested Events",
+    tabValue: 0,
   };
 
   // Event Status Toggles
@@ -81,8 +82,13 @@ class EventPage extends Component {
     });
   };
 
+  onChange = (event, newValue) => {
+    this.setState({ tabValue: newValue });
+  };
+
   render() {
     const { classes } = this.props;
+
     return (
       <div>
         <CssBaseline>
@@ -93,7 +99,13 @@ class EventPage extends Component {
           </Paper>
           <div>
             <Box display="flex" justifyContent="center" m={1} p={1}>
-              <Tabs>
+              <Tabs
+                value={this.state.tabValue}
+                onChange={this.onChange}
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+              >
                 <Tab
                   label="Requested Events"
                   onClick={this.requestSelect}
@@ -114,27 +126,26 @@ class EventPage extends Component {
           </div>
 
           {this.state.status === "Requested Events" && (
-            <Paper classes={{ root: classes.root }} elevation={1}>
-              <div>
-                <Typography variant="h6" align="center">
+            <div>
+              <Paper classes={{ root: classes.root }} elevation={1}>
+                <Typography
+                  classes={{ root: classes.padding }}
+                  variant="h6"
+                  align="center"
+                >
                   IN REQUESTED EVENTS
                 </Typography>
-                <div className={classes.padding}>
-                  {this.props.store.event.map((eventItem) => {
-                    return (
-                      <RequestedEvent
-                        key={eventItem.id}
-                        eventItem={eventItem}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            </Paper>
+              </Paper>
+              {this.props.store.event.map((eventItem) => {
+                return (
+                  <RequestedEvent key={eventItem.id} eventItem={eventItem} />
+                );
+              })}
+            </div>
           )}
           {this.state.status === "My Events" && (
-            <Paper classes={{ root: classes.root }} elevation={1}>
-              <div>
+            <div>
+              <Paper classes={{ root: classes.root }} elevation={1}>
                 <Typography variant="h6" align="center">
                   IN MY EVENTS
                   <Box display="flex" justifyContent="center" m={1} p={1}>
@@ -158,17 +169,16 @@ class EventPage extends Component {
                     </Typography>
                   </Box>
                 </Typography>
-                <div className={classes.padding}>
-                  {this.props.store.event.map((eventItem) => {
-                    return <MyEvent key={eventItem.id} eventItem={eventItem} />;
-                  })}
-                </div>
-              </div>
-            </Paper>
+              </Paper>
+
+              {this.props.store.event.map((eventItem) => {
+                return <MyEvent key={eventItem.id} eventItem={eventItem} />;
+              })}
+            </div>
           )}
           {this.state.status === "All Events" && (
-            <Paper classes={{ root: classes.root }} elevation={1}>
-              <div>
+            <div>
+              <Paper classes={{ root: classes.root }} elevation={1}>
                 <Typography variant="h6" align="center">
                   IN ALL EVENTS
                   <Box display="flex" justifyContent="center" m={1} p={1}>
@@ -192,15 +202,12 @@ class EventPage extends Component {
                     </Typography>
                   </Box>
                 </Typography>
-                <div className={classes.padding}>
-                  {this.props.store.event.map((eventItem) => {
-                    return (
-                      <AllEvent key={eventItem.id} eventItem={eventItem} />
-                    );
-                  })}
-                </div>
-              </div>
-            </Paper>
+              </Paper>
+
+              {this.props.store.event.map((eventItem) => {
+                return <AllEvent key={eventItem.id} eventItem={eventItem} />;
+              })}
+            </div>
           )}
         </CssBaseline>
       </div>

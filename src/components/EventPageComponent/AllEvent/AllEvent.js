@@ -1,9 +1,41 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import mapStoreToProps from "../../../redux/mapStoreToProps";
 import Select from "react-select";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 const moment = require("moment");
+
+const styles = (theme) => ({
+  root: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  paperTransparent: {
+    maxWidth: "90%",
+    width: "920px",
+    margin: "15px auto",
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: "#fff0",
+  },
+  padding: {
+    padding: "8px 20px",
+  },
+  selectorSize: {
+    minWidth: 600,
+  },
+  inputMargin: {
+    margin: "10px 0px",
+    minWidth: 600,
+  },
+});
 
 class AllEvent extends Component {
   state = {
@@ -28,7 +60,7 @@ class AllEvent extends Component {
 
   assign = (selectedOption) => {
     let submission = {
-      user: selectedOption.value,
+      user: parseInt(selectedOption.value),
       event: this.props.eventItem.id,
     };
 
@@ -39,6 +71,7 @@ class AllEvent extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     const users = this.props.store.allUser;
     let userList = [];
     if (this.props.store.allUser.length > 1) {
@@ -59,28 +92,42 @@ class AllEvent extends Component {
 
     return (
       <div>
-        <div onClick={this.eventDetails} style={background}>
-          <p>
-            {this.props.eventItem.organization}
-            <span>
-              {" "}
-              {moment(this.props.eventItem.request_date).format("MM-DD-YYYY")}
-            </span>
-          </p>
-          <p>
-            Program Date:{" "}
-            {moment(this.props.eventItem.program_date).format("MM-DD-YYYY")}
-          </p>
-          <p>Program Requested: {this.state[this.props.eventItem.program]}</p>
-        </div>
-        <Select
-          placeholder="Assign"
-          onChange={this.assign}
-          options={userList}
-          className="selector_container"
-        />
+        <CssBaseline>
+          <Paper classes={{ root: classes.root }} elevation={1}>
+            <div className={classes.padding}>
+              <div onClick={this.eventDetails} style={background}>
+                <Typography variant="h6">
+                  {this.props.eventItem.organization}
+                  <span>
+                    {" on "}
+                    {moment(this.props.eventItem.request_date).format(
+                      "MM-DD-YYYY"
+                    )}
+                  </span>
+                </Typography>
+                <p>
+                  Program Date:{" "}
+                  {moment(this.props.eventItem.program_date).format(
+                    "MM-DD-YYYY"
+                  )}
+                </p>
+                <p>
+                  Program Requested: {this.state[this.props.eventItem.program]}
+                </p>
+              </div>
+              <Select
+                placeholder="Assign"
+                onChange={this.assign}
+                options={userList}
+                className="selector_container"
+              />
+            </div>
+          </Paper>
+        </CssBaseline>
       </div>
     );
   }
 }
-export default withRouter(connect(mapStoreToProps)(AllEvent));
+export default withStyles(styles)(
+  withRouter(connect(mapStoreToProps)(AllEvent))
+);

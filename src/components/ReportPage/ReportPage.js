@@ -22,7 +22,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 import { withStyles } from "@material-ui/core/styles";
-import { InputLabel } from "@material-ui/core";
+import { InputLabel, CssBaseline } from "@material-ui/core";
 import { CSVLink } from "react-csv";
 import swal from "sweetalert";
 
@@ -335,243 +335,249 @@ class ReportPage extends Component {
 
     const userArray = this.props.allUser.map((user) => {
       return (
-        <MenuItem key={user.id} value={user.id}>
-          {user.first_name} {user.last_name}
-        </MenuItem>
+        <CssBaseline>
+          <MenuItem key={user.id} value={user.id}>
+            {user.first_name} {user.last_name}
+          </MenuItem>
+        </CssBaseline>
       );
     });
     return (
-      <div className="report-background-container">
-        <div className="report-container">
-          <Typography variant="h5">Select Date Range</Typography>
-          <Grid container alignItems="center" spacing={2}>
-            <Grid item>
-              <DatePicker
-                placeholderText="Start date"
-                selected={this.state.startDate}
-                onChange={(date) => this.handleStartDateChange(date)}
-                selectsStart
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-              />
-            </Grid>
-            <Grid item>
-              <DatePicker
-                placeholderText="End date"
-                selected={this.state.endDate}
-                onChange={(date) => this.handleEndDateChange(date)}
-                selectsEnd
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-              />
-            </Grid>
-            <Grid item>
-              <Button
-                size="large"
-                variant="contained"
-                color="secondary"
-                onClick={this.generateReport}
-              >
-                Generate Report
-              </Button>
-            </Grid>
-            <Grid item>
-              {this.state.filterOption && (
-                <>
-                  <InputLabel>Filter By</InputLabel>
-                  <FormControl
-                    variant="outlined"
-                    classes={{ root: classes.selectorPosition }}
-                  >
-                    <Select
-                      value={this.state.filterOption}
-                      onChange={this.handelFilterOptionChange}
-                      classes={{ root: classes.filterByStyles }}
-                      className="selector-background"
-                    >
-                      <MenuItem value="Program">Program</MenuItem>
-                      <MenuItem value="User">User</MenuItem>
-                      <MenuItem value="Status">Status</MenuItem>
-                      <MenuItem value="Location">Location</MenuItem>
-                    </Select>
-                  </FormControl>
-                </>
-              )}
-            </Grid>
-            <Grid item>
-              {this.state.filterOption === "Program" && (
-                <>
-                  <InputLabel>Filter Options</InputLabel>
-                  <FormControl
-                    variant="outlined"
-                    classes={{ root: classes.selectorPosition }}
-                  >
-                    <Select
-                      classes={{ root: classes.filterOptionsStyles }}
-                      value={this.state.programSelection}
-                      onChange={(event) =>
-                        this.handelSelectionOptionsChange(
-                          event,
-                          "programSelection"
-                        )
-                      }
-                      className="selector-background"
-                    >
-                      <MenuItem value="All">All Programs</MenuItem>
-                      <MenuItem value="FIA">
-                        "Kindness in Action!" (formerly Families in Action)
-                      </MenuItem>
-                      <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
-                      <MenuItem value="DS">
-                        PAW-etiquette for Pooches & People: Dog Safety
-                      </MenuItem>
-                      <MenuItem value="AE">
-                        Activating Em-PAW-thy: Exploring Similarities between
-                        Pets and People
-                      </MenuItem>
-                      <MenuItem value="OUT">
-                        Once U-PAW-n a Time Reading Program
-                      </MenuItem>
-                      <MenuItem value="KIA">Kids-in-Action</MenuItem>
-                      <MenuItem value="ET">Educational Tours</MenuItem>
-                      <MenuItem value="other">Other</MenuItem>
-                    </Select>
-                  </FormControl>
-                </>
-              )}
+      <CssBaseline>
+        <div className="report-background-container">
+          <div className="report-container">
+            <Typography variant="h5">Select Date Range</Typography>
+            <Grid container alignItems="center" spacing={2}>
               <Grid item>
-                {this.state.filterOption === "User" && (
+                <DatePicker
+                  placeholderText="Start date"
+                  selected={this.state.startDate}
+                  onChange={(date) => this.handleStartDateChange(date)}
+                  selectsStart
+                  startDate={this.state.startDate}
+                  endDate={this.state.endDate}
+                />
+              </Grid>
+              <Grid item>
+                <DatePicker
+                  placeholderText="End date"
+                  selected={this.state.endDate}
+                  onChange={(date) => this.handleEndDateChange(date)}
+                  selectsEnd
+                  startDate={this.state.startDate}
+                  endDate={this.state.endDate}
+                />
+              </Grid>
+              <Grid item>
+                <Button
+                  size="large"
+                  variant="contained"
+                  color="secondary"
+                  onClick={this.generateReport}
+                >
+                  Generate Report
+                </Button>
+              </Grid>
+              <Grid item>
+                {this.state.filterOption && (
                   <>
-                    <InputLabel>Filter Options</InputLabel>
+                    <InputLabel>Filter By</InputLabel>
                     <FormControl
                       variant="outlined"
                       classes={{ root: classes.selectorPosition }}
                     >
                       <Select
-                        classes={{ root: classes.filterOptionsStyles }}
-                        value={this.state.userSelection}
-                        onChange={(event) =>
-                          this.handelSelectionOptionsChange(
-                            event,
-                            "userSelection"
-                          )
-                        }
+                        value={this.state.filterOption}
+                        onChange={this.handelFilterOptionChange}
+                        classes={{ root: classes.filterByStyles }}
                         className="selector-background"
                       >
-                        <MenuItem value="All">All Users</MenuItem>
-                        {userArray}
-                      </Select>
-                    </FormControl>
-                  </>
-                )}
-                {this.state.filterOption === "Status" && (
-                  <>
-                    <InputLabel>Filter Options</InputLabel>
-                    <FormControl
-                      variant="outlined"
-                      classes={{ root: classes.selectorPosition }}
-                    >
-                      <Select
-                        classes={{ root: classes.filterOptionsStyles }}
-                        value={this.state.statusSelection}
-                        onChange={(event) =>
-                          this.handelSelectionOptionsChange(
-                            event,
-                            "statusSelection"
-                          )
-                        }
-                        className="selector-background"
-                      >
-                        <MenuItem value="All">All Status</MenuItem>
-                        <MenuItem value="Received">Request Received</MenuItem>
-                        <MenuItem value="Contacted">Contacted</MenuItem>
-                        <MenuItem value="Assigned">Assigned</MenuItem>
-                        <MenuItem value="Scheduled">Scheduled</MenuItem>
-                        <MenuItem value="Complete">Complete</MenuItem>
-                        <MenuItem value="Missed">Missed Connections</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </>
-                )}
-                {this.state.filterOption === "Location" && (
-                  <>
-                    <InputLabel>Filter Options</InputLabel>
-                    <FormControl
-                      variant="outlined"
-                      classes={{ root: classes.selectorPosition }}
-                    >
-                      <Select
-                        classes={{ root: classes.filterOptionsStyles }}
-                        value={this.state.locationSelection}
-                        onChange={(event) =>
-                          this.handelSelectionOptionsChange(
-                            event,
-                            "locationSelection"
-                          )
-                        }
-                        className="selector-background"
-                      >
-                        <MenuItem value="All">All Locations</MenuItem>
-                        <MenuItem value="on_site">Wayside Waifs</MenuItem>
-                        <MenuItem value="off_site">Other</MenuItem>
+                        <MenuItem value="Program">Program</MenuItem>
+                        <MenuItem value="User">User</MenuItem>
+                        <MenuItem value="Status">Status</MenuItem>
+                        <MenuItem value="Location">Location</MenuItem>
                       </Select>
                     </FormControl>
                   </>
                 )}
               </Grid>
+              <Grid item>
+                {this.state.filterOption === "Program" && (
+                  <>
+                    <InputLabel>Filter Options</InputLabel>
+                    <FormControl
+                      variant="outlined"
+                      classes={{ root: classes.selectorPosition }}
+                    >
+                      <Select
+                        classes={{ root: classes.filterOptionsStyles }}
+                        value={this.state.programSelection}
+                        onChange={(event) =>
+                          this.handelSelectionOptionsChange(
+                            event,
+                            "programSelection"
+                          )
+                        }
+                        className="selector-background"
+                      >
+                        <MenuItem value="All">All Programs</MenuItem>
+                        <MenuItem value="FIA">
+                          "Kindness in Action!" (formerly Families in Action)
+                        </MenuItem>
+                        <MenuItem value="NMB">"No More Bullying!®"</MenuItem>
+                        <MenuItem value="DS">
+                          PAW-etiquette for Pooches & People: Dog Safety
+                        </MenuItem>
+                        <MenuItem value="AE">
+                          Activating Em-PAW-thy: Exploring Similarities between
+                          Pets and People
+                        </MenuItem>
+                        <MenuItem value="OUT">
+                          Once U-PAW-n a Time Reading Program
+                        </MenuItem>
+                        <MenuItem value="KIA">Kids-in-Action</MenuItem>
+                        <MenuItem value="ET">Educational Tours</MenuItem>
+                        <MenuItem value="other">Other</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </>
+                )}
+                <Grid item>
+                  {this.state.filterOption === "User" && (
+                    <>
+                      <InputLabel>Filter Options</InputLabel>
+                      <FormControl
+                        variant="outlined"
+                        classes={{ root: classes.selectorPosition }}
+                      >
+                        <Select
+                          classes={{ root: classes.filterOptionsStyles }}
+                          value={this.state.userSelection}
+                          onChange={(event) =>
+                            this.handelSelectionOptionsChange(
+                              event,
+                              "userSelection"
+                            )
+                          }
+                          className="selector-background"
+                        >
+                          <MenuItem value="All">All Users</MenuItem>
+                          {userArray}
+                        </Select>
+                      </FormControl>
+                    </>
+                  )}
+                  {this.state.filterOption === "Status" && (
+                    <>
+                      <InputLabel>Filter Options</InputLabel>
+                      <FormControl
+                        variant="outlined"
+                        classes={{ root: classes.selectorPosition }}
+                      >
+                        <Select
+                          classes={{ root: classes.filterOptionsStyles }}
+                          value={this.state.statusSelection}
+                          onChange={(event) =>
+                            this.handelSelectionOptionsChange(
+                              event,
+                              "statusSelection"
+                            )
+                          }
+                          className="selector-background"
+                        >
+                          <MenuItem value="All">All Status</MenuItem>
+                          <MenuItem value="Received">Request Received</MenuItem>
+                          <MenuItem value="Contacted">Contacted</MenuItem>
+                          <MenuItem value="Assigned">Assigned</MenuItem>
+                          <MenuItem value="Scheduled">Scheduled</MenuItem>
+                          <MenuItem value="Complete">Complete</MenuItem>
+                          <MenuItem value="Missed">Missed Connections</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </>
+                  )}
+                  {this.state.filterOption === "Location" && (
+                    <>
+                      <InputLabel>Filter Options</InputLabel>
+                      <FormControl
+                        variant="outlined"
+                        classes={{ root: classes.selectorPosition }}
+                      >
+                        <Select
+                          classes={{ root: classes.filterOptionsStyles }}
+                          value={this.state.locationSelection}
+                          onChange={(event) =>
+                            this.handelSelectionOptionsChange(
+                              event,
+                              "locationSelection"
+                            )
+                          }
+                          className="selector-background"
+                        >
+                          <MenuItem value="All">All Locations</MenuItem>
+                          <MenuItem value="on_site">Wayside Waifs</MenuItem>
+                          <MenuItem value="off_site">Other</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </>
+                  )}
+                </Grid>
+              </Grid>
             </Grid>
-          </Grid>
-          <br />
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-start"
-          >
-            <Grid item>
-              <Typography variant="h6">
-                Total Number of Events: {eventDataArray.length}
-              </Typography>
+            <br />
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="flex-start"
+            >
+              <Grid item>
+                <Typography variant="h6">
+                  Total Number of Events: {eventDataArray.length}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="h6">
+                  Total Number of Students Reached: {totalNumberOfKids}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Button size="large" variant="contained" color="secondary">
+                  <CSVLink className="link-text" data={exportData}>
+                    Download me
+                  </CSVLink>
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Typography variant="h6">
-                Total Number of Students Reached: {totalNumberOfKids}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Button size="large" variant="contained" color="secondary">
-                <CSVLink className="link-text" data={exportData}>
-                  Download me
-                </CSVLink>
-              </Button>
-            </Grid>
-          </Grid>
-          <br />
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell align="center">Program</StyledTableCell>
-                  <StyledTableCell align="center">Status</StyledTableCell>
-                  <StyledTableCell align="center">Date</StyledTableCell>
-                  <StyledTableCell align="center">Time</StyledTableCell>
-                  <StyledTableCell align="center">
-                    School/Organization
-                  </StyledTableCell>
-                  <StyledTableCell align="center"># of Kids</StyledTableCell>
-                  <StyledTableCell align="center"># of Adults</StyledTableCell>
-                  <StyledTableCell align="center">Grade</StyledTableCell>
-                  <StyledTableCell align="center">Contact</StyledTableCell>
-                  <StyledTableCell align="center">Email</StyledTableCell>
-                  <StyledTableCell align="center">Presenter</StyledTableCell>
-                  <StyledTableCell align="center">Location</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>{eventDataArray}</TableBody>
-            </Table>
-          </TableContainer>
+            <br />
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell align="center">Program</StyledTableCell>
+                    <StyledTableCell align="center">Status</StyledTableCell>
+                    <StyledTableCell align="center">Date</StyledTableCell>
+                    <StyledTableCell align="center">Time</StyledTableCell>
+                    <StyledTableCell align="center">
+                      School/Organization
+                    </StyledTableCell>
+                    <StyledTableCell align="center"># of Kids</StyledTableCell>
+                    <StyledTableCell align="center">
+                      # of Adults
+                    </StyledTableCell>
+                    <StyledTableCell align="center">Grade</StyledTableCell>
+                    <StyledTableCell align="center">Contact</StyledTableCell>
+                    <StyledTableCell align="center">Email</StyledTableCell>
+                    <StyledTableCell align="center">Presenter</StyledTableCell>
+                    <StyledTableCell align="center">Location</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>{eventDataArray}</TableBody>
+              </Table>
+            </TableContainer>
+          </div>
         </div>
-      </div>
+      </CssBaseline>
     );
   }
 }

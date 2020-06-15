@@ -117,13 +117,15 @@ function EventDetailsPage(props) {
                 variant="h4"
                 gutterBottom
               >
-                {event.organization} Details:
+                {event.organization} Event Details:
               </Typography>
             </Paper>
 
             <Box display="flex" justifyContent="center" m={1} p={1}>
               <div style={{ margin: 15 }}>
                 <Button
+                  variant="contained"
+                  color="secondary"
                   aria-controls="simple-menu"
                   aria-haspopup="true"
                   onClick={onHandleClick}
@@ -154,6 +156,8 @@ function EventDetailsPage(props) {
 
               <div style={{ margin: 15 }}>
                 <Button
+                  variant="contained"
+                  color="secondary"
                   aria-controls="simple-menu"
                   aria-haspopup="true"
                   onClick={handleClick}
@@ -194,48 +198,36 @@ function EventDetailsPage(props) {
             </Box>
 
             <Paper classes={{ root: classes.root }} elevation={1}>
-              <Typography variant="h4" color="textSecondary" gutterBottom>
-                Event Details
-              </Typography>
-              <Typography variant="h5" color="textSecondary" gutterBottom>
-                {event.organization}
-              </Typography>
-              <Typography color="textSecondary" variant="body2">
-                Request Date and Time:{" "}
-                {moment(event.program_date).format("MM-DD-YYYY")} in the{" "}
-                {event.time_of_day}
-              </Typography>
-            </Paper>
-            <Paper classes={{ root: classes.root }} elevation={1}>
               <div className={classes.padding}>
-                <Typography className={classes.pos}>
+                <Typography variant="h6" className={classes.pos}>
                   Event Information
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <br />
+                <Typography variant="body2">
                   Date Received:{" "}
                   {moment(event.request_date).format("MM-DD-YYYY")}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Program: {event.program}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Requested Date and Time:{" "}
                   {moment(event.program_date).format("MM-DD-YYYY")} at{" "}
                   {event.time_of_day}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Location: {event.location}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Name of Organization: {event.organization}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Grade Level: {event.grade_level}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Number of Students: {event.student_number}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Number of Chaperones: {event.adult_sponsors}
                 </Typography>
               </div>
@@ -243,25 +235,31 @@ function EventDetailsPage(props) {
 
             <Paper classes={{ root: classes.root }} elevation={1}>
               <div className={classes.padding}>
-                <Typography className={classes.pos} component="p">
+                <Typography variant="h6" className={classes.pos} component="p">
                   Contact Information
-                  <br />
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <br />
+                <Typography variant="body2">
                   Full Name: {event.contact_first_name}{" "}
                   {event.contact_last_name}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Phone Number: {event.contact_phone_number}
                 </Typography>
-                <Typography color="textSecondary" variant="body2">
+                <Typography variant="body2">
                   Email Address: {event.contact_email}
                 </Typography>
               </div>
             </Paper>
 
-            <Box display="flex" justifyContent="flex-end" m={1} p={1}>
-              <Button onClick={editHandleClick}>Edit</Button>
+            <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={editHandleClick}
+              >
+                Edit
+              </Button>
             </Box>
           </div>
         </CssBaseline>
