@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
 // component.
 function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
-
   const [assignEl, setAssignEl] = useState(null);
   const classes = useStyles();
   // moved this up to use it in the payload for get event
@@ -87,6 +86,7 @@ function EventDetailsPage(props) {
   const onHandleClose = (event, userId) => {
     setAssignEl(null);
     let assignInfo = { user: userId, event: props.match.params.id };
+    console.log("In onHandleClose", userId, assignInfo);
     props.dispatch({ type: "ASSIGN_EVENT", payload: assignInfo });
   };
 
@@ -141,7 +141,9 @@ function EventDetailsPage(props) {
                     return (
                       <MenuItem
                         key={userItem.value}
-                        onClick={(event) => handleClose(event, userItem.value)}
+                        onClick={(event) =>
+                          onHandleClose(event, userItem.value)
+                        }
                       >
                         {userItem.label}
                       </MenuItem>
