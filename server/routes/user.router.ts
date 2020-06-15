@@ -27,19 +27,18 @@ router.get("/alluser", (req: Request, res: Response): void => {
 
 router.post(
   "/register",
-  rejectUnauthenticated,
+
   (req: Request, res: Response, next: express.NextFunction): void => {
     const username: string | null = <string>req.body.username;
     const password: string | null = encryptPassword(req.body.password);
 
-    const queryText: string = `INSERT INTO "user" (username, password, first_name, last_name, role) VALUES ($1, $2, $3, $4, $5) RETURNING id`;
+    const queryText: string = `INSERT INTO "user" (username, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING id`;
     pool
       .query(queryText, [
         username,
         password,
         req.body.first_name,
         req.body.last_name,
-        req.body.role,
       ])
       .then((responseFromDB) => {
         const newUserId = responseFromDB.rows[0].id;
