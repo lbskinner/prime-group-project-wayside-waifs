@@ -218,12 +218,22 @@ function EventDetailsPage(props) {
                   Date Received:{" "}
                   {moment(event.request_date).format("MM-DD-YYYY")}
                 </Typography>
+                <Typography variant="body2">Status: {event.status}</Typography>
                 <Typography variant="body2">
                   Program:{" "}
                   {programKey[event.program]
                     ? programKey[event.program]
                     : event.program}
                 </Typography>
+                {props.store.allUser.map((userItem) => {
+                  if (userItem.id === event.educator_id) {
+                    return (
+                      <Typography variant="body2" key={userItem.id}>
+                        Educator: {userItem.first_name} {userItem.last_name}
+                      </Typography>
+                    );
+                  }
+                })}
                 <Typography variant="body2">
                   Requested Date and Time:{" "}
                   {moment(event.program_date).format("MM-DD-YYYY")} at{" "}
