@@ -210,6 +210,7 @@ function EventDetailsPage(props) {
                   Date Received:{" "}
                   {moment(event.request_date).format("MM-DD-YYYY")}
                 </Typography>
+                <Typography variant="body2">Status: {event.status}</Typography>
                 <Typography variant="body2">
                   Program: {event.program}
                 </Typography>
