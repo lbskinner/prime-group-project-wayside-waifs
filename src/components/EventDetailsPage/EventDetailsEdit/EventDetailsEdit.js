@@ -347,16 +347,20 @@ class EventDetailsEdit extends Component {
             />
           </div>
         </Paper>
-        <br />
-        <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={this.clickSaveDetails}
-          >
-            Save
-          </Button>
-        </Box>
+        {/* <br /> */}
+        <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
+          <Grid container justify="flex-end" alignItems="center">
+            {/* <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}> */}
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.clickSaveDetails}
+            >
+              Save
+            </Button>
+            {/* </Box> */}
+          </Grid>
+        </Paper>
       </CssBaseline>
     );
   }

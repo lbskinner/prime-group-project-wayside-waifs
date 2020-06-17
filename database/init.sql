@@ -32,12 +32,3 @@ CREATE TABLE "event" (
 	"educator_id" INTEGER,
 	"volunteer_id" INTEGER
 );
-
-CREATE TABLE "contact_log" (
-  	"id" SERIAL PRIMARY KEY,
-    "date" DATE DEFAULT CURRENT_DATE,
-	"time" TIME DEFAULT CURRENT_TIME,
-    "educator_id" INTEGER,
-    "event_id" INTEGER,
-    "notes" VARCHAR (1000)
-);
