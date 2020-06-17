@@ -13,8 +13,17 @@ The Wayside Waifs Humane Education Application is a data tracking system that al
 - [axios](https://github.com/axios/axios)
 - [React-Redux](https://github.com/reduxjs/react-redux)
 - [Node.js](https://nodejs.org/en/)
-- [Nodemon](https://nodemon.io/)
 - [Material UI](https://material-ui.com/)
+- [Express](https://expressjs.com/)
+- [React router](https://www.npmjs.com/package/react-router)
+- [Redux-Saga](https://redux-saga.js.org/)
+- [Sweet Alerts](https://sweetalert.js.org/guides/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Google reCAPTCHA](https://www.google.com/recaptcha/intro/v3.html)
+- [React Datepicker](https://reactdatepicker.com/)
+- [React CSV](https://www.npmjs.com/package/react-csv)
+- [Docker](https://www.docker.com/)
+- [Heroku](https://www.heroku.com/)
 
 #### Installation
 
