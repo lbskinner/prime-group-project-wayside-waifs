@@ -38,6 +38,7 @@ function* assignEvent(action) {
     console.log("In assign event:", action.payload);
     yield axios.put("/api/event/assign", action.payload);
     swal(`The event has been assigned to ${action.payload.name}`);
+    yield put({ type: "GET_EVENT_DETAILS", payload: action.payload.event });
     yield put({
       type: "GET_EVENTS",
     });
