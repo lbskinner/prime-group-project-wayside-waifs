@@ -43,10 +43,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name TemplateClass with the name for the new
-// component.
 function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [assignEl, setAssignEl] = useState(null);
@@ -110,6 +106,18 @@ function EventDetailsPage(props) {
   //   return request.id === id;
   // });
   // console.log(props);
+
+  const programKey = {
+    FIA: 'Kindness in Action!" (formerly Families in Action)',
+    NMB: '"No More Bullying!®"',
+    DS: "PAW-etiquette for Pooches & People: Dog Safety",
+    AE: "Activating Em-PAW-thy: Exploring Similarities between Pets and People",
+    OUT: "Once U-PAW-n a Time Reading Program",
+    KIA: "Kids-in-Action",
+    ET: "Educational Tours",
+    // didn't include other since other is free user input
+    // other: "",
+  };
 
   const eventMap = props.store.eventDetails.map((event) => {
     return (
@@ -211,7 +219,10 @@ function EventDetailsPage(props) {
                   {moment(event.request_date).format("MM-DD-YYYY")}
                 </Typography>
                 <Typography variant="body2">
-                  Program: {event.program}
+                  Program:{" "}
+                  {programKey[event.program]
+                    ? programKey[event.program]
+                    : event.program}
                 </Typography>
                 <Typography variant="body2">
                   Requested Date and Time:{" "}

@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
-import Box from "@material-ui/core/Box";
+// import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 
 const moment = require("moment");
@@ -347,16 +347,20 @@ class EventDetailsEdit extends Component {
             />
           </div>
         </Paper>
-        <br />
-        <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={this.clickSaveDetails}
-          >
-            Save
-          </Button>
-        </Box>
+        {/* <br /> */}
+        <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
+          <Grid container justify="flex-end" alignItems="center">
+            {/* <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}> */}
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.clickSaveDetails}
+            >
+              Save
+            </Button>
+            {/* </Box> */}
+          </Grid>
+        </Paper>
       </CssBaseline>
     );
   }

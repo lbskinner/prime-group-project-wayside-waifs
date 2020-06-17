@@ -34,6 +34,3 @@ INSERT INTO "event" ("request_date","status","organization","program","program_d
 "contact_email","contact_phone_number","educator_id","volunteer_id")
 VALUES ('6/7/2020', 'Received','Critttenton Day School','KIA','7/20/2020','Morning','15','
 1st Grade','2','on_site','Alan','Miller','amiller@school.edu','9133335569','4','1');
-
--- INSERT INTO "contact_log" (	"id","date_time", "educator_id", "event_id", "notes" )
--- VALUES (1, "6/1/2020", 2, 2, 'emailed to confirm date');
