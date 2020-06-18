@@ -2,7 +2,7 @@ INSERT INTO "user" ("username","password","first_name","last_name","role",)
 VALUES ('ashley','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Ashley','Stanley','Educator'),
 ('karen','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Karen','Wallace','Educator'),
 ('john','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','John','Parker','Educator'),
-('amanday','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Amanda','Smasal','Educator');
+('amanda','$2b$10$aPm0vl6uz1rQSP2L0Sz5BOkiYLGHBfVbpgnJredQaRWgrJ9zWr6Qi','Amanda','Smasal','Educator');
 
 
 INSERT INTO "event" ("request_date","status","organization","program","program_date","time_of_day",
@@ -35,6 +35,7 @@ INSERT INTO "event" ("request_date","status","organization","program","program_d
 VALUES ('6/7/2020', 'Received','Critttenton Day School','KIA','7/20/2020','Morning','15','
 1st Grade','2','on_site','Alan','Miller','amiller@school.edu','9133335569','4','1');
 
+
 INSERT INTO "event" ("request_date","status","organization","program","program_date","time_of_day",
 "student_number","grade_level","adult_sponsors","location","contact_first_name","contact_last_name",
 "contact_email","contact_phone_number","educator_id","volunteer_id")
@@ -47,3 +48,4 @@ VALUES ('12/08/2019', 'Scheduled','Lewis and Clark','KIA','12/09/2019','Afternoo
 
 -- INSERT INTO "contact_log" (	"id","date_time", "educator_id", "event_id", "notes" )
 -- VALUES (1, "6/1/2020", 2, 2, 'emailed to confirm date');
+

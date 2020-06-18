@@ -37,6 +37,8 @@ function* assignEvent(action) {
   try {
     console.log("In assign event:", action.payload);
     yield axios.put("/api/event/assign", action.payload);
+    swal(`The event has been assigned to ${action.payload.name}`);
+    yield put({ type: "GET_EVENT_DETAILS", payload: action.payload.event });
     yield put({
       type: "GET_EVENTS",
     });
@@ -76,6 +78,11 @@ function* setStatus(action) {
   try {
     console.log("In Status:", action.payload);
     yield axios.put("/api/event/status", action.payload);
+    if (action.payload.status === "Missed") {
+      swal(`The status has been set to Missed Connections`);
+    } else {
+      swal(`The status has been set to ${action.payload.status}`);
+    }
     yield put({ type: "GET_EVENT_DETAILS", payload: action.payload.id });
   } catch (error) {
     console.log("Set Status request failed", error);

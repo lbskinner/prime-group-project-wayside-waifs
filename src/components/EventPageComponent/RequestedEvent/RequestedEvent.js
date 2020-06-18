@@ -46,7 +46,6 @@ class RequestedEvent extends Component {
     OUT: "Once U-PAW-n a Time Reading Program",
     KIA: "Kids in Action",
     ET: "Educational Tours",
-    Other: "Other",
   };
 
   // click handlers
@@ -62,6 +61,7 @@ class RequestedEvent extends Component {
     let submission = {
       user: selectedOption.value,
       event: this.props.eventItem.id,
+      name: selectedOption.label,
     };
 
     this.props.dispatch({
@@ -108,7 +108,8 @@ class RequestedEvent extends Component {
                     </p>
                     <p>
                       Program Requested:{" "}
-                      {this.state[this.props.eventItem.program]}
+                      {this.state[this.props.eventItem.program] ||
+                        this.props.eventItem.program}
                     </p>
                   </div>
 

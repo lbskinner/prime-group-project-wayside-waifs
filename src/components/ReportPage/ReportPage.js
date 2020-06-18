@@ -331,11 +331,9 @@ class ReportPage extends Component {
 
     const userArray = this.props.allUser.map((user) => {
       return (
-        <CssBaseline>
-          <MenuItem key={user.id} value={user.id}>
-            {user.first_name} {user.last_name}
-          </MenuItem>
-        </CssBaseline>
+        <MenuItem key={user.id} value={user.id}>
+          {user.first_name} {user.last_name}
+        </MenuItem>
       );
     });
     return (

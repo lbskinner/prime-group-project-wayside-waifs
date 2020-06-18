@@ -9,6 +9,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
 
 const moment = require("moment");
 
@@ -42,10 +43,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Basic class component structure for React with default state
-// value setup. When making a new component be sure to replace
-// the component name TemplateClass with the name for the new
-// component.
 function EventDetailsPage(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [assignEl, setAssignEl] = useState(null);
@@ -83,10 +80,14 @@ function EventDetailsPage(props) {
   const onHandleClick = (event) => {
     setAssignEl(event.currentTarget);
   };
-  const onHandleClose = (event, userId) => {
+  const onHandleClose = (event, userItem) => {
     setAssignEl(null);
-    let assignInfo = { user: userId, event: props.match.params.id };
-    console.log("In onHandleClose", userId, assignInfo);
+    let assignInfo = {
+      user: userItem.value,
+      event: props.match.params.id,
+      name: userItem.label,
+    };
+    console.log("In onHandleClose", userItem.value, assignInfo);
     props.dispatch({ type: "ASSIGN_EVENT", payload: assignInfo });
   };
 
@@ -105,6 +106,18 @@ function EventDetailsPage(props) {
   //   return request.id === id;
   // });
   // console.log(props);
+
+  const programKey = {
+    FIA: 'Kindness in Action!" (formerly Families in Action)',
+    NMB: '"No More Bullying!®"',
+    DS: "PAW-etiquette for Pooches & People: Dog Safety",
+    AE: "Activating Em-PAW-thy: Exploring Similarities between Pets and People",
+    OUT: "Once U-PAW-n a Time Reading Program",
+    KIA: "Kids-in-Action",
+    ET: "Educational Tours",
+    // didn't include other since other is free user input
+    // other: "",
+  };
 
   const eventMap = props.store.eventDetails.map((event) => {
     return (
@@ -143,9 +156,7 @@ function EventDetailsPage(props) {
                     return (
                       <MenuItem
                         key={userItem.value}
-                        onClick={(event) =>
-                          onHandleClose(event, userItem.value)
-                        }
+                        onClick={(event) => onHandleClose(event, userItem)}
                       >
                         {userItem.label}
                       </MenuItem>
@@ -207,9 +218,22 @@ function EventDetailsPage(props) {
                   Date Received:{" "}
                   {moment(event.request_date).format("MM-DD-YYYY")}
                 </Typography>
+                <Typography variant="body2">Status: {event.status}</Typography>
                 <Typography variant="body2">
-                  Program: {event.program}
+                  Program:{" "}
+                  {programKey[event.program]
+                    ? programKey[event.program]
+                    : event.program}
                 </Typography>
+                {props.store.allUser.map((userItem) => {
+                  if (userItem.id === event.educator_id) {
+                    return (
+                      <Typography variant="body2" key={userItem.id}>
+                        Educator: {userItem.first_name} {userItem.last_name}
+                      </Typography>
+                    );
+                  }
+                })}
                 <Typography variant="body2">
                   Requested Date and Time:{" "}
                   {moment(event.program_date).format("MM-DD-YYYY")} at{" "}
@@ -251,16 +275,19 @@ function EventDetailsPage(props) {
                 </Typography>
               </div>
             </Paper>
-
-            <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={editHandleClick}
-              >
-                Edit
-              </Button>
-            </Box>
+            <Paper classes={{ root: classes.paperTransparent }} elevation={0}>
+              <Grid container justify="flex-end" alignItems="center">
+                {/* <Box display="flex" justifyContent="flex-end" m={1} mr={10} p={1}> */}
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={editHandleClick}
+                >
+                  Edit
+                </Button>
+                {/* </Box> */}
+              </Grid>
+            </Paper>
           </div>
         </CssBaseline>
       </div>
