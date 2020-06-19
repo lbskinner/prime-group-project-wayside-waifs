@@ -175,6 +175,8 @@ class RequestForm extends Component {
 
   render() {
     const { classes } = this.props;
+    console.log(process.env.REACT_APP_RECAPTCHA);
+
     return (
       <CssBaseline>
         <div style={{ margin: 15 }}>
