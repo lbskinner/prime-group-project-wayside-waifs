@@ -4,5 +4,9 @@ setup:
 build:
   docker:
     web: Dockerfile.prod
+  config:
+    REACT_APP_RECAPTCHA: ${REACT_APP_RECAPTCHA}
+    SERVER_SESSION_SECRET: ${SERVER_SESSION_SECRET}
+    DATABASE_URL: ${DATABASE_URL}
 run:
   web: npm run start
